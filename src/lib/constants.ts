@@ -292,14 +292,105 @@ export const PROCESS_STEPS = [
   },
 ];
 
+export const TEAM_HEADLINE =
+  "We believe in strengthening our team\u2019s personal performance through constantly educating ourselves on win-win opportunities, while providing clients with the resources they need to reach their goals.";
+
 export const TEAM_MEMBERS = [
   {
-    name: "Francisco Williams",
-    title: "President",
-    bio: "Francisco Williams leads Capital Direct Funding with a focus on creative, asset-based lending solutions for California real estate investors. With experience spanning commercial brokerage, investment sales, and capital markets, Francisco brings a unique perspective to private lending \u2014 understanding both sides of the transaction. He holds a CCIM designation and is committed to building lasting relationships with borrowers and investors alike.",
+    name: "Francisco Williams, CCIM",
+    title: "President & Broker of Record",
     image: "/images/team-francisco.png",
     linkedin: "https://www.linkedin.com/in/fwilliamsca/",
     email: "francisco@capitaldf.com",
+    featured: true,
+  },
+  {
+    name: "Frank Williams",
+    title: "Co-Founder & Investor Relations",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: true,
+  },
+  {
+    name: "Karla Banuelos",
+    title: "Account Manager",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Erendira Cabrera",
+    title: "Operations Support Specialist",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Lisbeth Batista",
+    title: "Executive Administrator",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Rochelle Ramirez",
+    title: "Sales & Underwriting Assistant",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Cindy Adlawan",
+    title: "Executive Operations Coordinator",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Kristle Alcuizar",
+    title: "Administrative Research Specialist",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Sas Brosas",
+    title: "Front Desk Coordinator",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Ivy Verdad",
+    title: "Financial Operations Manager",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Christine Olino",
+    title: "Client Relations Assistant",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
+  },
+  {
+    name: "Juan Williams",
+    title: "Account Executive",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: false,
   },
 ];
 

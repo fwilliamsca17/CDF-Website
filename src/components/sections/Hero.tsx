@@ -12,6 +12,8 @@ const ROTATING_TYPES = [
   "Probate & Estate",
 ];
 
+const YT_VIDEO_ID = "4xHQQiQBnJk";
+
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -24,11 +26,18 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/images/hero-bg.png)" }}
-      />
+      {/* YouTube Background Video */}
+      <div className="absolute inset-0 pointer-events-none">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${YT_VIDEO_ID}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&playlist=${YT_VIDEO_ID}&playsinline=1&disablekb=1`}
+          title="Background video"
+          allow="autoplay; encrypted-media"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[180%] min-w-[100vw] min-h-[100vh] border-0"
+          style={{ aspectRatio: "16/9" }}
+        />
+      </div>
+
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-dark" />
 
       {/* Dot pattern overlay */}
@@ -39,6 +48,12 @@ export default function Hero() {
             "radial-gradient(circle, #D4A017 1px, transparent 1px)",
           backgroundSize: "30px 30px",
         }}
+      />
+
+      {/* Fallback image for slow connections */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
+        style={{ backgroundImage: "url(/images/hero-bg.png)" }}
       />
 
       {/* Content */}
