@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://capitaldf.com/sitemap.xml
+
+# AI Agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
