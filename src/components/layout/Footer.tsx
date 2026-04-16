@@ -109,7 +109,8 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <p className="text-white/40 text-xs">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.legalName} All rights reserved.
-              {SITE_CONFIG.cflLicense && ` CFL# ${SITE_CONFIG.cflLicense}`}
+              {SITE_CONFIG.dreLicense && ` DRE# ${SITE_CONFIG.dreLicense}`}
+              {SITE_CONFIG.nmls && ` | NMLS# ${SITE_CONFIG.nmls}`}
             </p>
           </div>
 

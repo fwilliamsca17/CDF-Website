@@ -103,11 +103,11 @@ export default function AboutPage() {
               <div className="relative">
                 <div className="bg-cdf/5 rounded-2xl aspect-[4/3] flex items-center justify-center">
                   <Image
-                    src="/images/francisco-headshot.png"
-                    alt="Capital Direct Funding Leadership"
-                    width={400}
-                    height={400}
-                    className="rounded-2xl object-cover"
+                    src="/images/cdf-logo-white.png"
+                    alt="Capital Direct Funding"
+                    width={300}
+                    height={100}
+                    className="object-contain p-12"
                   />
                 </div>
                 <div className="absolute -bottom-6 -right-6 bg-gold text-white rounded-xl p-4 shadow-lg">

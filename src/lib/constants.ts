@@ -8,7 +8,8 @@ export const SITE_CONFIG = {
     "Capital Direct Funding provides fast, flexible private lending solutions for real estate borrowers and whole-note first trust deed investments for accredited investors across California.",
   phone: "(626) 796-1680",
   email: "info@capitaldf.com",
-  cflLicense: "60DBO-173841",
+  dreLicense: "01885595",
+  nmls: "1159831",
   address: {
     street: "100 N Citrus St, Suite 530",
     city: "West Covina",
@@ -297,19 +298,19 @@ export const TEAM_HEADLINE =
 
 export const TEAM_MEMBERS = [
   {
-    name: "Francisco Williams, CCIM",
-    title: "President & Broker of Record",
-    image: "/images/team-francisco.png",
-    linkedin: "https://www.linkedin.com/in/fwilliamsca/",
-    email: "francisco@capitaldf.com",
-    featured: true,
-  },
-  {
     name: "Frank Williams",
-    title: "Co-Founder & Investor Relations",
+    title: "Founder & Investor Relations",
     image: null,
     linkedin: null,
     email: null,
+    featured: true,
+  },
+  {
+    name: "Juan Williams",
+    title: "Broker of Record",
+    image: null,
+    linkedin: null,
+    email: "juanw@capitaldf.com",
     featured: true,
   },
   {
@@ -379,14 +380,6 @@ export const TEAM_MEMBERS = [
   {
     name: "Christine Olino",
     title: "Client Relations Assistant",
-    image: null,
-    linkedin: null,
-    email: null,
-    featured: false,
-  },
-  {
-    name: "Juan Williams",
-    title: "Account Executive",
     image: null,
     linkedin: null,
     email: null,
