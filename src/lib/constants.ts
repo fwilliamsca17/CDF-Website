@@ -300,7 +300,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Frank Williams",
     title: "Founder & Investor Relations",
-    image: null,
+    image: "/images/team-frank.png",
     linkedin: null,
     email: null,
     featured: true,
@@ -308,7 +308,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Juan Williams",
     title: "Broker of Record",
-    image: null,
+    image: "/images/team-juan.png",
     linkedin: null,
     email: "juanw@capitaldf.com",
     featured: true,
@@ -316,7 +316,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Karla Banuelos",
     title: "Account Manager",
-    image: null,
+    image: "/images/team-karla.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -324,7 +324,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Erendira Cabrera",
     title: "Operations Support Specialist",
-    image: null,
+    image: "/images/team-erendira.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -332,7 +332,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Lisbeth Batista",
     title: "Executive Administrator",
-    image: null,
+    image: "/images/team-lisbeth.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -340,7 +340,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Rochelle Ramirez",
     title: "Sales & Underwriting Assistant",
-    image: null,
+    image: "/images/team-rochelle.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -348,7 +348,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Cindy Adlawan",
     title: "Executive Operations Coordinator",
-    image: null,
+    image: "/images/team-cindy.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -356,7 +356,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Kristle Alcuizar",
     title: "Administrative Research Specialist",
-    image: null,
+    image: "/images/team-kristle.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -364,7 +364,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Sas Brosas",
     title: "Front Desk Coordinator",
-    image: null,
+    image: "/images/team-sas.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -372,7 +372,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Ivy Verdad",
     title: "Financial Operations Manager",
-    image: null,
+    image: "/images/team-ivy.png",
     linkedin: null,
     email: null,
     featured: false,
@@ -380,7 +380,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Christine Olino",
     title: "Client Relations Assistant",
-    image: null,
+    image: "/images/team-christine.png",
     linkedin: null,
     email: null,
     featured: false,
