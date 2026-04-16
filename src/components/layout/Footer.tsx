@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, ExternalLink } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { SITE_CONFIG, FOOTER_LINKS } from "@/lib/constants";
 
 export default function Footer() {
@@ -114,15 +114,6 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-4">
-            <a
-              href={SITE_CONFIG.parentCompany.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-white/40 hover:text-gold transition-colors text-xs"
-            >
-              A Williams Family Company
-              <ExternalLink className="w-3 h-3" />
-            </a>
             {SITE_CONFIG.social.linkedin && (
               <a
                 href={SITE_CONFIG.social.linkedin}

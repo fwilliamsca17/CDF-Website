@@ -2,10 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Mail, ExternalLink } from "lucide-react";
-import { TEAM_MEMBERS, SITE_CONFIG } from "@/lib/constants";
+import { Mail } from "lucide-react";
+import { TEAM_MEMBERS } from "@/lib/constants";
 import FadeIn from "@/components/ui/FadeIn";
-import Button from "@/components/ui/Button";
 import GetInTouch from "@/components/sections/GetInTouch";
 
 export default function TeamPage() {
@@ -103,32 +102,6 @@ export default function TeamPage() {
               </div>
             </FadeIn>
           ))}
-        </div>
-      </section>
-
-      {/* Williams Family Connection */}
-      <section className="section-padding-y bg-light">
-        <div className="max-container section-padding text-center">
-          <FadeIn>
-            <p className="eyebrow mb-3">Williams Family of Companies</p>
-            <h2 className="font-heading text-heading-xl font-bold text-cdf heading-underline-center mb-6">
-              Backed by a Full-Service Real Estate Platform
-            </h2>
-            <p className="text-body text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-              Capital Direct Funding is part of the Williams Family of Companies,
-              alongside {SITE_CONFIG.parentCompany.name}. This gives our borrowers
-              and investors access to a comprehensive real estate ecosystem
-              spanning brokerage, advisory, capital markets, and private lending.
-            </p>
-            <Button
-              href={SITE_CONFIG.parentCompany.url}
-              variant="cdf"
-              showArrow
-            >
-              <ExternalLink className="w-4 h-4" />
-              Visit Williams Capital Advisors
-            </Button>
-          </FadeIn>
         </div>
       </section>
 

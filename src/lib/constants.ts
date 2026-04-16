@@ -19,10 +19,6 @@ export const SITE_CONFIG = {
   social: {
     linkedin: "https://linkedin.com/company/capital-direct-funding",
   },
-  parentCompany: {
-    name: "Williams Capital Advisors",
-    url: "https://williamscap.ai",
-  },
 };
 
 export const NAV_ITEMS = [
@@ -260,7 +256,7 @@ export const INVESTOR_BENEFITS = [
   {
     title: "Experienced Management",
     description:
-      "Backed by the Williams Family of Companies with over 15 years of real estate and finance expertise across multiple disciplines.",
+      "Over 15 years of real estate and finance expertise across multiple disciplines, with a proven track record of capital preservation.",
     icon: "Award",
   },
 ];
@@ -300,7 +296,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Francisco Williams",
     title: "President",
-    bio: "Francisco Williams leads Capital Direct Funding with a focus on creative, asset-based lending solutions for California real estate investors. With experience spanning commercial brokerage, investment sales, and capital markets through Williams Capital Advisors, Francisco brings a unique perspective to private lending \u2014 understanding both sides of the transaction. He holds a CCIM designation and is committed to building lasting relationships with borrowers and investors alike.",
+    bio: "Francisco Williams leads Capital Direct Funding with a focus on creative, asset-based lending solutions for California real estate investors. With experience spanning commercial brokerage, investment sales, and capital markets, Francisco brings a unique perspective to private lending \u2014 understanding both sides of the transaction. He holds a CCIM designation and is committed to building lasting relationships with borrowers and investors alike.",
     image: "/images/team-francisco.png",
     linkedin: "https://www.linkedin.com/in/fwilliamsca/",
     email: "francisco@capitaldf.com",

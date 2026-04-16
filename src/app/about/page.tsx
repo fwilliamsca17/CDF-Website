@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Building2, Heart, Target, Shield, ExternalLink } from "lucide-react";
+import { Building2, Heart, Target, Shield } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeIn from "@/components/ui/FadeIn";
-import Button from "@/components/ui/Button";
 import GetInTouch from "@/components/sections/GetInTouch";
-import { SITE_CONFIG } from "@/lib/constants";
 
 const VALUES = [
   {
@@ -152,33 +150,6 @@ export default function AboutPage() {
               </FadeIn>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Williams Family */}
-      <section className="section-padding-y bg-dark">
-        <div className="max-container section-padding text-center">
-          <FadeIn>
-            <p className="eyebrow mb-3">Williams Family of Companies</p>
-            <h2 className="font-heading text-heading-xl font-bold text-white heading-underline-center mb-6">
-              Part of Something Bigger
-            </h2>
-            <p className="text-white/60 text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-              Capital Direct Funding is part of the Williams Family of Companies,
-              led by {SITE_CONFIG.parentCompany.name}. Together, we provide a
-              full-spectrum approach to commercial real estate — from brokerage
-              and advisory to direct private lending and investment management.
-            </p>
-            <Button
-              href={SITE_CONFIG.parentCompany.url}
-              variant="outline"
-              showArrow
-              className="inline-flex"
-            >
-              <ExternalLink className="w-4 h-4 mr-1" />
-              Visit Williams Capital Advisors
-            </Button>
-          </FadeIn>
         </div>
       </section>
 
