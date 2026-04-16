@@ -63,10 +63,10 @@ export const metadata: Metadata = {
       "Fast, flexible private lending for California real estate. Over $200M deployed, 500+ loans funded. Close in as few as 7 days. DRE# 01885595 | NMLS# 1159831",
     images: [
       {
-        url: "/images/cdf-logo-white.png",
-        width: 200,
-        height: 45,
-        alt: "Capital Direct Funding Logo",
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Capital Direct Funding — Fast Private Lending for California Real Estate",
       },
     ],
   },
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Capital Direct Funding | Fast Private Lending",
     description:
       "Fast, flexible private lending for California real estate. Over $200M deployed, 500+ loans funded.",
-    images: ["/images/cdf-logo-white.png"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

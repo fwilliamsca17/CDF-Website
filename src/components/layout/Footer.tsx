@@ -103,6 +103,19 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Affiliations */}
+      <div className="border-t border-white/10">
+        <div className="max-container section-padding py-6 flex justify-center">
+          <Image
+            src="/images/footer-img.png"
+            alt="NAHREP Corporate Member"
+            width={300}
+            height={60}
+            className="h-12 w-auto opacity-70"
+          />
+        </div>
+      </div>
+
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-container section-padding py-6 flex flex-col md:flex-row items-center justify-between gap-4">
