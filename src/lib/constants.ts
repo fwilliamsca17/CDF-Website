@@ -10,11 +10,11 @@ export const SITE_CONFIG = {
   email: "info@capitaldf.com",
   cflLicense: "60DBO-173841",
   address: {
-    street: "439 N Canon Dr, Penthouse",
-    city: "Beverly Hills",
+    street: "100 N Citrus St, Suite 530",
+    city: "West Covina",
     state: "CA",
-    zip: "90210",
-    full: "439 N Canon Dr, Penthouse, Beverly Hills, CA 90210",
+    zip: "91791",
+    full: "100 N Citrus St, Suite 530, West Covina, CA 91791",
   },
   social: {
     linkedin: "https://linkedin.com/company/capital-direct-funding",
