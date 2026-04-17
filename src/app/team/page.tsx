@@ -76,6 +76,11 @@ export default function TeamPage() {
                     <p className="text-gold font-semibold text-sm mb-3">
                       {member.title}
                     </p>
+                    {"bio" in member && member.bio && (
+                      <p className="text-body text-sm leading-relaxed mb-3">
+                        {member.bio}
+                      </p>
+                    )}
                     <div className="flex items-center gap-4">
                       {member.linkedin && (
                         <a

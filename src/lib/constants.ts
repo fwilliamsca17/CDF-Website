@@ -300,6 +300,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Frank Williams",
     title: "Founder & Investor Relations",
+    bio: "Frank Williams began his real estate finance career in 1990 with a focus on wholesale mortgage banking. From 1998 to 2007, he served as Area Sales Manager for New Century Mortgage Corp., where he helped secure over $500 million in funding. Following the 2007 market credit crisis, Frank recognized an opportunity to create alternative financing solutions and founded Capital Direct Funding in 2009. With over 30 years in mortgage banking, Frank has developed CDF into California\u2019s premier private lending firm through an unwavering commitment to client success and a philosophy centered on building lasting value for his family and his clients alike.",
     image: "/images/team-frank.png",
     linkedin: null,
     email: null,
