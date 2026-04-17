@@ -394,6 +394,14 @@ export const TEAM_MEMBERS = [
     email: null,
     featured: false,
   },
+  {
+    name: "Francisco Williams",
+    title: "Commercial Loan Broker",
+    image: null,
+    linkedin: "https://www.linkedin.com/in/fwilliamsca/",
+    email: null,
+    featured: false,
+  },
 ];
 
 export const TESTIMONIALS = [
