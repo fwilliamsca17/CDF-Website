@@ -48,13 +48,13 @@ export default function TeamPage() {
         <div className="max-container section-padding">
           <SectionHeading
             eyebrow="Leadership"
-            title="Company Principals"
+            title="Company Principal"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex justify-center">
             {leadership.map((member, i) => (
               <FadeIn key={member.name} delay={i * 100}>
-                <div className="bg-light rounded-xl overflow-hidden card-hover">
+                <div className="bg-light rounded-xl overflow-hidden card-hover max-w-md">
                   <div className="aspect-[4/3] bg-cdf/10 relative">
                     {member.image ? (
                       <Image
@@ -77,9 +77,11 @@ export default function TeamPage() {
                       {member.title}
                     </p>
                     {"bio" in member && member.bio && (
-                      <p className="text-body text-sm leading-relaxed mb-3">
-                        {member.bio}
-                      </p>
+                      <div className="text-body text-sm leading-relaxed mb-3 space-y-3">
+                        {String(member.bio).split("\n\n").map((paragraph, pi) => (
+                          <p key={pi}>{paragraph}</p>
+                        ))}
+                      </div>
                     )}
                     <div className="flex items-center gap-4">
                       {member.linkedin && (
