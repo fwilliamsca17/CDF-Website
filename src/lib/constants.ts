@@ -306,12 +306,20 @@ export const TEAM_MEMBERS = [
     featured: true,
   },
   {
-    name: "Juan Williams",
+    name: "Juan N. Williams",
     title: "Broker of Record",
+    image: null,
+    linkedin: null,
+    email: null,
+    featured: true,
+  },
+  {
+    name: "Juan Williams",
+    title: "Account Executive",
     image: "/images/team-juan.png",
     linkedin: null,
     email: "juanw@capitaldf.com",
-    featured: true,
+    featured: false,
   },
   {
     name: "Karla Banuelos",
