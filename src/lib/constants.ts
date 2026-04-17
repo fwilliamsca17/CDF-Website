@@ -397,7 +397,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Francisco Williams",
     title: "Commercial Loan Broker",
-    image: null,
+    image: "/images/team-francisco-cdf.png",
     linkedin: "https://www.linkedin.com/in/fwilliamsca/",
     email: null,
     featured: false,
