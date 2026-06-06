@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import {
   OrganizationSchema,
   LocalBusinessSchema,
-  FAQSchema,
+  WebSiteSchema,
 } from "@/components/JsonLd";
 
 const montserrat = Montserrat({
@@ -105,7 +105,7 @@ export default function RootLayout({
       <head>
         <OrganizationSchema />
         <LocalBusinessSchema />
-        <FAQSchema />
+        <WebSiteSchema />
       </head>
       <body className="font-sans antialiased">
         <Header />

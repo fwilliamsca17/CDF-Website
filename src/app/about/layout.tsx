@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageSeo } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "About Us — Family-Run Private Lending Since 2009",
@@ -13,5 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <PageSeo
+        title="About Capital Direct Funding"
+        description="Family-run California private lender founded by Frank Williams in 2009. Over $200M deployed across 500+ transactions."
+        path="/about"
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
+      />
+      {children}
+    </>
+  );
 }

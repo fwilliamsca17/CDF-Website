@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageSeo } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Contact Us — Get Funded in as Few as 7 Days",
@@ -13,5 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <PageSeo
+        title="Contact Capital Direct Funding"
+        description="Contact Capital Direct Funding. Call (626) 796-1680 or visit 100 N Citrus St, Suite 530, West Covina, CA 91791. 24-hour response."
+        path="/contact"
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
+      />
+      {children}
+    </>
+  );
 }

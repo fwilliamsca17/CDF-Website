@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageSeo } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "ADU Construction Loans — 75–85% LTC, Fast Close, LA & Orange County",
@@ -23,5 +24,18 @@ export const metadata: Metadata = {
 };
 
 export default function ADULayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <PageSeo
+        title="ADU Construction Loans — Los Angeles & Orange County"
+        description="ADU construction loans with 75-85% loan-to-cost, rates 9.5-11%, 12-18 month terms, and milestone-based draws across Los Angeles and Orange County."
+        path="/adu-loans"
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "ADU Construction Loans", path: "/adu-loans" },
+        ]}
+      />
+      {children}
+    </>
+  );
 }

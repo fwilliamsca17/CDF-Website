@@ -293,6 +293,91 @@ export const PROCESS_STEPS = [
   },
 ];
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
+// Single source of truth for FAQ content — consumed by both the visible
+// /faq page and the FAQPage JSON-LD so the structured data always matches
+// what's on the page. Every answer is grounded in existing, approved facts
+// (rates, terms, licensing, service area) — no invented figures.
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    category: "Getting Funded",
+    question: "How fast can Capital Direct Funding close a loan?",
+    answer:
+      "We can close loans in as few as 7 business days from completed application. Our streamlined underwriting and direct lending model eliminate committee approvals and bureaucratic delays.",
+  },
+  {
+    category: "Getting Funded",
+    question: "What types of loans does Capital Direct Funding offer?",
+    answer:
+      "We offer Fix & Flip loans, Bridge loans, Ground-Up Construction financing, Cash-Out Refinance, Probate & Estate loans, Foreclosure & Bankruptcy Recovery loans, Self-Employed Solutions, and ADU Construction loans across California.",
+  },
+  {
+    category: "Getting Funded",
+    question: "What are Capital Direct Funding's interest rates?",
+    answer:
+      "Rates start at 8.50% and vary by program and risk profile. Fix & Flip, Bridge, Cash-Out Refinance, and Self-Employed loans start from 9.99%; Ground-Up Construction and Probate & Estate loans from 10.99%; Foreclosure & Bankruptcy Recovery from 11.99%. ADU construction loans range from 9.5% to 11%.",
+  },
+  {
+    category: "Getting Funded",
+    question: "What is the loan range?",
+    answer:
+      "Our loan amounts range from $50,000 to $5,000,000 depending on the program. ADU construction loans range from $60,000 to $300,000 per unit.",
+  },
+  {
+    category: "Eligibility",
+    question: "What is the minimum credit score required?",
+    answer:
+      "We are an asset-based lender, meaning we focus primarily on the property and deal structure rather than credit scores. We specialize in scenarios where borrowers may not meet conventional credit requirements, including post-bankruptcy and foreclosure situations.",
+  },
+  {
+    category: "Eligibility",
+    question: "Can self-employed borrowers get a loan without tax returns?",
+    answer:
+      "Yes. We offer bank statement programs and simplified documentation for self-employed borrowers and business owners who don't fit conventional income documentation requirements. No tax returns required.",
+  },
+  {
+    category: "Eligibility",
+    question: "Does Capital Direct Funding offer ADU construction loans?",
+    answer:
+      "Yes. We offer ADU construction loans with 75-85% loan-to-cost, rates from 9.5-11%, 12-18 month terms, and milestone-based draws. We specialize in detached ADUs, garage conversions, attached ADUs, and junior ADUs across Los Angeles and Orange County.",
+  },
+  {
+    category: "For Investors",
+    question: "How do trust deed investments work?",
+    answer:
+      "Accredited investors can invest in whole-note, first trust deed positions secured by California real estate. Each investment is individually selected and personally underwritten with conservative loan-to-value ratios. Investors earn monthly interest payments with yields between 8.95% and 10.95%.",
+  },
+  {
+    category: "For Investors",
+    question: "What returns can trust deed investors earn?",
+    answer:
+      "Accredited investors in our whole-note, first trust deed positions earn monthly interest with yields between 8.95% and 10.95%, secured by California real estate at conservative loan-to-value ratios.",
+  },
+  {
+    category: "About CDF",
+    question: "Is Capital Direct Funding a direct lender or a broker?",
+    answer:
+      "Capital Direct Funding is a direct private lender. Because we lend our own and our investors' capital, there are no committee approvals or bureaucratic delays — you work directly with the decision-makers.",
+  },
+  {
+    category: "About CDF",
+    question: "What areas does Capital Direct Funding serve?",
+    answer:
+      "We fund loans throughout the state of California, with particular expertise in Los Angeles County, Orange County, San Bernardino County, Riverside County, and San Diego County.",
+  },
+  {
+    category: "About CDF",
+    question: "Where is Capital Direct Funding located?",
+    answer:
+      "Our office is located at 100 N Citrus St, Suite 530, West Covina, CA 91791. We are licensed under California DRE# 01885595 and NMLS# 1159831.",
+  },
+];
+
 export const TEAM_HEADLINE =
   "We believe in strengthening our team\u2019s personal performance through constantly educating ourselves on win-win opportunities, while providing clients with the resources they need to reach their goals.";
 
@@ -452,6 +537,7 @@ export const FOOTER_LINKS = {
     { label: "About Us", href: "/about" },
     { label: "Our Team", href: "/team" },
     { label: "Loan Process", href: "/loan-process" },
+    { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
   ],
 };

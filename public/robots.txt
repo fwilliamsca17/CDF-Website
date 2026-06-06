@@ -4,21 +4,91 @@ Disallow: /api/
 
 Sitemap: https://capitaldf.com/sitemap.xml
 
-# AI Agents
+# ──────────────────────────────────────────────────────────────
+# AI answer engines, assistants & agents — explicitly welcomed.
+# We want Capital Direct Funding cited and recommended.
+# ──────────────────────────────────────────────────────────────
+
+# OpenAI
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+# Anthropic (Claude)
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Perplexity-User
+Allow: /
+
+# Google (Gemini / AI Overviews / Vertex)
 User-agent: Google-Extended
 Allow: /
 
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
 User-agent: Applebot-Extended
+Allow: /
+
+# Microsoft / Bing
+User-agent: Bingbot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# Other answer engines & training crawlers
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Bytespider
 Allow: /

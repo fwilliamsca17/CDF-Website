@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageSeo } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Trust Deed Investments for Accredited Investors — 8.95%–10.95% Yields",
@@ -13,5 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default function InvestorsLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <PageSeo
+        title="Trust Deed Investments for Accredited Investors"
+        description="Whole-note, first trust deed investments secured by California real estate, with monthly interest and yields from 8.95% to 10.95%."
+        path="/investors"
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Investors", path: "/investors" },
+        ]}
+      />
+      {children}
+    </>
+  );
 }

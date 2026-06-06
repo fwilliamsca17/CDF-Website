@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageSeo, HowToSchema } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Loan Process — From Application to Funding in 7 Days",
@@ -13,5 +14,19 @@ export const metadata: Metadata = {
 };
 
 export default function LoanProcessLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <PageSeo
+        title="Loan Process — From Application to Funding in 7 Days"
+        description="Capital Direct Funding's four-step private lending process: Apply, Underwrite, Approve, and Fund — close in as few as 7 days."
+        path="/loan-process"
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Loan Process", path: "/loan-process" },
+        ]}
+      />
+      <HowToSchema />
+      {children}
+    </>
+  );
 }

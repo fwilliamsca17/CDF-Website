@@ -1,10 +1,29 @@
-import { SITE_CONFIG, TEAM_MEMBERS, LOAN_PROGRAMS } from "@/lib/constants";
+import {
+  SITE_CONFIG,
+  TEAM_MEMBERS,
+  LOAN_PROGRAMS,
+  PROCESS_STEPS,
+  FAQ_ITEMS,
+} from "@/lib/constants";
+
+const BASE = "https://capitaldf.com";
+const ORG_ID = `${BASE}/#organization`;
+const WEBSITE_ID = `${BASE}/#website`;
+
+function JsonLdScript({ schema }: { schema: object }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
 
 function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": ["FinancialService", "LendingInstitution"],
-    "@id": "https://capitaldf.com/#organization",
+    "@id": ORG_ID,
     name: SITE_CONFIG.name,
     legalName: SITE_CONFIG.legalName,
     alternateName: ["CDF", "Capital Direct Funding"],
@@ -30,6 +49,14 @@ function OrganizationSchema() {
       "@type": "State",
       name: "California",
       sameAs: "https://en.wikipedia.org/wiki/California",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: SITE_CONFIG.phone,
+      email: SITE_CONFIG.email,
+      contactType: "sales",
+      areaServed: "US-CA",
+      availableLanguage: "English",
     },
     openingHoursSpecification: [
       {
@@ -81,26 +108,44 @@ function OrganizationSchema() {
     currenciesAccepted: "USD",
     paymentAccepted: "Wire Transfer, Check",
     priceRange: "$50,000 - $5,000,000",
+    potentialAction: [
+      {
+        "@type": "ApplyAction",
+        name: "Apply for a private money loan",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${BASE}/borrowers`,
+          actionPlatform: [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform",
+          ],
+        },
+      },
+      {
+        "@type": "CommunicateAction",
+        name: "Contact Capital Direct Funding",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${BASE}/contact`,
+        },
+      },
+    ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript schema={schema} />;
 }
 
 function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://capitaldf.com/#localbusiness",
+    "@id": `${BASE}/#localbusiness`,
     name: SITE_CONFIG.name,
     image: `https://${SITE_CONFIG.domain}/images/cdf-logo-white.png`,
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,
     url: `https://${SITE_CONFIG.domain}`,
+    parentOrganization: { "@id": ORG_ID },
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE_CONFIG.address.street,
@@ -125,12 +170,22 @@ function LocalBusinessSchema() {
     priceRange: "$50,000 - $5,000,000",
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript schema={schema} />;
+}
+
+function WebSiteSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: BASE,
+    name: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+    publisher: { "@id": ORG_ID },
+    inLanguage: "en-US",
+  };
+
+  return <JsonLdScript schema={schema} />;
 }
 
 function TeamSchema() {
@@ -138,10 +193,7 @@ function TeamSchema() {
     "@type": "Person",
     name: member.name,
     jobTitle: member.title,
-    worksFor: {
-      "@type": "Organization",
-      name: SITE_CONFIG.name,
-    },
+    worksFor: { "@id": ORG_ID },
     ...(member.email ? { email: member.email } : {}),
     ...(member.linkedin ? { sameAs: [member.linkedin] } : {}),
   }));
@@ -157,25 +209,20 @@ function TeamSchema() {
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript schema={schema} />;
 }
 
 function LoanProductsSchema() {
   const products = LOAN_PROGRAMS.map((program) => ({
-    "@type": "FinancialProduct",
+    "@type": ["FinancialProduct", "LoanOrCredit"],
     name: program.title,
     description: program.description,
-    provider: {
-      "@type": "FinancialService",
-      name: SITE_CONFIG.name,
-    },
-    category: "Private Lending",
-    areaServed: "California",
+    url: `${BASE}/borrowers#${program.slug}`,
+    loanType: program.title,
+    currency: "USD",
+    category: "Private money loan",
+    areaServed: { "@type": "State", name: "California" },
+    provider: { "@id": ORG_ID },
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
@@ -194,77 +241,42 @@ function LoanProductsSchema() {
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript schema={schema} />;
 }
 
-function FAQSchema() {
-  const faqs = [
-    {
-      question: "How fast can Capital Direct Funding close a loan?",
-      answer:
-        "We can close loans in as few as 7 business days from completed application. Our streamlined underwriting process and direct lending model eliminate committee approvals and bureaucratic delays.",
-    },
-    {
-      question: "What types of loans does Capital Direct Funding offer?",
-      answer:
-        "We offer Fix & Flip loans, Bridge loans, Ground-Up Construction financing, Cash-Out Refinance, Probate & Estate loans, Foreclosure & Bankruptcy Recovery loans, Self-Employed Solutions, and ADU Construction loans across California.",
-    },
-    {
-      question: "What is the minimum credit score required?",
-      answer:
-        "We are an asset-based lender, meaning we focus primarily on the property and deal structure rather than credit scores. We specialize in scenarios where borrowers may not meet conventional credit requirements, including post-bankruptcy and foreclosure situations.",
-    },
-    {
-      question: "What areas does Capital Direct Funding serve?",
-      answer:
-        "We fund loans throughout the state of California, with particular expertise in Los Angeles County, Orange County, San Bernardino County, Riverside County, and San Diego County.",
-    },
-    {
-      question: "How do trust deed investments work?",
-      answer:
-        "Accredited investors can invest in whole-note, first trust deed positions secured by California real estate. Each investment is individually selected and personally underwritten with conservative loan-to-value ratios. Investors earn monthly interest payments with yields between 8.95% and 10.95%.",
-    },
-    {
-      question: "Can self-employed borrowers get a loan without tax returns?",
-      answer:
-        "Yes. We offer bank statement programs and simplified documentation for self-employed borrowers and business owners who don't fit conventional income documentation requirements. No tax returns required.",
-    },
-    {
-      question: "Does Capital Direct Funding offer ADU construction loans?",
-      answer:
-        "Yes. We offer ADU construction loans with 75-85% loan-to-cost, rates from 9.5-11%, 12-18 month terms, and milestone-based draws. We specialize in detached ADUs, garage conversions, attached ADUs, and junior ADUs across Los Angeles and Orange County.",
-    },
-    {
-      question: "What is the loan range?",
-      answer:
-        "Our loan amounts range from $50,000 to $5,000,000 depending on the program. ADU construction loans range from $60,000 to $300,000 per unit.",
-    },
-  ];
-
+function HowToSchema() {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
+    "@type": "HowTo",
+    name: "How to get a private money loan from Capital Direct Funding",
+    description:
+      "Capital Direct Funding's four-step private lending process, from application to funding in as few as 7 days.",
+    totalTime: "P7D",
+    step: PROCESS_STEPS.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.title,
+      text: s.description,
+      url: `${BASE}/loan-process#step-${s.step}`,
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript schema={schema} />;
+}
+
+function FAQSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${BASE}/faq#faqpage`,
+    mainEntity: FAQ_ITEMS.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+
+  return <JsonLdScript schema={schema} />;
 }
 
 function BreadcrumbSchema({ items }: { items: { name: string; url: string }[] }) {
@@ -279,19 +291,73 @@ function BreadcrumbSchema({ items }: { items: { name: string; url: string }[] })
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript schema={schema} />;
+}
+
+/**
+ * Per-page entity: emits a WebPage (linked to the WebSite + Organization) and
+ * a matching BreadcrumbList in one @graph. Drop into any page's layout.
+ */
+function PageSeo({
+  title,
+  description,
+  path,
+  crumbs,
+  speakable,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  crumbs: { name: string; path: string }[];
+  speakable?: string[];
+}) {
+  const url = `${BASE}${path}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: title,
+        description,
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": ORG_ID },
+        inLanguage: "en-US",
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        ...(speakable
+          ? {
+              speakable: {
+                "@type": "SpeakableSpecification",
+                cssSelector: speakable,
+              },
+            }
+          : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: crumbs.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: c.name,
+          item: `${BASE}${c.path}`,
+        })),
+      },
+    ],
+  };
+
+  return <JsonLdScript schema={schema} />;
 }
 
 export {
   OrganizationSchema,
   LocalBusinessSchema,
+  WebSiteSchema,
   TeamSchema,
   LoanProductsSchema,
+  HowToSchema,
   FAQSchema,
   BreadcrumbSchema,
+  PageSeo,
 };

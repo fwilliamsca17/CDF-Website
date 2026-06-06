@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LoanProductsSchema } from "@/components/JsonLd";
+import { LoanProductsSchema, PageSeo } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Loan Programs for Real Estate Borrowers — Fix & Flip, Bridge, Construction",
@@ -17,6 +17,15 @@ export default function BorrowersLayout({ children }: { children: React.ReactNod
   return (
     <>
       <LoanProductsSchema />
+      <PageSeo
+        title="Loan Programs for Real Estate Borrowers"
+        description="Private money loans for California real estate investors: fix & flip, bridge, construction, cash-out refinance, probate, foreclosure recovery, and self-employed."
+        path="/borrowers"
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Borrowers", path: "/borrowers" },
+        ]}
+      />
       {children}
     </>
   );
