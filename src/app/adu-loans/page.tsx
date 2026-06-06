@@ -207,7 +207,7 @@ export default function ADULoansPage() {
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
-                  <div className="font-heading text-2xl md:text-3xl font-bold text-gold">
+                  <div className="font-heading text-2xl md:text-3xl font-bold text-champagne-600">
                     85%
                   </div>
                   <div className="text-xs text-white/50 uppercase tracking-wider mt-1">
@@ -215,7 +215,7 @@ export default function ADULoansPage() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="font-heading text-2xl md:text-3xl font-bold text-gold">
+                  <div className="font-heading text-2xl md:text-3xl font-bold text-champagne-600">
                     12&ndash;18 mo
                   </div>
                   <div className="text-xs text-white/50 uppercase tracking-wider mt-1">
@@ -223,7 +223,7 @@ export default function ADULoansPage() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="font-heading text-2xl md:text-3xl font-bold text-gold">
+                  <div className="font-heading text-2xl md:text-3xl font-bold text-champagne-600">
                     $60K&ndash;$300K
                   </div>
                   <div className="text-xs text-white/50 uppercase tracking-wider mt-1">
@@ -498,7 +498,7 @@ export default function ADULoansPage() {
                     key={item}
                     className="flex items-start gap-2 text-cdf-100 text-sm"
                   >
-                    <CheckCircle className="w-4 h-4 text-gold mt-0.5 shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-champagne-600 mt-0.5 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -517,13 +517,13 @@ export default function ADULoansPage() {
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage:
-              "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+              "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
         <div className="relative z-10 max-container section-padding">
           <div className="text-center mb-12 md:mb-16">
-            <div className="inline-flex items-center gap-2 text-gold text-sm font-semibold mb-3">
+            <div className="inline-flex items-center gap-2 text-champagne-600 text-sm font-semibold mb-3">
               <MessageSquare className="w-4 h-4" />
               Real Results
             </div>
@@ -546,7 +546,7 @@ export default function ADULoansPage() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10"
               >
-                <div className="flex gap-0.5 mb-4 text-gold">
+                <div className="flex gap-0.5 mb-4 text-champagne-600">
                   {[...Array(5)].map((_, j) => (
                     <Star key={j} className="w-4 h-4 fill-current" />
                   ))}
@@ -577,7 +577,7 @@ export default function ADULoansPage() {
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage:
-              "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+              "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />

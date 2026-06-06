@@ -51,7 +51,7 @@ export default function InvestorsPage() {
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
@@ -100,8 +100,8 @@ export default function InvestorsPage() {
                   transition={{ duration: 0.5, delay: i * 0.15 }}
                   className="text-center"
                 >
-                  <div className="w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-5">
-                    {IconComponent && <IconComponent className="w-7 h-7 text-gold" />}
+                  <div className="w-16 h-16 rounded-full bg-champagne-500/10 flex items-center justify-center mx-auto mb-5">
+                    {IconComponent && <IconComponent className="w-7 h-7 text-champagne-600" />}
                   </div>
                   <div className="font-heading text-4xl font-bold text-cdf/10 mb-2">
                     0{step.step}
@@ -133,8 +133,8 @@ export default function InvestorsPage() {
               return (
                 <FadeIn key={benefit.title} delay={i * 80}>
                   <div className="bg-white rounded-xl p-6 card-hover h-full">
-                    <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-4">
-                      {IconComponent && <IconComponent className="w-5 h-5 text-gold" />}
+                    <div className="w-10 h-10 rounded-lg bg-champagne-500/10 flex items-center justify-center mb-4">
+                      {IconComponent && <IconComponent className="w-5 h-5 text-champagne-600" />}
                     </div>
                     <h3 className="font-heading text-lg font-bold text-cdf mb-2">
                       {benefit.title}
@@ -171,7 +171,7 @@ export default function InvestorsPage() {
                 <ul className="space-y-3">
                   {RISK_MITIGANTS.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-white/80 text-sm">
-                      <CheckCircle className="w-4 h-4 text-gold mt-0.5 shrink-0" />
+                      <CheckCircle className="w-4 h-4 text-champagne-600 mt-0.5 shrink-0" />
                       {item}
                     </li>
                   ))}

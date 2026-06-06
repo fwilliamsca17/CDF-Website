@@ -19,7 +19,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="lg:hidden absolute top-full left-0 right-0 bg-cdf border-t border-white/10"
+          className="lg:hidden absolute top-full left-0 right-0 bg-ink-900/95 backdrop-blur-md border-t border-white/10"
         >
           <nav className="section-padding py-6 flex flex-col gap-1">
             {NAV_ITEMS.map((item, i) => (
@@ -32,7 +32,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                 <Link
                   href={item.href}
                   onClick={onClose}
-                  className="block py-3 text-white/80 hover:text-gold transition-colors text-lg font-medium"
+                  className="block py-3 text-white/80 hover:text-champagne-300 transition-colors text-lg font-medium"
                 >
                   {item.label}
                 </Link>

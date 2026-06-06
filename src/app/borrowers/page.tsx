@@ -35,7 +35,7 @@ export default function BorrowersPage() {
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
@@ -104,7 +104,7 @@ export default function BorrowersPage() {
                       <ul className="space-y-2">
                         {program.features.map((feature) => (
                           <li key={feature} className="flex items-center gap-2 text-sm text-body">
-                            <CheckCircle className="w-4 h-4 text-gold shrink-0" />
+                            <CheckCircle className="w-4 h-4 text-champagne-600 shrink-0" />
                             {feature}
                           </li>
                         ))}

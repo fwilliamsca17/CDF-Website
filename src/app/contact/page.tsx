@@ -34,7 +34,7 @@ export default function ContactPage() {
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
@@ -71,7 +71,7 @@ export default function ContactPage() {
 
                 {submitted ? (
                   <div className="text-center py-16 bg-light rounded-xl">
-                    <CheckCircle className="w-16 h-16 text-gold mx-auto mb-4" />
+                    <CheckCircle className="w-16 h-16 text-champagne-600 mx-auto mb-4" />
                     <h3 className="font-heading text-2xl font-bold text-cdf mb-2">
                       Message Sent!
                     </h3>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                           type="text"
                           name="name"
                           required
-                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors"
+                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-champagne-500 focus:ring-1 focus:ring-gold/30 transition-colors"
                         />
                       </div>
                       <div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
                           type="email"
                           name="email"
                           required
-                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors"
+                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-champagne-500 focus:ring-1 focus:ring-gold/30 transition-colors"
                         />
                       </div>
                     </div>
@@ -116,7 +116,7 @@ export default function ContactPage() {
                         <input
                           type="tel"
                           name="phone"
-                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors"
+                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-champagne-500 focus:ring-1 focus:ring-gold/30 transition-colors"
                         />
                       </div>
                       <div>
@@ -125,7 +125,7 @@ export default function ContactPage() {
                         </label>
                         <select
                           name="inquiry_type"
-                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors"
+                          className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-champagne-500 focus:ring-1 focus:ring-gold/30 transition-colors"
                         >
                           <option value="Borrower Inquiry">Borrower Inquiry</option>
                           <option value="Investor Inquiry">Investor Inquiry</option>
@@ -144,7 +144,7 @@ export default function ContactPage() {
                         name="message"
                         rows={5}
                         placeholder="Tell us about your deal or question..."
-                        className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark placeholder:text-body/40 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors resize-none"
+                        className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark placeholder:text-body/40 focus:outline-none focus:border-champagne-500 focus:ring-1 focus:ring-gold/30 transition-colors resize-none"
                       />
                     </div>
 
@@ -170,20 +170,20 @@ export default function ContactPage() {
                   <div className="space-y-4">
                     <a
                       href={`tel:${SITE_CONFIG.phone}`}
-                      className="flex items-center gap-3 text-white/70 hover:text-gold transition-colors"
+                      className="flex items-center gap-3 text-white/70 hover:text-champagne-600 transition-colors"
                     >
-                      <Phone className="w-5 h-5 text-gold" />
+                      <Phone className="w-5 h-5 text-champagne-600" />
                       {SITE_CONFIG.phone}
                     </a>
                     <a
                       href={`mailto:${SITE_CONFIG.email}`}
-                      className="flex items-center gap-3 text-white/70 hover:text-gold transition-colors"
+                      className="flex items-center gap-3 text-white/70 hover:text-champagne-600 transition-colors"
                     >
-                      <Mail className="w-5 h-5 text-gold" />
+                      <Mail className="w-5 h-5 text-champagne-600" />
                       {SITE_CONFIG.email}
                     </a>
                     <div className="flex items-start gap-3 text-white/70">
-                      <MapPin className="w-5 h-5 text-gold mt-0.5 shrink-0" />
+                      <MapPin className="w-5 h-5 text-champagne-600 mt-0.5 shrink-0" />
                       <div>
                         <p>{SITE_CONFIG.address.street}</p>
                         <p>
@@ -193,7 +193,7 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3 text-white/70">
-                      <Clock className="w-5 h-5 text-gold mt-0.5 shrink-0" />
+                      <Clock className="w-5 h-5 text-champagne-600 mt-0.5 shrink-0" />
                       <div>
                         <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
                         <p>Sat - Sun: By Appointment</p>
@@ -202,7 +202,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="bg-gold/10 rounded-xl p-6 border border-gold/20">
+                <div className="bg-champagne-500/10 rounded-xl p-6 border border-champagne-500/20">
                   <h3 className="font-heading text-lg font-bold text-cdf mb-2">
                     Need Funding Fast?
                   </h3>
@@ -212,7 +212,7 @@ export default function ContactPage() {
                   </p>
                   <a
                     href={`tel:${SITE_CONFIG.phone}`}
-                    className="inline-flex items-center gap-2 text-gold font-semibold hover:text-gold-600 transition-colors"
+                    className="inline-flex items-center gap-2 text-champagne-600 font-semibold hover:text-champagne-600-600 transition-colors"
                   >
                     <Phone className="w-4 h-4" />
                     {SITE_CONFIG.phone}

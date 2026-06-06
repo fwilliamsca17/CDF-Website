@@ -42,7 +42,7 @@ export default function AboutPage() {
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
@@ -110,7 +110,7 @@ export default function AboutPage() {
                     className="object-contain p-12"
                   />
                 </div>
-                <div className="absolute -bottom-6 -right-6 bg-gold text-white rounded-xl p-4 shadow-lg">
+                <div className="absolute -bottom-6 -right-6 bg-champagne-500 text-ink-900 rounded-xl p-4 shadow-lg">
                   <p className="font-heading text-2xl font-bold">$200M+</p>
                   <p className="text-sm text-white/80">Capital Deployed</p>
                 </div>
@@ -134,8 +134,8 @@ export default function AboutPage() {
               <FadeIn key={value.title} delay={i * 100}>
                 <div className="bg-white rounded-xl p-8 card-hover">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
-                      <value.icon className="w-6 h-6 text-gold" />
+                    <div className="w-12 h-12 rounded-lg bg-champagne-500/10 flex items-center justify-center shrink-0">
+                      <value.icon className="w-6 h-6 text-champagne-600" />
                     </div>
                     <div>
                       <h3 className="font-heading text-xl font-bold text-cdf mb-2">

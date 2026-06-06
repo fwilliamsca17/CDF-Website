@@ -46,7 +46,7 @@ export default function LoanProcessPage() {
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
@@ -115,8 +115,8 @@ export default function LoanProcessPage() {
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 100}>
                 <div className="bg-light rounded-xl p-6 card-hover text-center h-full">
-                  <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-4">
-                    <item.icon className="w-6 h-6 text-gold" />
+                  <div className="w-12 h-12 rounded-full bg-champagne-500/10 flex items-center justify-center mx-auto mb-4">
+                    <item.icon className="w-6 h-6 text-champagne-600" />
                   </div>
                   <h3 className="font-heading text-lg font-bold text-cdf mb-2">
                     {item.title}
@@ -145,13 +145,13 @@ export default function LoanProcessPage() {
             {DOCUMENTS.map((doc, i) => (
               <FadeIn key={doc.category} delay={i * 100}>
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10 h-full">
-                  <h3 className="font-heading text-lg font-bold text-gold mb-4">
+                  <h3 className="font-heading text-lg font-bold text-champagne-600 mb-4">
                     {doc.category}
                   </h3>
                   <ul className="space-y-2.5">
                     {doc.items.map((item) => (
                       <li key={item} className="flex items-start gap-2 text-white/70 text-sm">
-                        <CheckSquare className="w-4 h-4 text-gold/60 mt-0.5 shrink-0" />
+                        <CheckSquare className="w-4 h-4 text-champagne-600/60 mt-0.5 shrink-0" />
                         {item}
                       </li>
                     ))}

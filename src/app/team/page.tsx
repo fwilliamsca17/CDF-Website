@@ -20,7 +20,7 @@ export default function TeamPage() {
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage:
-              "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+              "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
@@ -73,7 +73,7 @@ export default function TeamPage() {
                     <h3 className="font-heading text-xl font-bold text-cdf">
                       {member.name}
                     </h3>
-                    <p className="text-gold font-semibold text-sm mb-3">
+                    <p className="text-champagne-600 font-semibold text-sm mb-3">
                       {member.title}
                     </p>
                     {"bio" in member && member.bio && (
@@ -89,7 +89,7 @@ export default function TeamPage() {
                           href={member.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-cdf hover:text-gold transition-colors text-sm"
+                          className="flex items-center gap-1.5 text-cdf hover:text-champagne-600 transition-colors text-sm"
                         >
                           <svg
                             className="w-4 h-4"
@@ -104,7 +104,7 @@ export default function TeamPage() {
                       {member.email && (
                         <a
                           href={`mailto:${member.email}`}
-                          className="flex items-center gap-1.5 text-cdf hover:text-gold transition-colors text-sm"
+                          className="flex items-center gap-1.5 text-cdf hover:text-champagne-600 transition-colors text-sm"
                         >
                           <Mail className="w-4 h-4" />
                           {member.email}

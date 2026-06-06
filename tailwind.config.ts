@@ -91,7 +91,7 @@ const config: Config = {
         "section-lg": "8rem",
       },
       backgroundImage: {
-        "gradient-cdf": "linear-gradient(135deg, #0B2E47 0%, #1F699E 100%)",
+        "gradient-cdf": "linear-gradient(158deg, #0A0F1A 0%, #08233A 55%, #0B2E47 100%)",
         "gradient-dark": "linear-gradient(180deg, rgba(11,46,71,0.92) 0%, rgba(16,15,15,0.95) 100%)",
         "gradient-gold": "linear-gradient(135deg, #D4A017 0%, #E8B926 100%)",
       },
