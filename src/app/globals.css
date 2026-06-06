@@ -22,7 +22,7 @@
 
 @layer components {
   .eyebrow {
-    @apply text-champagne-600 font-bold uppercase tracking-[0.15em] text-label;
+    @apply text-champagne-700 font-bold uppercase tracking-[0.15em] text-label;
   }
 
   .heading-underline {
