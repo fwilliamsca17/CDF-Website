@@ -27,15 +27,17 @@ export default function GetInTouch() {
   }
 
   return (
-    <section className="bg-gradient-cdf section-padding-y relative overflow-hidden">
+    <section className="hero-atmosphere section-padding-y relative overflow-hidden">
+      <div className="hairline-champagne absolute inset-x-0 top-0 h-px" />
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            "radial-gradient(circle, #D4A017 1px, transparent 1px)",
+            "radial-gradient(circle, #C9A86A 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
+      <div className="hero-glow pointer-events-none absolute left-1/2 top-0 h-[40vw] w-[70vw] -translate-x-1/2 opacity-60" />
 
       <div className="relative z-10 max-container section-padding">
         <SectionHeading
@@ -54,7 +56,7 @@ export default function GetInTouch() {
         >
           {submitted ? (
             <div className="text-center py-12">
-              <CheckCircle className="w-16 h-16 text-gold mx-auto mb-4" />
+              <CheckCircle className="w-16 h-16 text-champagne-400 mx-auto mb-4" />
               <h3 className="font-heading text-2xl font-bold text-white mb-2">
                 Message Received!
               </h3>
@@ -72,14 +74,14 @@ export default function GetInTouch() {
                   name="name"
                   placeholder="Full Name *"
                   required
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-gold/50 transition-colors"
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-champagne-400/60 transition-colors"
                 />
                 <input
                   type="email"
                   name="email"
                   placeholder="Email Address *"
                   required
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-gold/50 transition-colors"
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-champagne-400/60 transition-colors"
                 />
               </div>
 
@@ -88,11 +90,11 @@ export default function GetInTouch() {
                   type="tel"
                   name="phone"
                   placeholder="Phone Number"
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-gold/50 transition-colors"
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-champagne-400/60 transition-colors"
                 />
                 <select
                   name="inquiry_type"
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white/70 focus:outline-none focus:border-gold/50 transition-colors"
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white/70 focus:outline-none focus:border-champagne-400/60 transition-colors"
                 >
                   <option value="Borrower Inquiry">Borrower Inquiry</option>
                   <option value="Investor Inquiry">Investor Inquiry</option>
@@ -105,12 +107,12 @@ export default function GetInTouch() {
                 name="message"
                 placeholder="Tell us about your deal or question..."
                 rows={4}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-gold/50 transition-colors resize-none"
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-champagne-400/60 transition-colors resize-none"
               />
 
               <button
                 type="submit"
-                className="btn-gold w-full flex items-center justify-center gap-2 text-lg"
+                className="btn-champagne w-full flex items-center justify-center gap-2 text-lg"
               >
                 <Send className="w-5 h-5" />
                 Send Message

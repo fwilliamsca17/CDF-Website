@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import Button from "@/components/ui/Button";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
 const ROTATING_TYPES = [
   "Fix & Flip",
@@ -24,53 +24,49 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Hero background image — optimized AVIF/WebP via next/image, LCP element */}
-      <Image
-        src="/images/hero-bg.png"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center -z-10"
-      />
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-dark" />
-
-      {/* Dot pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #D4A017 1px, transparent 1px)",
-          backgroundSize: "30px 30px",
-        }}
-      />
+    <section className="hero-atmosphere relative flex min-h-screen items-center overflow-hidden">
+      {/* Drifting light source */}
+      <div className="hero-glow pointer-events-none absolute -right-[10%] -top-[15%] h-[65vw] w-[65vw] motion-safe:animate-glow-drift" />
+      {/* Film grain */}
+      <div className="hero-grain pointer-events-none absolute inset-0 opacity-[0.07]" />
+      {/* Vignette */}
+      <div className="hero-vignette pointer-events-none absolute inset-0" />
 
       {/* Content */}
-      <div className="relative z-10 max-container section-padding w-full pt-32 pb-20">
-        <div className="max-w-3xl motion-safe:animate-rise">
-          <p className="eyebrow mb-4">Private Lending for California Real Estate</p>
+      <div className="relative z-10 max-container section-padding w-full pt-32 pb-24">
+        <div className="max-w-3xl">
+          <p
+            className="hero-in mb-6 flex items-center gap-3 text-label font-semibold uppercase tracking-[0.22em] text-champagne-300"
+            style={{ animationDelay: "0ms" }}
+          >
+            <span className="h-px w-8 bg-champagne-500/70" />
+            Private Lending for California Real Estate
+          </p>
 
-          <h1 className="font-heading text-display-lg md:text-display-xl font-bold text-white leading-tight mb-4">
+          <h1
+            className="hero-in-lcp mb-6 font-heading text-display-lg font-bold leading-[1.04] text-ivory md:text-display-xl"
+            style={{ animationDelay: "90ms" }}
+          >
             Fast, Flexible
             <br />
-            <span className="gradient-text">Private Lending.</span>
+            <span className="text-champagne-gradient">Private Lending.</span>
           </h1>
 
-          <div className="h-14 md:h-16 mb-6 flex items-center">
+          <div
+            className="hero-in mb-7 flex h-12 items-center md:h-14"
+            style={{ animationDelay: "200ms" }}
+          >
             <AnimatePresence mode="wait">
               <motion.p
                 key={currentIndex}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
+                exit={{ opacity: 0, y: -14 }}
                 transition={{ duration: 0.4 }}
-                className="text-xl md:text-2xl text-white/70 font-light"
+                className="text-xl font-light text-ivory/70 md:text-2xl"
               >
                 Fund Your{" "}
-                <span className="text-gold font-medium">
+                <span className="font-medium text-champagne-300">
                   {ROTATING_TYPES[currentIndex]}
                 </span>{" "}
                 Deal in 7 Days.
@@ -78,25 +74,58 @@ export default function Hero() {
             </AnimatePresence>
           </div>
 
-          <p className="text-white/60 text-lg mb-10 max-w-xl leading-relaxed">
+          <p
+            className="hero-in mb-10 max-w-xl text-lg leading-relaxed text-ivory/55"
+            style={{ animationDelay: "280ms" }}
+          >
             Over $200M deployed across 500+ transactions. We specialize in
             scenarios where banks say no — probate, foreclosure, bankruptcy,
             self-employed, and more.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button href="/borrowers" variant="gold" size="lg" showArrow>
+          <div
+            className="hero-in flex flex-col gap-4 sm:flex-row"
+            style={{ animationDelay: "360ms" }}
+          >
+            <Link href="/borrowers" className="btn-champagne group">
               I&apos;m a Borrower
-            </Button>
-            <Button href="/investors" variant="outline" size="lg" showArrow>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link href="/investors" className="btn-ghost-light group">
               I&apos;m an Investor
-            </Button>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+          <div
+            className="hero-in mt-14 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-ivory/50"
+            style={{ animationDelay: "460ms" }}
+          >
+            <span>
+              <span className="font-semibold text-ivory">$200M+</span> deployed
+            </span>
+            <span className="h-4 w-px bg-ivory/15" />
+            <span>
+              <span className="font-semibold text-ivory">500+</span> loans funded
+            </span>
+            <span className="h-4 w-px bg-ivory/15" />
+            <span>
+              Close in <span className="font-semibold text-ivory">7 days</span>
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0" />
+      {/* Scroll cue */}
+      <div className="pointer-events-none absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-ivory/40 md:flex">
+        <span className="text-[10px] font-medium uppercase tracking-[0.25em]">
+          Scroll
+        </span>
+        <ChevronDown className="h-4 w-4 motion-safe:animate-scroll-cue" />
+      </div>
+
+      {/* Bottom hairline */}
+      <div className="hairline-champagne absolute inset-x-0 bottom-0 h-px" />
     </section>
   );
 }

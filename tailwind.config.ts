@@ -48,6 +48,27 @@ const config: Config = {
         },
         body: "#2D2C2C",
         light: "#F7F7F6",
+        // Phase 2 — elevated institutional palette ("nocturne")
+        ink: {
+          DEFAULT: "#0A0F1A",
+          900: "#0A0F1A",
+          950: "#060A12",
+        },
+        navy: {
+          DEFAULT: "#0B2E47",
+          800: "#103A59",
+          900: "#0B2E47",
+          950: "#08233A",
+        },
+        champagne: {
+          DEFAULT: "#C9A86A",
+          200: "#EFE3C8",
+          300: "#E6D2A2",
+          400: "#D9C28F",
+          500: "#C9A86A",
+          600: "#B8945A",
+        },
+        ivory: "#F5F2EA",
       },
       fontFamily: {
         heading: ["var(--font-montserrat)", "system-ui", "sans-serif"],
@@ -89,11 +110,21 @@ const config: Config = {
           "0%": { transform: "translateY(16px)" },
           "100%": { transform: "translateY(0)" },
         },
+        "scroll-cue": {
+          "0%, 100%": { transform: "translateY(0)", opacity: "0.45" },
+          "50%": { transform: "translateY(7px)", opacity: "1" },
+        },
+        "glow-drift": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)", opacity: "0.85" },
+          "50%": { transform: "translate(2%, -2%) scale(1.06)", opacity: "1" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.6s ease-out forwards",
         "slide-up": "slide-up 0.6s ease-out forwards",
         rise: "rise 0.7s ease-out both",
+        "scroll-cue": "scroll-cue 2.4s ease-in-out infinite",
+        "glow-drift": "glow-drift 14s ease-in-out infinite",
       },
     },
   },
