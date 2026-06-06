@@ -54,14 +54,15 @@ export default function TeamPage() {
           <div className="flex justify-center">
             {leadership.map((member, i) => (
               <FadeIn key={member.name} delay={i * 100}>
-                <div className="bg-light rounded-xl overflow-hidden card-hover max-w-md">
-                  <div className="aspect-[4/3] bg-cdf/10 relative">
+                <div className="bg-light rounded-2xl overflow-hidden card-hover w-full max-w-4xl md:grid md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+                  <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[460px] bg-cdf/10">
                     {member.image ? (
                       <Image
                         src={member.image}
                         alt={member.name}
                         fill
-                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 40vw"
+                        className="object-cover object-top"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
@@ -69,11 +70,11 @@ export default function TeamPage() {
                       </div>
                     )}
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-heading text-xl font-bold text-cdf">
+                  <div className="flex flex-col justify-center p-8 md:p-10">
+                    <h3 className="font-heading text-2xl font-bold text-cdf">
                       {member.name}
                     </h3>
-                    <p className="text-champagne-600 font-semibold text-sm mb-3">
+                    <p className="text-champagne-600 font-semibold text-sm mb-4">
                       {member.title}
                     </p>
                     {"bio" in member && member.bio && (
