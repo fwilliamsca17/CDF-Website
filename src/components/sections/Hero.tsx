@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 const ROTATING_TYPES = [
@@ -11,8 +12,6 @@ const ROTATING_TYPES = [
   "Cash-Out Refi",
   "Probate & Estate",
 ];
-
-const YT_VIDEO_ID = "4xHQQiQBnJk";
 
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,16 +25,15 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* YouTube Background Video */}
-      <div className="absolute inset-0 pointer-events-none">
-        <iframe
-          src={`https://www.youtube-nocookie.com/embed/${YT_VIDEO_ID}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&playlist=${YT_VIDEO_ID}&playsinline=1&disablekb=1`}
-          title="Background video"
-          allow="autoplay; encrypted-media"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[180%] min-w-[100vw] min-h-[100vh] border-0"
-          style={{ aspectRatio: "16/9" }}
-        />
-      </div>
+      {/* Hero background image — optimized AVIF/WebP via next/image, LCP element */}
+      <Image
+        src="/images/hero-bg.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center -z-10"
+      />
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-dark" />
@@ -50,20 +48,9 @@ export default function Hero() {
         }}
       />
 
-      {/* Fallback image for slow connections */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
-        style={{ backgroundImage: "url(/images/hero-bg.png)" }}
-      />
-
       {/* Content */}
       <div className="relative z-10 max-container section-padding w-full pt-32 pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl"
-        >
+        <div className="max-w-3xl motion-safe:animate-rise">
           <p className="eyebrow mb-4">Private Lending for California Real Estate</p>
 
           <h1 className="font-heading text-display-lg md:text-display-xl font-bold text-white leading-tight mb-4">
@@ -105,7 +92,7 @@ export default function Hero() {
               I&apos;m an Investor
             </Button>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Bottom accent line */}

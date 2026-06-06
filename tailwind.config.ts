@@ -83,10 +83,17 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        // Transform-only entrance — keeps content opaque on first paint so it
+        // never gates LCP, and uses no layout properties so it can't cause CLS.
+        rise: {
+          "0%": { transform: "translateY(16px)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.6s ease-out forwards",
         "slide-up": "slide-up 0.6s ease-out forwards",
+        rise: "rise 0.7s ease-out both",
       },
     },
   },
