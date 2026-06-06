@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as LucideIcons from "lucide-react";
+import { iconMap } from "@/lib/icons";
 import { INVESTOR_BENEFITS } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 
@@ -49,7 +49,7 @@ export default function InvestorPreview() {
           {/* Right: Benefits grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {INVESTOR_BENEFITS.slice(0, 4).map((benefit, i) => {
-              const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[benefit.icon];
+              const IconComponent = iconMap[benefit.icon];
               return (
                 <motion.div
                   key={benefit.title}

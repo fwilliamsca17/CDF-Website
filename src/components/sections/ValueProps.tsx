@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as LucideIcons from "lucide-react";
+import { iconMap } from "@/lib/icons";
 import { VALUE_PROPS } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";
 
@@ -17,7 +17,7 @@ export default function ValueProps() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {VALUE_PROPS.map((prop, i) => {
-            const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[prop.icon];
+            const IconComponent = iconMap[prop.icon];
             return (
               <motion.div
                 key={prop.title}

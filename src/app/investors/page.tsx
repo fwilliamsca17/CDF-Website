@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as LucideIcons from "lucide-react";
+import { iconMap } from "@/lib/icons";
+import { CheckCircle } from "lucide-react";
 import { INVESTOR_BENEFITS } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeIn from "@/components/ui/FadeIn";
@@ -89,7 +90,7 @@ export default function InvestorsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {HOW_IT_WORKS.map((step, i) => {
-              const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[step.icon];
+              const IconComponent = iconMap[step.icon];
               return (
                 <motion.div
                   key={step.step}
@@ -128,7 +129,7 @@ export default function InvestorsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {INVESTOR_BENEFITS.map((benefit, i) => {
-              const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[benefit.icon];
+              const IconComponent = iconMap[benefit.icon];
               return (
                 <FadeIn key={benefit.title} delay={i * 80}>
                   <div className="bg-white rounded-xl p-6 card-hover h-full">
@@ -170,7 +171,7 @@ export default function InvestorsPage() {
                 <ul className="space-y-3">
                   {RISK_MITIGANTS.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-white/80 text-sm">
-                      <LucideIcons.CheckCircle className="w-4 h-4 text-gold mt-0.5 shrink-0" />
+                      <CheckCircle className="w-4 h-4 text-gold mt-0.5 shrink-0" />
                       {item}
                     </li>
                   ))}

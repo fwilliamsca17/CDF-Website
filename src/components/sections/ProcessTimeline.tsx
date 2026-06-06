@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as LucideIcons from "lucide-react";
+import { iconMap } from "@/lib/icons";
 import { PROCESS_STEPS } from "@/lib/constants";
 
 export default function ProcessTimeline() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {PROCESS_STEPS.map((step, i) => {
-        const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[step.icon];
+        const IconComponent = iconMap[step.icon];
         return (
           <motion.div
             key={step.step}

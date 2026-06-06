@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as LucideIcons from "lucide-react";
+import { iconMap } from "@/lib/icons";
 import { CheckCircle } from "lucide-react";
 import { LOAN_PROGRAMS } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -74,7 +74,7 @@ export default function BorrowersPage() {
 
           <div className="space-y-8">
             {LOAN_PROGRAMS.map((program, i) => {
-              const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[program.icon];
+              const IconComponent = iconMap[program.icon];
               return (
                 <motion.div
                   key={program.slug}

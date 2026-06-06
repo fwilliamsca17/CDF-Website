@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as LucideIcons from "lucide-react";
+import { iconMap } from "@/lib/icons";
 import { LOAN_PROGRAMS } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
@@ -18,7 +18,7 @@ export default function LoanPrograms() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {LOAN_PROGRAMS.slice(0, 6).map((program, i) => {
-            const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[program.icon];
+            const IconComponent = iconMap[program.icon];
             return (
               <motion.div
                 key={program.slug}
