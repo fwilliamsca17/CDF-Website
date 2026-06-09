@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import HeroVideo from "./HeroVideo";
 
 const ROTATING_TYPES = [
   "Fix & Flip",
@@ -25,6 +26,10 @@ export default function Hero() {
 
   return (
     <section className="hero-atmosphere relative flex min-h-screen items-center overflow-hidden">
+      {/* Deferred YouTube video — loads on idle, fades in beneath the
+          overlays so the nocturne palette stays dominant. Never on the
+          critical path; respects reduced-motion + Save-Data. */}
+      <HeroVideo />
       {/* Drifting light source */}
       <div className="hero-glow pointer-events-none absolute -right-[10%] -top-[15%] h-[65vw] w-[65vw] motion-safe:animate-glow-drift" />
       {/* Film grain */}
