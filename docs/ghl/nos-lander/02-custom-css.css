@@ -1,0 +1,227 @@
+/* ============================================================
+   CDF NOS Lander — Custom CSS (Nocturne Theme)
+   Page:  https://sc.capitaldf.com/nos
+   Paste: GHL → Funnel → /nos page → Settings → "Custom CSS"
+          (NOT the site-wide Custom CSS — keep this page-scoped
+           so other landers are unaffected.)
+
+   Strategy: GHL already exposes design tokens as CSS variables
+   on :root (--color-m9jsndry, --headlinefont, etc.).  Overriding
+   those re-tints the whole page in one block without selector
+   wrestling. Buttons get a champagne treatment via the shared
+   .btn-vp / .btn-hp utility classes.
+
+   Brand alignment: Capital Direct Funding new institutional
+   nocturne — deep navy base, champagne accent, ivory text,
+   Montserrat + Source Sans 3.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+:root {
+  /* ---- Nocturne palette ---- */
+  --cdf-base-900: #080b1a;          /* near-black with navy undertone (page) */
+  --cdf-base-800: #0b1226;          /* deep navy (section depth) */
+  --cdf-base-700: #111a35;          /* card / surface */
+  --cdf-base-600: #1c2747;          /* raised surface */
+  --cdf-ivory:    #f5f1e8;          /* primary text on dark */
+  --cdf-ivory-soft: rgba(245,241,232,0.72);
+  --cdf-ivory-muted: rgba(245,241,232,0.48);
+  --cdf-champagne-300: #e6d3a8;
+  --cdf-champagne-400: #d4b78b;     /* champagne primary */
+  --cdf-champagne-500: #c9a87a;
+  --cdf-champagne-600: #b08e5c;
+  --cdf-hairline: rgba(212,183,139,0.25);
+
+  /* ---- Override the GHL builder tokens used across the page ---- */
+  --color-m9jsndry: var(--cdf-base-800);  /* was royal blue #215CB6 — now deep navy */
+  --headlinefont: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --montserrat: 'Montserrat', system-ui, sans-serif;
+  --inder: 'Source Sans 3', system-ui, sans-serif;
+  --playfair-display: 'Montserrat', system-ui, sans-serif;
+  --black: var(--cdf-base-900);
+}
+
+/* ============================================================
+   Body / typography baseline
+   ============================================================ */
+body {
+  background: var(--cdf-base-900);
+  color: var(--cdf-ivory);
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings — institutional Montserrat, tighter tracking. The page has
+   16 H1s which is a hierarchy bug; until that's fixed in the editor,
+   only the FIRST h1 gets the display treatment so the others read as
+   section titles visually even though their tag is wrong. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  color: var(--cdf-ivory);
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+h1:first-of-type {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+h1:not(:first-of-type) {
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  line-height: 1.2;
+}
+
+/* Paragraph rhythm */
+p {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--cdf-ivory-soft);
+  line-height: 1.65;
+}
+
+/* ============================================================
+   Hero — overlay the existing background with the nocturne tone
+   so the royal-blue tint and stock-photo overpowering is calmed
+   ============================================================ */
+body > div:first-of-type,
+body > section:first-of-type {
+  position: relative;
+  background-color: var(--cdf-base-800) !important;
+}
+body > div:first-of-type::before,
+body > section:first-of-type::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(120% 80% at 80% -10%, rgba(212,183,139,0.10) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(8,11,26,0.55) 0%, rgba(8,11,26,0.78) 100%);
+}
+body > div:first-of-type > *,
+body > section:first-of-type > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Sections below hero — deep navy alternating with slightly raised navy */
+body > div,
+body > section {
+  background-color: var(--cdf-base-900);
+  color: var(--cdf-ivory);
+}
+body > div:nth-of-type(even),
+body > section:nth-of-type(even) {
+  background-color: var(--cdf-base-800);
+}
+
+/* ============================================================
+   Buttons — every CTA on the page uses .btn-vp .btn-hp utilities.
+   Replace the royal blue with the champagne CTA aesthetic.
+   ============================================================ */
+.btn-vp.btn-hp,
+a.btn-vp.btn-hp,
+button.btn-vp.btn-hp {
+  background: linear-gradient(180deg, var(--cdf-champagne-400) 0%, var(--cdf-champagne-500) 100%) !important;
+  color: var(--cdf-base-900) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  border: 1px solid var(--cdf-champagne-300) !important;
+  border-radius: 10px !important;
+  padding: 0.85em 1.6em !important;
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 200ms ease !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset,
+              0 10px 24px -10px rgba(212,183,139,0.45) !important;
+}
+.btn-vp.btn-hp:hover,
+a.btn-vp.btn-hp:hover,
+button.btn-vp.btn-hp:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.22) inset,
+              0 14px 32px -10px rgba(212,183,139,0.55) !important;
+}
+.btn-vp.btn-hp:active,
+a.btn-vp.btn-hp:active,
+button.btn-vp.btn-hp:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+
+/* Button label color override (GHL nests label spans inside buttons) */
+.btn-vp.btn-hp *,
+a.btn-vp.btn-hp *,
+button.btn-vp.btn-hp * {
+  color: var(--cdf-base-900) !important;
+}
+
+/* ============================================================
+   Cards / dividers — soften the bright blue table treatment
+   that compares Reinstatement / Loan Mod / Short Sale / Private
+   Money / HUD Counseling.
+   ============================================================ */
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--cdf-hairline);
+  margin: 3rem 0;
+}
+
+/* Generic surface cards (testimonial blocks, comparison rows) */
+[class*="row"] [class*="col"],
+[class*="card"],
+[class*="container"] > [class*="block"] {
+  border-radius: 12px;
+}
+
+/* ============================================================
+   FAQ section — make the answers stand out for AEO extraction.
+   Schema's Speakable selector targets .faq-answer; this class
+   isn't on the page today, so we map h-then-p pairs in the FAQ
+   region to a visual answer style. (No JS; pure CSS heuristic.)
+   ============================================================ */
+h1 + p,
+h2 + p,
+h3 + p {
+  color: var(--cdf-ivory-soft);
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+body > *:last-child {
+  background: var(--cdf-base-900);
+  color: var(--cdf-ivory-muted);
+}
+
+/* ============================================================
+   A11y — visible focus ring on every interactive element.
+   GHL's defaults are usually invisible.
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--cdf-champagne-400);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .btn-vp.btn-hp,
+  a.btn-vp.btn-hp,
+  button.btn-vp.btn-hp {
+    transition: none !important;
+  }
+}

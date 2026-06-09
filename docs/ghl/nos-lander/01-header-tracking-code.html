@@ -1,0 +1,124 @@
+<!--
+  CDF NOS Lander — Header Tracking Code (SEO/AEO/AI-EO)
+  Page:  https://sc.capitaldf.com/nos
+  Paste: GHL → Funnel → /nos page → Settings → "Header Tracking Code"
+         (Site-wide level is also OK; per-page is cleaner because the meta
+          is page-specific.)
+
+  What this does:
+    • Gives the page a real <title>, description, viewport, canonical, OG, Twitter
+    • Adds connected JSON-LD (@graph) so Google + AI engines see this lander
+      as part of the SAME entity as capitaldf.com (@id link to the main org)
+    • Adds FAQPage schema matching the 6 visible Q&As already on the page
+      (zero invented content — every answer is what's already rendered)
+    • Adds FinancialProduct/LoanOrCredit for the foreclosure bail-out program
+    • Self-canonical to sc.capitaldf.com/nos (treats this as authoritative for
+      NOS / foreclosure-bail-out queries; per Francisco's choice 2026-06-09)
+
+  Heading-hierarchy fix is in the page editor itself (see README), not here.
+-->
+
+<title>California Notice of Sale: Free Foreclosure Survival Guide | Capital Direct Funding</title>
+<meta name="description" content="Received a California Notice of Sale? Get the free Homeowner's Foreclosure Survival Guide from Capital Direct Funding — decode the NOS, vet help, avoid scams, and explore fast funding options. DRE# 01885595 | NMLS# 1159831.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="canonical" href="https://sc.capitaldf.com/nos">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sc.capitaldf.com/nos">
+<meta property="og:title" content="California Notice of Sale: Free Foreclosure Survival Guide">
+<meta property="og:description" content="Decode the NOS, vet help, avoid scams. Free guide for California homeowners facing foreclosure. From Capital Direct Funding (DRE# 01885595 | NMLS# 1159831).">
+<meta property="og:site_name" content="Capital Direct Funding">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://capitaldf.com/opengraph-image">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="California Notice of Sale: Free Foreclosure Survival Guide">
+<meta name="twitter:description" content="Decode the NOS, vet help, avoid scams. Free guide for California homeowners facing foreclosure.">
+<meta name="twitter:image" content="https://capitaldf.com/opengraph-image">
+
+<!-- Structured data: @graph so Google + AI engines see this lander linked to capitaldf.com's organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["FinancialService","LendingInstitution"],
+      "@id": "https://capitaldf.com/#organization",
+      "name": "Capital Direct Funding",
+      "legalName": "Capital Direct Funding, Inc.",
+      "alternateName": ["CDF","Capital Direct Funding"],
+      "url": "https://capitaldf.com",
+      "logo": "https://capitaldf.com/images/cdf-logo-white.png",
+      "telephone": "(626) 796-1680",
+      "email": "info@capitaldf.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "100 N Citrus St, Suite 530",
+        "addressLocality": "West Covina",
+        "addressRegion": "CA",
+        "postalCode": "91791",
+        "addressCountry": "US"
+      },
+      "areaServed": {"@type":"State","name":"California"},
+      "hasCredential": [
+        {"@type":"EducationalOccupationalCredential","credentialCategory":"license","name":"California Department of Real Estate Broker License","identifier":"DRE# 01885595"},
+        {"@type":"EducationalOccupationalCredential","credentialCategory":"license","name":"NMLS Registration","identifier":"NMLS# 1159831"}
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://capitaldf.com/#website",
+      "url": "https://capitaldf.com",
+      "name": "Capital Direct Funding",
+      "publisher": {"@id":"https://capitaldf.com/#organization"},
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://sc.capitaldf.com/nos#webpage",
+      "url": "https://sc.capitaldf.com/nos",
+      "name": "California Notice of Sale: Free Foreclosure Survival Guide",
+      "description": "Free guide for California homeowners who received a Notice of Sale — decode the NOS, vet help, avoid foreclosure scams, and learn about fast funding options.",
+      "inLanguage": "en-US",
+      "isPartOf": {"@id":"https://capitaldf.com/#website"},
+      "about": {"@id":"https://capitaldf.com/#organization"},
+      "breadcrumb": {"@id":"https://sc.capitaldf.com/nos#breadcrumb"},
+      "speakable": {"@type":"SpeakableSpecification","cssSelector":["h1",".faq-answer"]}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://sc.capitaldf.com/nos#breadcrumb",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://capitaldf.com/"},
+        {"@type":"ListItem","position":2,"name":"Notice of Sale","item":"https://sc.capitaldf.com/nos"}
+      ]
+    },
+    {
+      "@type": ["FinancialProduct","LoanOrCredit"],
+      "name": "California Foreclosure Bail-Out / Notice-of-Sale Bridge Loan",
+      "description": "Short-term private money loan for California homeowners with a recorded Notice of Sale — often funded within days to reinstate the mortgage or bridge to a sale.",
+      "url": "https://sc.capitaldf.com/nos",
+      "loanType": "Foreclosure bail-out bridge loan",
+      "currency": "USD",
+      "category": "Private money loan",
+      "areaServed": {"@type":"State","name":"California"},
+      "provider": {"@id":"https://capitaldf.com/#organization"}
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://sc.capitaldf.com/nos#faqpage",
+      "mainEntity": [
+        {"@type":"Question","name":"What is a private money loan?","acceptedAnswer":{"@type":"Answer","text":"A short-term loan from a private lender — faster than banks, with higher rates. It's a tool, not a long-term solution."}},
+        {"@type":"Question","name":"How can it help me?","acceptedAnswer":{"@type":"Answer","text":"It can fund reinstatement, repairs for a sale, or time to pursue other options."}},
+        {"@type":"Question","name":"Is the guide really free?","acceptedAnswer":{"@type":"Answer","text":"Yes, 100% free with no obligations."}},
+        {"@type":"Question","name":"Will I be pressured to take a loan?","acceptedAnswer":{"@type":"Answer","text":"No. The guide covers all options, and our consultation is to help you decide what's best."}},
+        {"@type":"Question","name":"How fast can I get funding?","acceptedAnswer":{"@type":"Answer","text":"If you qualify, funding can often be arranged within days."}},
+        {"@type":"Question","name":"Why trust Capital Direct Funding Inc?","acceptedAnswer":{"@type":"Answer","text":"We're a licensed lender (DRE# 01885595, NMLS# 1159831), committed to transparency and ethical lending. Our goal is to empower you with options and support."}}
+      ]
+    }
+  ]
+}
+</script>
