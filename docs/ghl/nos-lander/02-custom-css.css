@@ -56,12 +56,22 @@ body {
 /* Headings — institutional Montserrat, tighter tracking. The page has
    16 H1s which is a hierarchy bug; until that's fixed in the editor,
    only the FIRST h1 gets the display treatment so the others read as
-   section titles visually even though their tag is wrong. */
+   section titles visually even though their tag is wrong.
+
+   !important is required because GHL bakes inline color styles directly
+   onto heading nodes (e.g. style="color:#112233"), which would otherwise
+   beat our class-level rule and render dark text on the nocturne base. */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat', system-ui, sans-serif;
-  color: var(--cdf-ivory);
+  font-family: 'Montserrat', system-ui, sans-serif !important;
+  color: var(--cdf-ivory) !important;
   letter-spacing: -0.01em;
   font-weight: 700;
+}
+/* Cascade through GHL's inner wrapper spans/divs without affecting buttons
+   (button labels keep their dark-on-champagne color, set separately below). */
+h1 *, h2 *, h3 *, h4 *, h5 *, h6 * {
+  color: inherit !important;
+  font-family: inherit !important;
 }
 h1:first-of-type {
   font-size: clamp(2.4rem, 5vw, 4rem);
