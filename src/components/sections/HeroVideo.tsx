@@ -83,15 +83,22 @@ export default function HeroVideo() {
         loading="lazy"
         allow="autoplay; encrypted-media; picture-in-picture"
         onLoad={() => setLoaded(true)}
-        className={`absolute left-1/2 top-1/2 h-[180%] w-[180%] min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 border-0 transition-opacity duration-[1200ms] ease-out ${
+        className={`absolute left-1/2 h-[220%] w-[220%] min-h-[140%] min-w-[140%] -translate-x-1/2 border-0 transition-opacity duration-[1200ms] ease-out ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
-        style={{ aspectRatio: "16/9" }}
+        // Anchor the visible window further DOWN inside the iframe so the
+        // upper-third of the video frame (where subjects' heads sit) is
+        // preserved, and the dead-air at the bottom is what gets cropped.
+        // Combined with the 220% scale, any YouTube chrome lives off-screen.
+        style={{ aspectRatio: "16/9", top: "-30%" }}
         tabIndex={-1}
       />
+      {/* Top fade — masks any YouTube title-bar / chrome flash and blends the
+          top edge of the video into the nocturne navy. */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgb(8,11,26)_0%,rgba(8,11,26,0)_100%)]" />
       {/* Tint scrim — keeps the champagne nocturne tone dominant over any
           single video frame, and matches the existing hero-atmosphere depth. */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,11,26,0.62)_0%,rgba(8,11,26,0.42)_45%,rgba(8,11,26,0.72)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,11,26,0.55)_0%,rgba(8,11,26,0.35)_45%,rgba(8,11,26,0.78)_100%)]" />
     </div>
   );
 }
