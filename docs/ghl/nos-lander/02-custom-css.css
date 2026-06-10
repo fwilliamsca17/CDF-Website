@@ -92,40 +92,38 @@ p {
 }
 
 /* ============================================================
-   Hero — overlay the existing background with the nocturne tone
-   so the royal-blue tint and stock-photo overpowering is calmed
+   Hero + section backgrounds — target GHL's actual .fullSection
+   utility class (the page's H1 is nested ~10 layers deep; the
+   outer body>div is a transparent preview wrapper, not a styled
+   section, so we have to reach the right element directly).
    ============================================================ */
-body > div:first-of-type,
-body > section:first-of-type {
-  position: relative;
+.fullSection {
+  background-color: var(--cdf-base-900) !important;
+  position: relative !important;
+  color: var(--cdf-ivory);
+}
+/* The hero is the FIRST .fullSection on the page — give it extra
+   atmosphere: slightly raised navy base + radial champagne glow
+   in the upper-right + dark linear scrim to calm the stock photo. */
+#preview-container .fullSection:first-of-type,
+body .fullSection:first-of-type {
   background-color: var(--cdf-base-800) !important;
 }
-body > div:first-of-type::before,
-body > section:first-of-type::before {
+#preview-container .fullSection:first-of-type::before,
+body .fullSection:first-of-type::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
   background:
-    radial-gradient(120% 80% at 80% -10%, rgba(212,183,139,0.10) 0%, transparent 55%),
+    radial-gradient(120% 80% at 80% -10%, rgba(212,183,139,0.12) 0%, transparent 55%),
     linear-gradient(180deg, rgba(8,11,26,0.55) 0%, rgba(8,11,26,0.78) 100%);
 }
-body > div:first-of-type > *,
-body > section:first-of-type > * {
+#preview-container .fullSection:first-of-type > *,
+body .fullSection:first-of-type > * {
   position: relative;
   z-index: 2;
-}
-
-/* Sections below hero — deep navy alternating with slightly raised navy */
-body > div,
-body > section {
-  background-color: var(--cdf-base-900);
-  color: var(--cdf-ivory);
-}
-body > div:nth-of-type(even),
-body > section:nth-of-type(even) {
-  background-color: var(--cdf-base-800);
 }
 
 /* ============================================================
