@@ -5,7 +5,13 @@
 **Scope:** Visual + SEO/AEO/AI-EO only — forms / automations untouched.
 **Decided 2026-06-09:**
 - Self-canonical (this lander stays the authoritative page for NOS / foreclosure-bail-out search intent).
-- New visible H1: **California Notice of Sale: Free Foreclosure Survival Guide**
+- New visible H1: **You Have Equity. Banks Can't Unlock It. We Can.**
+  (replaces the prior placeholder; reflects Francisco's elevator pitch:
+  "we help owners of real estate gain access to their equity during special
+  circumstances that usually banks can't finance.")
+- Three-tier CTA strategy: **Phone (primary) → Booked Call (secondary) → Free Guide (tertiary)**.
+  Page currently has no phone CTA — adding `tel:+16267961680` in hero + mobile sticky bar.
+- Full copy/CTA rewrite in `03-copy-rewrite.md`.
 
 ---
 
