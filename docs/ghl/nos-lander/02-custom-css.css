@@ -201,6 +201,70 @@ h3 + p {
 }
 
 /* ============================================================
+   GHL FAQ widget — the .hl-faq-child-heading defaults to a
+   WHITE background, which kills contrast for our ivory question
+   text (ivory on white = invisible). Restyle the entire widget
+   to the nocturne palette: deep navy cards, ivory questions,
+   champagne chevrons, soft-ivory answers.
+
+   Selectors are GHL's own widget classes:
+     .hl-faq-child            — accordion item container
+     .hl-faq-child-heading    — clickable question row (had bg:white)
+     .hl-faq-child-heading-text  — the question text node
+     .hl-faq-child-heading-icon  — chevron SVG
+     .hl-faq-child-panel      — expanded answer area
+     .hl-faq-child-item-text  — answer text
+   ============================================================ */
+.hl-faq-child,
+.faq-simple-child {
+  background: transparent !important;
+  border: none !important;
+  margin-bottom: 0.6rem;
+}
+.hl-faq-child-heading {
+  background: var(--cdf-base-700) !important;
+  color: var(--cdf-ivory) !important;
+  border: 1px solid var(--cdf-hairline) !important;
+  border-radius: 10px !important;
+  padding: 1rem 1.25rem !important;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+.hl-faq-child-heading:hover {
+  background: var(--cdf-base-600) !important;
+  border-color: rgba(212,183,139,0.4) !important;
+}
+.hl-faq-child-heading-text {
+  color: var(--cdf-ivory) !important;
+  font-family: 'Montserrat', system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  letter-spacing: -0.005em;
+}
+.hl-faq-child-heading-icon,
+.hl-faq-child-heading-icon svg,
+.hl-faq-child-heading-icon path {
+  color: var(--cdf-champagne-400) !important;
+  stroke: var(--cdf-champagne-400) !important;
+  fill: var(--cdf-champagne-400) !important;
+}
+.hl-faq-child-panel {
+  background: var(--cdf-base-800) !important;
+  color: var(--cdf-ivory-soft) !important;
+  border: 1px solid var(--cdf-hairline) !important;
+  border-top: none !important;
+  border-radius: 0 0 10px 10px !important;
+  padding: 0.5rem 1.25rem 1.25rem !important;
+  margin-top: -2px;
+}
+.hl-faq-child-item-text,
+.hl-faq-child-panel * {
+  color: var(--cdf-ivory-soft) !important;
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
+  line-height: 1.65 !important;
+}
+
+/* ============================================================
    Footer
    ============================================================ */
 body > *:last-child {
