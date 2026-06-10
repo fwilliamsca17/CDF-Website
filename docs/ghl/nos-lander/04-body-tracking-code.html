@@ -1,0 +1,68 @@
+<!--
+  CDF NOS Lander — Body Tracking Code
+  Page:  https://sc.capitaldf.com/nos
+  Paste: GHL → Funnel → /nos page → Settings → "Body tracking code"
+
+  TWO purposes in one block:
+
+  1. Override the <title> and viewport meta that GHL silently strips from
+     the Head Tracking Code (see README's "GHL platform quirks" section).
+     Without this, document.title is empty and Google's mobile-first index
+     sees a broken `viewport="width"` value.
+
+  2. Render the mobile-only sticky phone CTA bar — the highest-conversion
+     CTA channel for a 21-day-window NOS audience. tel: link auto-dials
+     on tap. No TCPA exposure (user-initiated outbound).
+
+  Deployed live 2026-06-09 (verified via Chrome extension drive).
+-->
+
+<script>
+  // GHL strips <title> from head tracking code — set it client-side.
+  // Google's crawler executes JS, so this title IS indexed.
+  document.title = "You Have Equity. Banks Can't Unlock It. We Can. | California Notice of Sale | Capital Direct Funding";
+  // GHL ships viewport meta with content="width" — fix to the standard value
+  // so mobile renders correctly and the mobile-first index is satisfied.
+  var vp = document.querySelector('meta[name="viewport"]');
+  var fixed = 'width=device-width,initial-scale=1,viewport-fit=cover';
+  if (vp) {
+    vp.setAttribute('content', fixed);
+  } else {
+    var m = document.createElement('meta');
+    m.name = 'viewport';
+    m.content = fixed;
+    document.head.appendChild(m);
+  }
+</script>
+
+<!-- CDF Sticky Phone CTA — mobile only -->
+<div id="cdf-sticky-call" style="display:none">
+  <a href="tel:+16267961680" aria-label="Call Capital Direct Funding at (626) 796-1680">
+    📞 Call (626) 796-1680 — Free Consultation
+  </a>
+</div>
+<style>
+  #cdf-sticky-call {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+    background: linear-gradient(180deg,#0b1226,#080b1a);
+    border-top: 1px solid rgba(212,183,139,0.35);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
+  }
+  #cdf-sticky-call a {
+    display: flex; align-items: center; justify-content: center; gap: 0.6em;
+    color: #080b1a !important;
+    background: linear-gradient(180deg,#d4b78b,#c9a87a);
+    border: 1px solid #e6d3a8;
+    border-radius: 10px;
+    padding: 0.85em 1.4em;
+    font-family: Montserrat, system-ui, sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  @media (max-width: 768px) {
+    #cdf-sticky-call { display: block !important; }
+    body { padding-bottom: 5rem !important; }
+  }
+</style>

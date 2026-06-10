@@ -86,6 +86,26 @@ In the GHL editor, change the **hero block's main heading text** to:
 
 ---
 
+## GHL platform quirks discovered during live deployment (2026-06-09)
+
+These are GoHighLevel (Reply Boost whitelabel) sanitization behaviors we
+learned the hard way. Future GHL elevations on other landers should expect
+these and apply the workarounds from the start.
+
+| GHL behavior | Why it matters | Workaround in `01-header-tracking-code.html` / body code |
+|---|---|---|
+| **`<title>` tags are silently STRIPPED from Head Tracking Code** | A `<title>` tag pasted in head code never reaches the rendered page; `document.title` stays empty. | A short `<script>document.title = "..."</script>` block in Body Tracking Code (runs after page load, sets the title client-side). Google's crawler executes JS so this title is indexed. |
+| **Viewport meta is sanitized to just `content="width"`** | Mobile rendering breaks; Google's mobile-first index downgrades the page. | A `<script>` block in Body Tracking Code that calls `setAttribute('content', 'width=device-width,initial-scale=1,...')` on the existing viewport meta. |
+| **No per-page Custom CSS field exists** in this GHL whitelabel | CSS must live somewhere. | Embedded `<style>...CSS...</style>` block inside the Head Tracking Code field, wrapped with `<!-- CDF-NOCTURNE-CSS-START --> ... <!-- CDF-NOCTURNE-CSS-END -->` markers so future updates are idempotent. |
+| **Page builder is inside a cross-origin iframe** (`page-builder.leadconnectorhq.com`) | JS from the parent admin page cannot reach inside it. | Coordinate-based clicks via the Chrome extension still work for builder interactions; everything that needs DOM-aware setting is done at the funnel-level Settings page (textareas live in the parent frame). |
+
+## Per-page settings field paths (Reply Boost / GHL)
+
+Confirmed paths:
+- **Head Tracking Code** → Funnel → Settings tab → "Tracking & scripts" → "Head tracking code" textarea
+- **Body Tracking Code** → Funnel → Settings tab → "Tracking & scripts" → "Body tracking code" textarea
+- The "Custom CSS" / "Page CSS" field does **NOT** exist as a separate option in this GHL whitelabel — use `<style>` in head code instead.
+
 ## Verification checklist (after paste)
 
 Run these against `https://sc.capitaldf.com/nos` once both blocks are pasted + page is republished:
