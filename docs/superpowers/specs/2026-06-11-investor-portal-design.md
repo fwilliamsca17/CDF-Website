@@ -111,6 +111,16 @@ TMO export rows (loan ref, ownership %, principal balance, rate, status;
 transaction date/type/amount/running balance), each row tied to an
 import_batch.
 
+**`investor_accounts`** (1:N per profile — a person may invest personally,
+via SDIRA, and via Solo 401(k) under one login): account_type
+(`individual`|`joint`|`trust`|`entity`|`sdira`|`solo_401k`), custodian
+(Forge Trust, Provident Trust Group, The Entrust Group, other
+self-directed), custodian account #, vesting string exactly as carried on
+recorded documents and in TMO (e.g. "Forge Trust Co. CFBO John Smith IRA
+#12345") — admin-entered, the per-account TMO linking key.
+`investor_positions` reference an account, not the profile; portfolio view
+groups by account with combined totals.
+
 **`borrower_loans`** / **`borrower_transactions`**: read-only TMO mirrors of
 the borrower side (loan ref, property address, original amount, current
 principal, rate, payment amount, next due, maturity, status; payments with
@@ -156,7 +166,9 @@ rendered body, timestamp) — compliance retention + "I never got it" audits.
 
 ## Flows
 
-**Registration → approval**: register (suitability captured) → pending →
+**Registration → approval**: register (suitability captured; asks "how do
+you plan to invest?" — personal / IRA / Solo 401(k) / multiple, so the
+approval email can include custodian next-steps) → pending →
 email with applicant summary + one-tap signed approve link to BOTH Francisco
 and Frank → reminder at 4h, escalate to other partner at 24h → approval email
 → access. Pending users see a redacted "what you'll get" screen, not a wall.
@@ -231,6 +243,13 @@ libs):
 4. Fractionalization (recorded percentage interests, payment splits;
    generic multi-lender description — CA specifics in counsel copy)
 5. Life of the loan, including an honest default/foreclosure walkthrough
+6. Investing through self-directed retirement accounts — SDIRA / Solo
+   401(k) process (open & fund custodial account → direction-of-investment
+   form → custodian funds escrow → note vested in custodian's name FBO
+   investor → payments return to the account). Lists custodians CDF works
+   with (Forge Trust, Provident Trust Group, The Entrust Group; any
+   self-directed custodian accepted). No tax advice — "consult your CPA",
+   counsel-reviewed.
 
 Plus: glossary, FAQ, watermarked SPECIMEN document gallery (redacted deed of
 trust, note, assignment), printable/PDF version of the full guide.
