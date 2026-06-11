@@ -78,6 +78,8 @@ listings go live:
 | `/login` | Public | Magic link with typed-code fallback; auth emails include Frank/Francisco's phone (the real support channel). |
 | `/listings` | Approved investors | Current inventory cards + detail pages (full terms, address, appraisal, photos, remaining amount). Print-friendly. |
 | `/portfolio` | Approved + TMO-linked investors | Positions, payment history, returns. Print-friendly. |
+| `/loans` | Approved + TMO-linked borrowers | Borrower's loans: balance, payment history, next due, documents. Print-friendly. |
+| `/trust-deeds/how-it-works` | Public | Educational visual walkthroughs: origination, deed of trust & lien positions, assignment, fractionalization, life of loan/default. Glossary, FAQ, specimen documents, printable guide. |
 | `/admin` | Admins (uid-keyed) | Approve investors (one-tap from email too), listing CRUD (paste-blurb → parse → confirm), publish w/ compliance sign-off, TMO import, investor↔TMO linking. |
 
 ## Data model
@@ -92,9 +94,11 @@ published_at.
 physically cannot project it): address, appraised_value, purpose, photo
 paths, borrower notes.
 
-**`profiles`** (1:1 auth.users): name, phone, email, suitability answers,
-ca_resident, accredited, approval_status, admin_notes, tmo_investor_ref
-(admin-set), email_alerts.
+**`profiles`** (1:1 auth.users): name, phone, email, **role
+(`investor`|`borrower`|`both`)**, suitability answers (investor roles only),
+ca_resident, accredited, approval_status, admin_notes, tmo_investor_ref,
+tmo_borrower_ref (both admin-set), email_alerts. Borrowers skip RE 870;
+`both` requires the investor approval path for listings/portfolio access.
 
 **`admin_users`**: keyed on `auth.uid()`, written only via service
 role/manual SQL. Admin checks compare uid, never email.
@@ -106,6 +110,24 @@ status (validated|committed|rolled_back), validation flags.
 TMO export rows (loan ref, ownership %, principal balance, rate, status;
 transaction date/type/amount/running balance), each row tied to an
 import_batch.
+
+**`borrower_loans`** / **`borrower_transactions`**: read-only TMO mirrors of
+the borrower side (loan ref, property address, original amount, current
+principal, rate, payment amount, next due, maturity, status; payments with
+interest/principal/late-charge application and running balance), tied to
+import batches like the investor mirrors.
+
+**`loan_documents`**: per-loan document vault (note, deed of trust,
+settlement statement, payoff letters, year-end statements). Admin-uploaded.
+Each document carries a visibility flag: `borrower` | `investor` | `both`.
+Private bucket, per-loan UUID paths, short-TTL signed URLs.
+
+**Cross-visibility rule (security-critical):** borrowers and investors view
+the same loans from opposite sides. RLS partitions by relationship —
+borrower sees their debt and borrower-visible docs; investor sees their
+position and investor-visible docs; neither ever sees the other's identity
+or economics. Enforced by separate mirror tables per role + document flags,
+never by display logic.
 
 **`sent_alerts`**: immutable copy of every alert email (recipient, listing,
 rendered body, timestamp) — compliance retention + "I never got it" audits.
@@ -188,6 +210,35 @@ accounts (Frank, a trusted investor) before general approval opens.
 
 **Phase 3 — listings go live** once the exemption decision dictates final
 visibility rules.
+
+**Borrower display**: balances and payment history (not "returns"):
+current balance, paid-to-date, next payment due, ledger per loan, documents.
+Payoff figures explicitly marked "not an official payoff quote — contact us
+for a payoff demand." Same "as of <last import>" stamping and freshness
+banner. Linking is the same manual admin match via tmo_borrower_ref.
+
+## Investor resources section (public, educational)
+
+`/trust-deeds/how-it-works`: visual step-by-step walkthroughs rendered as
+static SVG/React diagrams in the Nocturne design language (no heavy chart
+libs):
+
+1. New loan origination (application → underwriting → appraisal →
+   escrow/title → recording → funding)
+2. How the investment is secured (deed of trust, lien positions as a capital
+   stack, recording, title insurance)
+3. Loan assignment (note + DOT assigned and recorded, documents received)
+4. Fractionalization (recorded percentage interests, payment splits;
+   generic multi-lender description — CA specifics in counsel copy)
+5. Life of the loan, including an honest default/foreclosure walkthrough
+
+Plus: glossary, FAQ, watermarked SPECIMEN document gallery (redacted deed of
+trust, note, assignment), printable/PDF version of the full guide.
+
+Compliance: educational and generic only — no live yields, no deal
+references, no "safe/guaranteed" language; counsel-reviewed; broker/DRE
+license identification on every page. Gated listing details may deep-link
+into these explainers (e.g., fractional listings → fractionalization page).
 
 ## Error handling
 
