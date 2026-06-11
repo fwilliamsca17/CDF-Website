@@ -40,7 +40,22 @@ listings go live:
 
 ## Stack
 
-- **Supabase** (Pro tier): auth (magic link only), Postgres + RLS, storage.
+- **Supabase, self-hosted** (docker-compose bundle) on CDF's existing docker
+  stack, behind nginx proxy manager at a dedicated subdomain (e.g.
+  `db.capital-df.com`): auth (magic link only), Postgres + RLS, storage.
+  Accepted trade-off: Francisco owns uptime/patching; at <300
+  investors/loans, downtime is tolerable and fixable in-house.
+  **Self-host hardening (required, part of the Phase 1 gate):**
+  - TLS via NPM/Let's Encrypt; only ports 80/443 exposed; Supabase Studio
+    and Postgres port NOT internet-reachable (LAN/VPN only).
+  - All default secrets rotated (JWT secret, anon/service keys, dashboard
+    password, SMTP creds); `.env` never committed.
+  - Nightly `pg_dump` to the existing wca-data-archive backup routine +
+    periodic restore test; storage volume included in backups.
+  - Auth emails via Resend SMTP (self-hosted Supabase ships no mailer).
+  - Documented upgrade procedure; pin image versions, upgrade deliberately.
+  - Basic intrusion hygiene: fail2ban/rate limits at NPM, auth logs
+    retained.
 - **Resend** on a dedicated subdomain (e.g. `listings.capital-df.com`) with
   SPF/DKIM/DMARC from day one; individual sends, never shared To/CC.
 - Next.js stays on Vercel. New deps: `@supabase/supabase-js`,
@@ -150,7 +165,9 @@ projections, no IRR, nothing resembling investment advice. Freshness banner
 
 ## Rollout: sandbox before sensitive data
 
-**Phase 0 — build on synthetic data only.** Seed script creates obviously
+**Phase 0 — build on synthetic data only.** Self-hosted Supabase stood up on
+the docker stack first (or local docker during development); the synthetic
+sandbox doubles as the shakedown of the self-host install itself. Seed script creates obviously
 fake investors/loans/transactions ("Sample Investor A", $123,456). Full
 click-through locally and on a password-protected Vercel preview. No real
 names, addresses, or financials exist anywhere in the system.
