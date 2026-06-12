@@ -132,7 +132,10 @@ insert into borrower_loans
   (borrower_id, loan_ref, property_address, original_amount, current_principal,
    rate_pct, payment_amount, next_due_date, maturity_date, status, as_of)
 select user_id,
-       'SYN-LN-' || substring(full_name from 'Sample (?:Borrower|Hybrid) (\d)'),
+       case
+         when full_name = 'Sample Hybrid 1' then 'SYN-LN-HY1'
+         else 'SYN-LN-' || substring(full_name from 'Sample Borrower (\d)')
+       end,
        '456 Sample Ave, Sample City, SAMPLE-DATA 90000',
        300000, 295000, 11.00, 2750.00,
        (current_date + interval '15 days')::date,
@@ -193,7 +196,7 @@ select lr, 'SYNTHETIC ' || vis || ' doc — ' || lr,
        'Phase-0 placeholder document',
        'phase0/' || lr || '/' || vis || '.pdf',
        vis::doc_visibility
-from (values ('SYN-LN-1'),('SYN-LN-2'),('SYN-LN-3')) as l(lr)
+from (values ('SYN-LN-1'),('SYN-LN-2'),('SYN-LN-3'),('SYN-LN-HY1')) as l(lr)
 cross join (values ('borrower'),('investor'),('both')) as v(vis);
 
 -- ============================================================
