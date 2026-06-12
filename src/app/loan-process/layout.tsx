@@ -24,6 +24,7 @@ export default function LoanProcessLayout({ children }: { children: React.ReactN
           { name: "Home", path: "/" },
           { name: "Loan Process", path: "/loan-process" },
         ]}
+        speakable={["h1", "h2", ".eyebrow + h2 + p"]}
       />
       <HowToSchema />
       {children}

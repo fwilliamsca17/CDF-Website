@@ -19,13 +19,36 @@ export const SITE_CONFIG = {
   },
   social: {
     linkedin: "https://linkedin.com/company/capital-direct-funding",
+    facebook: "https://www.facebook.com/p/Capital-Direct-Funding-Inc-100068992066992/",
+    instagram: "https://www.instagram.com/capital_df/",
+    youtube: "https://www.youtube.com/@capitaldirectfundinginc.1382",
+    yelp: "https://www.yelp.com/biz/capital-direct-funding-west-covina-2",
   },
 };
 
-export const NAV_ITEMS = [
+export type NavChild = {
+  label: string;
+  href: string;
+  description: string;
+};
+
+export type NavItem =
+  | { label: string; href: string; children?: undefined }
+  | { label: string; href: string; children: NavChild[] };
+
+export const NAV_ITEMS: NavItem[] = [
   { label: "Borrowers", href: "/borrowers" },
   { label: "Investors", href: "/investors" },
-  { label: "Loan Process", href: "/loan-process" },
+  {
+    label: "Professionals",
+    href: "/professionals",
+    children: [
+      { label: "Attorneys", href: "/professionals/attorneys", description: "Probate, estate, bankruptcy & family law" },
+      { label: "CPAs & Tax Advisors", href: "/professionals/cpas", description: "Tax-advantaged strategies for your clients" },
+      { label: "Mortgage Professionals", href: "/professionals/mortgage", description: "Non-QM solutions for your pipeline" },
+      { label: "Real Estate Agents", href: "/professionals/real-estate", description: "Close more deals, faster" },
+    ],
+  },
   { label: "About", href: "/about" },
   { label: "Team", href: "/team" },
   { label: "Blog", href: "/blog" },
@@ -226,40 +249,40 @@ export const VALUE_PROPS = [
 
 export const INVESTOR_BENEFITS = [
   {
-    title: "Whole-Note Investments",
+    title: "You Select Every Deal",
     description:
-      "Invest in individual loans secured by California real estate. Full transparency on every deal with direct ownership of the note.",
-    icon: "FileText",
+      "No blind pools. Review individual loan opportunities and choose which to fund based on property, borrower, LTV, and terms.",
+    icon: "Eye",
   },
   {
-    title: "First Trust Deed Security",
+    title: "First Trust Deed Position",
     description:
-      "Every investment is secured by a first-position trust deed on the underlying property, providing a tangible asset backing your investment.",
+      "Your name is on the recorded deed of trust \u2014 the senior lien on the property. The same security instrument a bank holds.",
     icon: "Shield",
   },
   {
-    title: "Consistent Returns",
+    title: "Monthly Interest Income",
     description:
-      "Earn attractive, risk-adjusted returns backed by real property. Monthly interest payments provide steady, predictable income.",
+      "Earn 8.95\u201310.95% annual yields paid monthly. Passive income backed by California real property, not market performance.",
     icon: "TrendingUp",
   },
   {
-    title: "Capital Preservation",
+    title: "No Fund Fees or Lock-ups",
     description:
-      "Conservative loan-to-value ratios and thorough underwriting protect your principal. Every loan is personally reviewed by our team.",
-    icon: "Lock",
+      "No management fees, no performance fees, no redemption gates. Your return is the stated rate on the note. Capital returns at maturity.",
+    icon: "DollarSign",
   },
   {
-    title: "California Real Estate Backed",
+    title: "IRA & 401(k) Compatible",
     description:
-      "All loans are secured by California real property \u2014 one of the most liquid and valuable real estate markets in the world.",
-    icon: "Building2",
+      "Invest through self-directed IRAs, Solo 401(k)s, trusts, or entities. We coordinate directly with your custodian for funding and payoff.",
+    icon: "PiggyBank",
   },
   {
-    title: "Experienced Management",
+    title: "Personally Underwritten",
     description:
-      "Over 15 years of real estate and finance expertise across multiple disciplines, with a proven track record of capital preservation.",
-    icon: "Award",
+      "Francisco and Frank personally review every loan. Independent appraisals, title insurance, and escrow-managed disbursements on every deal.",
+    icon: "Handshake",
   },
 ];
 
@@ -351,13 +374,37 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "For Investors",
     question: "How do trust deed investments work?",
     answer:
-      "Accredited investors can invest in whole-note, first trust deed positions secured by California real estate. Each investment is individually selected and personally underwritten with conservative loan-to-value ratios. Investors earn monthly interest payments with yields between 8.95% and 10.95%.",
+      "A trust deed investment is a loan you make to a real estate borrower, secured by a recorded first-position lien on their property. CDF originates and underwrites the loan, then presents it to you with full deal details. If you fund the deal, a first trust deed is recorded in your name at the county recorder's office. You earn monthly interest for the life of the loan, and your principal is returned through escrow when the borrower pays off.",
   },
   {
     category: "For Investors",
     question: "What returns can trust deed investors earn?",
     answer:
       "Accredited investors in our whole-note, first trust deed positions earn monthly interest with yields between 8.95% and 10.95%, secured by California real estate at conservative loan-to-value ratios.",
+  },
+  {
+    category: "For Investors",
+    question: "What is the minimum investment amount?",
+    answer:
+      "CDF offers whole-note investments, meaning you fund the entire loan. There are no fractional pools or participation certificates. Loan amounts typically range from $100,000 to $5,000,000, so the minimum investment corresponds to the size of the individual loan opportunity.",
+  },
+  {
+    category: "For Investors",
+    question: "Can I invest through a self-directed IRA or Solo 401(k)?",
+    answer:
+      "Yes. Trust deed investments work with self-directed IRAs (through custodians like Forge Trust, Provident Trust Group, or The Entrust Group), Solo 401(k) plans, living trusts, family trusts, LLCs, and corporations. CDF coordinates directly with your custodian or plan administrator for funding and payoff.",
+  },
+  {
+    category: "For Investors",
+    question: "How is my investment secured?",
+    answer:
+      "Every investment is secured by a recorded first trust deed — the senior lien position on the property. This is the same security instrument a bank holds on a mortgage. In addition, every loan includes an independent appraisal, title insurance, borrower personal guarantees, and escrow-managed disbursements.",
+  },
+  {
+    category: "For Investors",
+    question: "How is CDF different from a real estate fund or crowdfunding platform?",
+    answer:
+      "CDF offers direct investment: you review each loan individually, choose which to fund, and hold the recorded deed of trust in your name (or entity). There are no blind pools, no management fees, no lock-up periods, and no platform intermediary. You own the actual note, not a fund share or participation certificate.",
   },
   {
     category: "About CDF",
@@ -533,6 +580,12 @@ export const FOOTER_LINKS = {
     { label: "How It Works", href: "/investors#how-it-works" },
     { label: "Returns & Security", href: "/investors#returns" },
     { label: "Get Started", href: "/investors#get-started" },
+  ],
+  professionals: [
+    { label: "Attorneys", href: "/professionals/attorneys" },
+    { label: "CPAs & Tax Advisors", href: "/professionals/cpas" },
+    { label: "Mortgage Professionals", href: "/professionals/mortgage" },
+    { label: "Real Estate Agents", href: "/professionals/real-estate" },
   ],
   company: [
     { label: "About Us", href: "/about" },

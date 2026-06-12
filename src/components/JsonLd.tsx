@@ -103,7 +103,13 @@ function OrganizationSchema() {
         identifier: `NMLS# ${SITE_CONFIG.nmls}`,
       },
     ],
-    sameAs: [SITE_CONFIG.social.linkedin],
+    sameAs: [
+      SITE_CONFIG.social.linkedin,
+      SITE_CONFIG.social.facebook,
+      SITE_CONFIG.social.instagram,
+      SITE_CONFIG.social.youtube,
+      SITE_CONFIG.social.yelp,
+    ],
     slogan: SITE_CONFIG.tagline,
     currenciesAccepted: "USD",
     paymentAccepted: "Wire Transfer, Check",
@@ -279,6 +285,112 @@ function FAQSchema() {
   return <JsonLdScript schema={schema} />;
 }
 
+function InvestorHowToSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to invest in trust deeds with Capital Direct Funding",
+    description:
+      "The six-step process for accredited investors to invest directly in whole-note, first trust deed positions secured by California real estate.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Introduction Call",
+        text: "Speak directly with Francisco or Frank about your investment goals, risk tolerance, and preferred deal types.",
+        url: `${BASE}/investors#how-it-works`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Review Deal Details",
+        text: "When a loan matches your criteria, we present the full package: property address, photos, independent appraisal, borrower profile, loan-to-value ratio, interest rate, term, and exit strategy.",
+        url: `${BASE}/investors#how-it-works`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Select and Fund Through Escrow",
+        text: "You choose which deals to invest in. Capital is disbursed through a licensed escrow company with title insurance on every transaction.",
+        url: `${BASE}/investors#how-it-works`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Deed Recorded in Your Name",
+        text: "A first trust deed is recorded at the county recorder's office in your name (or your entity, trust, or custodian), securing the senior lien position on the property.",
+        url: `${BASE}/investors#how-it-works`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 5,
+        name: "Earn Monthly Interest",
+        text: "Receive monthly interest payments for the life of the loan. CDF handles all servicing — payment collection, escrow management, and reporting.",
+        url: `${BASE}/investors#how-it-works`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 6,
+        name: "Principal Returned at Payoff",
+        text: "When the borrower refinances or sells the property, your full principal is returned through escrow. Reinvest in the next opportunity.",
+        url: `${BASE}/investors#how-it-works`,
+      },
+    ],
+  };
+
+  return <JsonLdScript schema={schema} />;
+}
+
+function InvestmentProductSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "InvestmentOrDeposit",
+    name: "Whole-Note First Trust Deed Investment",
+    description:
+      "Direct investment in whole-note, first trust deed positions secured by California real estate. Accredited investors select individual loans and earn monthly interest at 8.95%–10.95% yields.",
+    url: `${BASE}/investors`,
+    provider: { "@id": ORG_ID },
+    category: "Trust Deed Investment",
+    amount: {
+      "@type": "MonetaryAmount",
+      currency: "USD",
+      minValue: 100000,
+      maxValue: 5000000,
+    },
+    annualPercentageRate: {
+      "@type": "QuantitativeValue",
+      minValue: 8.95,
+      maxValue: 10.95,
+      unitCode: "P1",
+    },
+    areaServed: {
+      "@type": "State",
+      name: "California",
+      sameAs: "https://en.wikipedia.org/wiki/California",
+    },
+    feesAndCommissionsSpecification: "No management fees, no performance fees, no lock-up periods.",
+  };
+
+  return <JsonLdScript schema={schema} />;
+}
+
+function VideoObjectSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: "Capital Direct Funding — Private Lending for California Real Estate",
+    description:
+      "Overview of Capital Direct Funding's private lending services for California real estate borrowers and trust deed investors.",
+    thumbnailUrl: `${BASE}/images/og-image.jpg`,
+    uploadDate: "2024-01-01",
+    contentUrl: "https://www.youtube.com/watch?v=4xHQQiQBnJk",
+    embedUrl: "https://www.youtube.com/embed/4xHQQiQBnJk",
+    publisher: { "@id": ORG_ID },
+  };
+
+  return <JsonLdScript schema={schema} />;
+}
+
 function BreadcrumbSchema({ items }: { items: { name: string; url: string }[] }) {
   const schema = {
     "@context": "https://schema.org",
@@ -358,6 +470,9 @@ export {
   LoanProductsSchema,
   HowToSchema,
   FAQSchema,
+  InvestorHowToSchema,
+  InvestmentProductSchema,
+  VideoObjectSchema,
   BreadcrumbSchema,
   PageSeo,
 };

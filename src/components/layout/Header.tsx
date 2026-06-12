@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 import MobileNav from "./MobileNav";
@@ -11,6 +11,9 @@ import MobileNav from "./MobileNav";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownTimeout = useRef<ReturnType<typeof setTimeout>>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -28,6 +31,15 @@ export default function Header() {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
+
+  function openDropdown() {
+    if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
+    setDropdownOpen(true);
+  }
+
+  function closeDropdown() {
+    dropdownTimeout.current = setTimeout(() => setDropdownOpen(false), 150);
+  }
 
   return (
     <header
@@ -50,16 +62,77 @@ export default function Header() {
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-link"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <nav className="hidden lg:flex items-center gap-6">
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <div
+                  key={item.href}
+                  ref={dropdownRef}
+                  className="relative"
+                  onMouseEnter={openDropdown}
+                  onMouseLeave={closeDropdown}
+                >
+                  <Link
+                    href={item.href}
+                    className="nav-link inline-flex items-center gap-1"
+                    onFocus={openDropdown}
+                    onBlur={closeDropdown}
+                  >
+                    {item.label}
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                        dropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </Link>
+
+                  <div
+                    className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ${
+                      dropdownOpen
+                        ? "opacity-100 translate-y-0 pointer-events-auto"
+                        : "opacity-0 -translate-y-2 pointer-events-none"
+                    }`}
+                  >
+                    <div className="bg-ink-900/95 backdrop-blur-xl rounded-xl border border-white/10 shadow-2xl p-2 w-72">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block rounded-lg px-4 py-3 hover:bg-white/5 transition-colors group"
+                          onFocus={openDropdown}
+                          onBlur={closeDropdown}
+                        >
+                          <span className="block text-sm font-medium text-white group-hover:text-champagne-300 transition-colors">
+                            {child.label}
+                          </span>
+                          <span className="block text-xs text-white/40 mt-0.5">
+                            {child.description}
+                          </span>
+                        </Link>
+                      ))}
+                      <div className="border-t border-white/5 mt-1 pt-1">
+                        <Link
+                          href={item.href}
+                          className="block rounded-lg px-4 py-2.5 hover:bg-white/5 transition-colors text-xs text-champagne-400 font-medium"
+                          onFocus={openDropdown}
+                          onBlur={closeDropdown}
+                        >
+                          View All Professionals →
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-link"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
             <Button href="/contact" variant="gold" size="sm">
               Get Funded
             </Button>

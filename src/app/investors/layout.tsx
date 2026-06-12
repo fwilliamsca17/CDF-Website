@@ -1,14 +1,31 @@
 import type { Metadata } from "next";
-import { PageSeo } from "@/components/JsonLd";
+import { PageSeo, InvestorHowToSchema, InvestmentProductSchema } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Trust Deed Investments for Accredited Investors — 8.95%–10.95% Yields",
+  title: "Direct Trust Deed Investment — Whole-Note, First Position, 8.95%–10.95% Yields",
   description:
-    "Earn consistent returns with whole-note, first trust deed investments secured by California real estate. Yields from 8.95% to 10.95%. Conservative LTV ratios, monthly interest payments, and complete transparency.",
+    "Invest directly in California real estate through whole-note first trust deed positions. You select the deal, own the note, and hold the recorded lien. 8.95%–10.95% annual yields, monthly interest, no fund fees. Available to accredited investors.",
+  keywords: [
+    "trust deed investment",
+    "trust deed investing",
+    "first trust deed investment",
+    "whole note investment",
+    "private money investment",
+    "real estate backed investment",
+    "accredited investor California",
+    "trust deed yields",
+    "monthly interest real estate",
+    "self directed IRA real estate",
+    "solo 401k real estate investment",
+    "private lending investment",
+    "California trust deed",
+    "direct real estate investment",
+    "passive real estate income",
+  ],
   openGraph: {
-    title: "Invest in Trust Deeds — Capital Direct Funding",
+    title: "Direct Trust Deed Investment — Capital Direct Funding",
     description:
-      "Whole-note first trust deed investments. 8.95%–10.95% yields secured by California real estate.",
+      "Whole-note first trust deed investments. Select individual deals, own the note directly, earn monthly interest secured by California real estate.",
   },
   alternates: { canonical: "https://capitaldf.com/investors" },
 };
@@ -16,14 +33,17 @@ export const metadata: Metadata = {
 export default function InvestorsLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <InvestorHowToSchema />
+      <InvestmentProductSchema />
       <PageSeo
-        title="Trust Deed Investments for Accredited Investors"
-        description="Whole-note, first trust deed investments secured by California real estate, with monthly interest and yields from 8.95% to 10.95%."
+        title="Direct Trust Deed Investment for Accredited Investors"
+        description="Invest directly in whole-note, first trust deed positions secured by California real estate. You select the deal, own the note, and earn monthly interest at 8.95%–10.95% yields."
         path="/investors"
         crumbs={[
           { name: "Home", path: "/" },
           { name: "Investors", path: "/investors" },
         ]}
+        speakable={["h1", "h2", ".eyebrow + h2 + p"]}
       />
       {children}
     </>

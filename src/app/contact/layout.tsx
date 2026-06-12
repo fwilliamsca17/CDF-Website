@@ -24,6 +24,7 @@ export default function ContactLayout({ children }: { children: React.ReactNode 
           { name: "Home", path: "/" },
           { name: "Contact", path: "/contact" },
         ]}
+        speakable={["h1", "address", ".eyebrow + h2 + p"]}
       />
       {children}
     </>

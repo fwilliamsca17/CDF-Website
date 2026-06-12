@@ -24,6 +24,7 @@ export default function AboutLayout({ children }: { children: React.ReactNode })
           { name: "Home", path: "/" },
           { name: "About", path: "/about" },
         ]}
+        speakable={["h1", "h2", ".eyebrow + h2 + p"]}
       />
       {children}
     </>

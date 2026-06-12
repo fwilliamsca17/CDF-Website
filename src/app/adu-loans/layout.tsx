@@ -34,6 +34,7 @@ export default function ADULayout({ children }: { children: React.ReactNode }) {
           { name: "Home", path: "/" },
           { name: "ADU Construction Loans", path: "/adu-loans" },
         ]}
+        speakable={["h1", "h2", ".eyebrow + h2 + p"]}
       />
       {children}
     </>
