@@ -1,22 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is the Capital Direct Funding website. The `investor-portal-plan`
+branch contains the Phase 0 investor portal sandbox, backed by self-hosted
+Supabase and populated only with synthetic data.
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies and run the development server:
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` to `.env.local` and keep `NEXT_PUBLIC_PHASE_0=1` for any
+investor portal preview.
+
+## Investor Portal Phase 0
+
+Phase 0 is a sandbox only. It must not contain real investor, borrower, loan,
+or TMO data.
+
+### Local seed
+
+```bash
+npm run seed
+```
+
+The seed creates obvious synthetic users such as `investor-c@example.invalid`
+and `hybrid-1@example.invalid`. See
+`docs/superpowers/plans/2026-06-11-phase0-demo-walkthrough.md` for the full
+click-through.
+
+### Preview deployment
+
+1. Deploy the `investor-portal-plan` branch to Vercel.
+2. Enable Vercel Deployment Protection for Preview deployments using a
+   password or Vercel Authentication.
+3. Configure preview-only env vars:
+   `NEXT_PUBLIC_PHASE_0=1`, `NEXT_PUBLIC_SUPABASE_URL`,
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`,
+   `RESEND_API_KEY`, and `RESEND_FROM_EMAIL`.
+4. Confirm the in-app banner reads `SANDBOX - synthetic data only`.
+
+### Accessibility gate
+
+```bash
+npm run build
+npm run lighthouse:a11y
+```
+
+`lighthouserc.cjs` enforces accessibility score `>= 0.95` on `/`,
+`/trust-deeds`, `/trust-deeds/how-it-works`, `/login`, and
+`/dashboard/pending`.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

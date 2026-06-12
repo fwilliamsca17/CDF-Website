@@ -1,0 +1,27 @@
+name: Lighthouse a11y
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lighthouse-a11y:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_PHASE_0: "1"
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.PREVIEW_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PREVIEW_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PREVIEW_SUPABASE_SERVICE_ROLE_KEY }}
+      RESEND_API_KEY: ${{ secrets.PREVIEW_RESEND_API_KEY }}
+      RESEND_FROM_EMAIL: ${{ secrets.PREVIEW_RESEND_FROM_EMAIL }}
+      LIGHTHOUSE_BASE_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lighthouse:a11y
