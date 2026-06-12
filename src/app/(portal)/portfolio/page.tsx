@@ -43,6 +43,13 @@ interface Account {
   custodian: string;
   vesting_string: string;
 }
+interface Doc {
+  id: string;
+  loan_ref: string;
+  title: string;
+  description: string | null;
+  visibility: string;
+}
 
 function ytdSum(tx: Tx[], year: number, accountId: string) {
   return tx
@@ -65,7 +72,13 @@ export default async function PortfolioPage({
   const { supabase } = guard;
   const sp = await searchParams;
 
-  const [{ data: accounts }, { data: positions }, { data: transactions }, { data: lastBatch }] = await Promise.all([
+  const [
+    { data: accounts },
+    { data: positions },
+    { data: transactions },
+    { data: docs },
+    { data: lastBatch },
+  ] = await Promise.all([
     supabase
       .from("investor_accounts")
       .select("id, account_type, custodian, vesting_string")
@@ -79,6 +92,7 @@ export default async function PortfolioPage({
       .from("investor_transactions")
       .select("id, account_id, loan_ref, tx_date, tx_type, amount")
       .order("tx_date", { ascending: false }),
+    supabase.from("loan_documents").select("id, loan_ref, title, description, visibility"),
     supabase
       .from("import_batches")
       .select("uploaded_at")
@@ -91,6 +105,7 @@ export default async function PortfolioPage({
   const acctList = (accounts ?? []) as Account[];
   const posList = (positions ?? []) as Position[];
   const txList = (transactions ?? []) as Tx[];
+  const docList = (docs ?? []) as Doc[];
 
   const allYears = Array.from(
     new Set(txList.map((t) => new Date(t.tx_date).getFullYear()))
@@ -136,6 +151,12 @@ export default async function PortfolioPage({
 
       {acctList.map((acct) => {
         const positionsForAcct = posList.filter((p) => p.account_id === acct.id);
+        const loanRefsForAcct = new Set(positionsForAcct.map((p) => p.loan_ref));
+        const docsForAcct = docList.filter(
+          (doc) =>
+            loanRefsForAcct.has(doc.loan_ref) &&
+            (doc.visibility === "investor" || doc.visibility === "both"),
+        );
         return (
           <section
             key={acct.id}
@@ -211,6 +232,25 @@ export default async function PortfolioPage({
                   ))}
                 </tbody>
               </table>
+            )}
+
+            {docsForAcct.length > 0 && (
+              <div className="border-t border-champagne-700/20 pt-4">
+                <h3 className="text-heading-sm font-heading mb-3">Documents</h3>
+                <ul className="grid gap-2 md:grid-cols-2 text-base">
+                  {docsForAcct.map((doc) => (
+                    <li key={doc.id} className="rounded border border-champagne-700/20 p-3">
+                      <a href={`/api/documents/${doc.id}`} className="text-champagne-300 underline">
+                        {doc.title}
+                      </a>
+                      <p className="text-sm text-ivory/60">
+                        Loan {doc.loan_ref}
+                        {doc.description ? ` - ${doc.description}` : ""}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </section>
         );

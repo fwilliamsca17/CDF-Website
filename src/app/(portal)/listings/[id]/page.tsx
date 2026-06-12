@@ -9,6 +9,7 @@ import {
   listingStatusLabel,
 } from "@/lib/portal/format";
 import { DRE_LICENSE_LINE } from "@/lib/portal/constants";
+import AllocationRequestForm from "./AllocationRequestForm";
 
 export const metadata: Metadata = {
   title: "Listing — CDF Investor Group",
@@ -23,19 +24,37 @@ export default async function ListingDetail({
 }) {
   const guard = await requireApprovedInvestor();
   if ("redirectTo" in guard) redirect(guard.redirectTo ?? "/login");
-  const { supabase } = guard;
+  const { supabase, user } = guard;
   const { id } = await params;
 
-  const [{ data: l }, { data: priv }] = await Promise.all([
-    supabase.from("listings").select("*").eq("id", id).single(),
+  const [{ data: l }, { data: priv }, { data: accounts }, { data: requests }] = await Promise.all([
+    supabase
+      .from("listings")
+      .select("*")
+      .eq("id", id)
+      .eq("compliance_approved", true)
+      .not("published_at", "is", null)
+      .in("status", ["available", "partially_placed"])
+      .maybeSingle(),
     supabase
       .from("listing_private")
       .select("address, appraised_value, purpose, borrower_notes")
       .eq("listing_id", id)
       .maybeSingle(),
+    supabase
+      .from("investor_accounts")
+      .select("id, account_type, custodian, vesting_string")
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("allocation_requests")
+      .select("id, account_id, requested_amount, approved_amount, status")
+      .eq("listing_id", id)
+      .eq("profile_id", user.id)
+      .order("created_at", { ascending: false }),
   ]);
 
-  if (!l || !l.compliance_approved) notFound();
+  if (!l) notFound();
+  const netRate = l.net_investor_rate_pct ?? l.yield_pct;
 
   return (
     <main className="container-cdf py-12 max-w-4xl">
@@ -49,11 +68,15 @@ export default async function ListingDetail({
             className="text-display-lg font-heading text-champagne-300 mb-1"
             style={{ fontFeatureSettings: '"tnum"' }}
           >
-            {pct(l.yield_pct)}
+            {pct(netRate)}
           </h1>
           <p className="text-xl">
-            {lienPositionLabel(l.lien_position)} Trust Deed ·{" "}
+            Net investor rate · {lienPositionLabel(l.lien_position)} Trust Deed ·{" "}
             {l.property_type} · {l.city}, {l.state}
+          </p>
+          <p className="mt-2 text-base text-ivory/70">
+            CDF services the loan and retains a disclosed {pct(l.servicing_spread_pct)}
+            {" "}servicing spread from interest collected on the loan.
           </p>
         </div>
         <div className="text-right space-y-1">
@@ -72,6 +95,8 @@ export default async function ListingDetail({
           <dd style={{ fontFeatureSettings: '"tnum"' }}>{money(l.amount)}</dd>
           <dt className="text-ivory/60">Remaining</dt>
           <dd style={{ fontFeatureSettings: '"tnum"' }}>{money(l.remaining_amount)}</dd>
+          <dt className="text-ivory/60">Minimum review amount</dt>
+          <dd style={{ fontFeatureSettings: '"tnum"' }}>{money(l.min_investment)}</dd>
           <dt className="text-ivory/60">LTV / CLTV</dt>
           <dd style={{ fontFeatureSettings: '"tnum"' }}>
             {pct(l.ltv_pct)} / {pct(l.cltv_pct)}
@@ -84,7 +109,16 @@ export default async function ListingDetail({
           <dd>{l.prepay_months ? `${l.prepay_months} months` : "None"}</dd>
           <dt className="text-ivory/60">Occupancy</dt>
           <dd>{l.occupancy ?? "—"}</dd>
+          <dt className="text-ivory/60">Funding structure</dt>
+          <dd>{fundingStructureLabel(l.funding_structure)}</dd>
+          <dt className="text-ivory/60">Assignment status</dt>
+          <dd>{workflowLabel(l.assignment_status)}</dd>
+          <dt className="text-ivory/60">Funds status</dt>
+          <dd>{workflowLabel(l.funds_status)}</dd>
         </dl>
+        {l.assignment_process_notes && (
+          <p className="mt-6 text-base text-ivory/75">{l.assignment_process_notes}</p>
+        )}
       </section>
 
       {priv && (
@@ -106,9 +140,29 @@ export default async function ListingDetail({
         </section>
       )}
 
+      <AllocationRequestForm
+        listingId={l.id}
+        accounts={(accounts ?? []).map((account) => ({
+          id: account.id,
+          account_type: account.account_type,
+          custodian: account.custodian,
+          vesting_string: account.vesting_string,
+        }))}
+        existingRequests={(requests ?? []).map((request) => ({
+          id: request.id,
+          account_id: request.account_id,
+          requested_amount: Number(request.requested_amount),
+          approved_amount:
+            request.approved_amount === null ? null : Number(request.approved_amount),
+          status: request.status,
+        }))}
+        minInvestment={l.min_investment === null ? null : Number(l.min_investment)}
+        remainingAmount={l.remaining_amount === null ? null : Number(l.remaining_amount)}
+      />
+
       <p className="text-sm text-ivory/60 print:hidden">
-        Interested? Call us — every investment goes through a personal
-        conversation first.
+        Every allocation request goes through a personal conversation first.
+        Account vesting shown above is for review only.
       </p>
 
       <footer className="pt-12 border-t border-champagne-700/20 text-xs text-ivory/60 mt-12">
@@ -116,4 +170,25 @@ export default async function ListingDetail({
       </footer>
     </main>
   );
+}
+
+function workflowLabel(value: string | null | undefined) {
+  if (!value) return "—";
+  return value
+    .split("_")
+    .map((part) => part[0]?.toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function fundingStructureLabel(value: string | null | undefined) {
+  switch (value) {
+    case "direct_funded":
+      return "Direct-funded";
+    case "originated_assignment":
+      return "Originated / assignment";
+    case "fund_retained_interest":
+      return "Fund retained interest";
+    default:
+      return "—";
+  }
 }

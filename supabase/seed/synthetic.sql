@@ -24,6 +24,9 @@ begin;
 -- Wipe prior synthetic data (cascade through fk).
 delete from sent_alerts        where subject like 'SYNTHETIC%';
 delete from loan_documents     where title like 'SYNTHETIC%';
+delete from allocation_requests
+  where listing_id in (select id from listings where city like 'Sample%')
+     or profile_id in (select user_id from profiles where full_name like 'Sample %');
 delete from borrower_transactions
   where loan_id in (select id from borrower_loans where loan_ref like 'SYN-%');
 delete from borrower_loans     where loan_ref like 'SYN-%';
@@ -61,20 +64,25 @@ with new_listings as (
   insert into listings (amount, remaining_amount, yield_pct, lien_position,
                         property_type, city, state, ltv_pct, cltv_pct,
                         term_months, amortization, prepay_months, occupancy,
-                        status, rate_increase, compliance_approved, published_at)
+                        status, rate_increase, compliance_approved, published_at,
+                        net_investor_rate_pct, servicing_spread_pct,
+                        borrower_note_rate_pct, funding_structure,
+                        fund_retained_amount, min_investment,
+                        assignment_status, funds_status,
+                        assignment_process_notes, public_visibility)
   values
-    (300000, 300000, 10.50, 1, 'SFR',          'Sample City',  'CA', 55.0, 55.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '2 days'),
-    (450000, 450000, 11.25, 1, 'Multifamily',  'Sample Town',  'CA', 60.0, 60.0, 36, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '5 days'),
-    (200000,  75000, 12.00, 2, 'SFR',          'Sample Beach', 'CA', 45.0, 65.0, 18, 'I/O',  4, 'OO',  'partially_placed', false, true, now() - interval '7 days'),
-    (125000, 125000,  9.50, 1, 'Condo',        'Sample Hills', 'CA', 50.0, 50.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '1 day'),
-    (550000, 550000, 11.00, 1, 'Mixed-Use',    'Sample Bay',   'CA', 58.0, 58.0, 36, '40/3', 6, 'NOO', 'available',        true,  true, now() - interval '10 days'),
-    (250000, 250000, 12.50, 2, 'SFR',          'Sample Valley','CA', 40.0, 65.0, 18, 'I/O',  4, 'NOO', 'pending',          false, true, now() - interval '14 days'),
-    (180000, 180000, 10.00, 1, 'SFR',          'Sample Coast', 'FL', 55.0, 55.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '3 days'),
-    (340000, 340000, 11.75, 2, 'Multifamily',  'Sample Lake',  'CA', 48.0, 70.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '4 days'),
-    (220000,      0, 11.00, 1, 'SFR',          'Sample Mesa',  'AZ', 60.0, 60.0, 24, 'I/O',  6, 'NOO', 'funded',           false, true, now() - interval '60 days'),
-    (400000, 400000, 12.00, 1, 'Industrial',   'Sample Port',  'CA', 50.0, 50.0, 36, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '6 days'),
-    (160000, 160000, 13.00, 3, 'SFR',          'Sample Heights','CA',32.0, 72.0, 12, 'I/O',  4, 'NOO', 'available',        false, true, now() - interval '8 days'),
-    (275000, 275000, 10.75, 1, 'SFR',          'Sample Ridge', 'CA', 56.0, 56.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '9 days')
+    (300000, 300000, 10.50, 1, 'SFR',          'Sample City',  'CA', 55.0, 55.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '2 days',  10.50, 1.00, 11.50, 'originated_assignment', null,  50000, 'drafting',    'instructions_sent', 'SYNTHETIC assignment package in preparation.', 'hidden'),
+    (450000, 450000, 11.25, 1, 'Multifamily',  'Sample Town',  'CA', 60.0, 60.0, 36, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '5 days',  11.25, 1.00, 12.25, 'direct_funded',          null, 100000, 'not_started', 'not_requested',     'SYNTHETIC direct-funded loan available for assignment review.', 'hidden'),
+    (200000,  75000, 12.00, 2, 'SFR',          'Sample Beach', 'CA', 45.0, 65.0, 18, 'I/O',  4, 'OO',  'partially_placed', false, true, now() - interval '7 days',  12.00, 1.00, 13.00, 'originated_assignment', null,  25000, 'sent',        'partial_received',  'SYNTHETIC partially placed assignment package sent.', 'hidden'),
+    (125000, 125000,  9.50, 1, 'Condo',        'Sample Hills', 'CA', 50.0, 50.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '1 day',   9.50, 1.00, 10.50, 'originated_assignment', null,  25000, 'not_started', 'not_requested',     'SYNTHETIC new assignment candidate.', 'hidden'),
+    (550000, 550000, 11.00, 1, 'Mixed-Use',    'Sample Bay',   'CA', 58.0, 58.0, 36, '40/3', 6, 'NOO', 'available',        true,  true, now() - interval '10 days', 11.00, 1.00, 12.00, 'fund_retained_interest', 75000, 50000, 'drafting',    'instructions_sent', 'SYNTHETIC fund retains an interest alongside assignments.', 'hidden'),
+    (250000, 250000, 12.50, 2, 'SFR',          'Sample Valley','CA', 40.0, 65.0, 18, 'I/O',  4, 'NOO', 'pending',          false, true, now() - interval '14 days', 12.50, 1.00, 13.50, 'originated_assignment', null,  50000, 'not_started', 'not_requested',     'SYNTHETIC pending deal held out of investor list by status.', 'hidden'),
+    (180000, 180000, 10.00, 1, 'SFR',          'Sample Coast', 'FL', 55.0, 55.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '3 days',  10.00, 1.00, 11.00, 'direct_funded',          null,  25000, 'not_started', 'not_requested',     'SYNTHETIC direct-funded assignment candidate.', 'hidden'),
+    (340000, 340000, 11.75, 2, 'Multifamily',  'Sample Lake',  'CA', 48.0, 70.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '4 days',  11.75, 1.00, 12.75, 'originated_assignment', null,  50000, 'not_started', 'not_requested',     'SYNTHETIC second-position investor review.', 'hidden'),
+    (220000,      0, 11.00, 1, 'SFR',          'Sample Mesa',  'AZ', 60.0, 60.0, 24, 'I/O',  6, 'NOO', 'funded',           false, true, now() - interval '60 days', 11.00, 1.00, 12.00, 'originated_assignment', null,  50000, 'boarded',     'received',          'SYNTHETIC funded and boarded example.', 'hidden'),
+    (400000, 400000, 12.00, 1, 'Industrial',   'Sample Port',  'CA', 50.0, 50.0, 36, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '6 days',  12.00, 1.00, 13.00, 'direct_funded',          null, 100000, 'not_started', 'not_requested',     'SYNTHETIC industrial bridge candidate.', 'hidden'),
+    (160000, 160000, 13.00, 3, 'SFR',          'Sample Heights','CA',32.0, 72.0, 12, 'I/O',  4, 'NOO', 'available',        false, true, now() - interval '8 days',  13.00, 1.00, 14.00, 'originated_assignment', null,  25000, 'not_started', 'not_requested',     'SYNTHETIC third-position risk review example.', 'hidden'),
+    (275000, 275000, 10.75, 1, 'SFR',          'Sample Ridge', 'CA', 56.0, 56.0, 24, 'I/O',  6, 'NOO', 'available',        false, true, now() - interval '9 days',  10.75, 1.00, 11.75, 'originated_assignment', null,  50000, 'not_started', 'not_requested',     'SYNTHETIC first deed assignment candidate.', 'hidden')
   returning id, city
 )
 insert into listing_private (listing_id, address, appraised_value, purpose, borrower_notes)
@@ -84,6 +92,38 @@ select id,
        'SYNTHETIC — business-purpose bridge / cash-out (Phase 0 only)',
        'SYNTHETIC borrower notes for Phase 0 demo'
 from new_listings;
+
+insert into allocation_requests (
+  listing_id, profile_id, account_id, requested_amount, approved_amount,
+  status, source, next_action, due_at, investor_notes, admin_notes
+)
+select l.id, p.user_id, a.id, 150000, 150000,
+       'docs_sent'::allocation_request_status,
+       'listing_detail',
+       'Send synthetic assignment and funding instruction package.',
+       (current_date + interval '2 days')::date,
+       'SYNTHETIC — wants personal account allocation.',
+       'SYNTHETIC pipeline example for admin review.'
+from listings l
+join profiles p on p.full_name = 'Sample Investor C'
+join investor_accounts a on a.profile_id = p.user_id and a.custodian = 'none'
+where l.city = 'Sample City';
+
+insert into allocation_requests (
+  listing_id, profile_id, account_id, requested_amount,
+  status, source, next_action, due_at, investor_notes, admin_notes
+)
+select l.id, p.user_id, a.id, 100000,
+       'new'::allocation_request_status,
+       'listing_detail',
+       'Call investor for synthetic suitability review.',
+       (current_date + interval '1 day')::date,
+       'SYNTHETIC — asks about IRA vs personal funding.',
+       'SYNTHETIC new allocation request.'
+from listings l
+join profiles p on p.full_name = 'Sample Investor A'
+join investor_accounts a on a.profile_id = p.user_id and a.custodian = 'none'
+where l.city = 'Sample Town';
 
 -- ============================================================
 -- Borrower loans (3) + 6 months of payments each

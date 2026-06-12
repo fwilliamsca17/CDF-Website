@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/supabase/server";
-import { shortDate } from "@/lib/portal/format";
+import { pct, shortDate } from "@/lib/portal/format";
 
 export const metadata: Metadata = {
   title: "Sent Alerts — CDF Admin",
@@ -29,7 +29,7 @@ export default async function AlertsPage({
   const { data: alerts } = await query;
   const { data: listings } = await supabase
     .from("listings")
-    .select("id, city, state, property_type, yield_pct")
+    .select("id, city, state, property_type, yield_pct, net_investor_rate_pct, servicing_spread_pct")
     .order("created_at", { ascending: false });
 
   return (
@@ -48,7 +48,9 @@ export default async function AlertsPage({
             <option value="">All listings</option>
             {(listings ?? []).map((l) => (
               <option key={l.id} value={l.id}>
-                {l.property_type} - {l.city}, {l.state} - {l.yield_pct}%
+                {l.property_type} - {l.city}, {l.state} -{" "}
+                {pct(l.net_investor_rate_pct ?? l.yield_pct)} net /{" "}
+                {pct(l.servicing_spread_pct ?? 1)} spread
               </option>
             ))}
           </select>

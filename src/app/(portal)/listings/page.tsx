@@ -24,9 +24,11 @@ export default async function ListingsPage() {
   const { data: listings } = await supabase
     .from("listings")
     .select(
-      "id, amount, remaining_amount, yield_pct, lien_position, property_type, city, state, ltv_pct, cltv_pct, status, rate_increase, published_at"
+      "id, amount, remaining_amount, yield_pct, net_investor_rate_pct, servicing_spread_pct, funding_structure, min_investment, lien_position, property_type, city, state, ltv_pct, cltv_pct, status, rate_increase, published_at"
     )
     .eq("compliance_approved", true)
+    .not("published_at", "is", null)
+    .in("status", ["available", "partially_placed"])
     .order("published_at", { ascending: false });
 
   return (
@@ -34,8 +36,8 @@ export default async function ListingsPage() {
       <header className="space-y-2">
         <h1 className="text-heading-lg font-heading">Current opportunities</h1>
         <p className="text-base text-ivory/80">
-          Member listings. Past investments and funded loans are
-          shown for context.
+          Member listings shown as net investor rates. CDF retains a disclosed
+          servicing spread from interest collected on each loan.
         </p>
       </header>
 
@@ -58,7 +60,7 @@ export default async function ListingsPage() {
                   className="text-3xl font-heading text-champagne-300"
                   style={{ fontFeatureSettings: '"tnum"' }}
                 >
-                  {pct(l.yield_pct)}
+                  {pct(l.net_investor_rate_pct ?? l.yield_pct)}
                 </span>
                 {l.rate_increase && (
                   <span className="text-xs uppercase tracking-widest bg-champagne-500 text-ink-900 rounded px-2 py-1">
@@ -73,7 +75,7 @@ export default async function ListingsPage() {
                 {l.city}, {l.state}
               </p>
               <dl className="grid grid-cols-2 gap-y-2 text-base">
-                <dt className="text-ivory/60">Amount</dt>
+                <dt className="text-ivory/60">Loan amount</dt>
                 <dd
                   className="text-right"
                   style={{ fontFeatureSettings: '"tnum"' }}
@@ -111,7 +113,17 @@ export default async function ListingsPage() {
                 )}
                 <dt className="text-ivory/60">Status</dt>
                 <dd className="text-right">{listingStatusLabel(l.status)}</dd>
+                <dt className="text-ivory/60">Min. review</dt>
+                <dd
+                  className="text-right"
+                  style={{ fontFeatureSettings: '"tnum"' }}
+                >
+                  {money(l.min_investment)}
+                </dd>
               </dl>
+              <p className="mt-4 text-sm text-ivory/60">
+                Net rate after CDF&apos;s {pct(l.servicing_spread_pct)} servicing spread.
+              </p>
             </Link>
           </li>
         ))}

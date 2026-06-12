@@ -30,7 +30,7 @@ export default async function AdminListingsPage() {
   const { data: listings } = await supabase
     .from("listings")
     .select(
-      "id, amount, remaining_amount, yield_pct, lien_position, property_type, city, state, status, compliance_approved, rate_increase, published_at, created_at",
+      "id, amount, remaining_amount, yield_pct, net_investor_rate_pct, servicing_spread_pct, funding_structure, assignment_status, funds_status, lien_position, property_type, city, state, status, compliance_approved, rate_increase, published_at, created_at",
     )
     .order("created_at", { ascending: false });
 
@@ -57,8 +57,9 @@ export default async function AdminListingsPage() {
             <tr>
               <th scope="col" className="p-3">Listing</th>
               <th scope="col" className="p-3 text-right">Amount</th>
-              <th scope="col" className="p-3 text-right">Yield</th>
+              <th scope="col" className="p-3 text-right">Net rate</th>
               <th scope="col" className="p-3">Status</th>
+              <th scope="col" className="p-3">Funding</th>
               <th scope="col" className="p-3">Published</th>
               <th scope="col" className="p-3">Controls</th>
             </tr>
@@ -75,7 +76,12 @@ export default async function AdminListingsPage() {
                   </span>
                 </th>
                 <td className="p-3 text-right tabular-nums">{money(l.amount)}</td>
-                <td className="p-3 text-right tabular-nums">{pct(l.yield_pct)}</td>
+                <td className="p-3 text-right tabular-nums">
+                  {pct(l.net_investor_rate_pct ?? l.yield_pct)}
+                  <span className="block text-xs text-ivory/50">
+                    spread {pct(l.servicing_spread_pct)}
+                  </span>
+                </td>
                 <td className="p-3">
                   {listingStatusLabel(l.status)}
                   {!l.compliance_approved && (
@@ -84,6 +90,12 @@ export default async function AdminListingsPage() {
                   {l.rate_increase && (
                     <span className="block text-sm text-champagne-300">Rate increase</span>
                   )}
+                </td>
+                <td className="p-3">
+                  {fundingStructureLabel(l.funding_structure)}
+                  <span className="block text-sm text-ivory/60">
+                    {workflowLabel(l.assignment_status)} / {workflowLabel(l.funds_status)}
+                  </span>
                 </td>
                 <td className="p-3">{l.published_at ? shortDate(l.published_at) : "Not published"}</td>
                 <td className="p-3">
@@ -122,4 +134,25 @@ export default async function AdminListingsPage() {
       </div>
     </main>
   );
+}
+
+function workflowLabel(value: string | null | undefined) {
+  if (!value) return "—";
+  return value
+    .split("_")
+    .map((part) => part[0]?.toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function fundingStructureLabel(value: string | null | undefined) {
+  switch (value) {
+    case "direct_funded":
+      return "Direct-funded";
+    case "originated_assignment":
+      return "Originated / assignment";
+    case "fund_retained_interest":
+      return "Fund retained interest";
+    default:
+      return "—";
+  }
 }

@@ -8,6 +8,17 @@ type ListingEditorValues = {
   amount?: string | number | null;
   remaining_amount?: string | number | null;
   yield_pct?: string | number | null;
+  net_investor_rate_pct?: string | number | null;
+  servicing_spread_pct?: string | number | null;
+  borrower_note_rate_pct?: string | number | null;
+  funding_structure?: string | null;
+  fund_retained_amount?: string | number | null;
+  min_investment?: string | number | null;
+  assignment_status?: string | null;
+  funds_status?: string | null;
+  assignment_process_notes?: string | null;
+  public_visibility?: string | null;
+  public_disclaimer?: string | null;
   lien_position?: string | number | null;
   property_type?: string | null;
   city?: string | null;
@@ -49,7 +60,13 @@ function parseBlurb(text: string): ParsedListingFields {
   if (moneyMatches[1]) out.appraised_value = moneyMatches[1][1].replace(/,/g, "");
 
   const yieldMatch = text.match(/(\d{1,2}(?:\.\d{1,2})?)\s*%/);
-  if (yieldMatch) out.yield_pct = yieldMatch[1];
+  if (yieldMatch) {
+    out.yield_pct = yieldMatch[1];
+    out.net_investor_rate_pct = yieldMatch[1];
+  }
+
+  const servicingSpread = text.match(/(\d{1,2}(?:\.\d{1,2})?)\s*%\s*(?:servicing|spread)/i);
+  if (servicingSpread) out.servicing_spread_pct = servicingSpread[1];
 
   const lienMatch = text.match(/\b(1st|first|2nd|second|3rd|third)\b/i);
   if (lienMatch) {
@@ -77,6 +94,9 @@ function parseBlurb(text: string): ParsedListingFields {
   if (/interest.only|I\/O/i.test(text)) out.amortization = "I/O";
   if (/\bNOO\b|non.owner/i.test(text)) out.occupancy = "NOO";
   if (/\bOO\b|owner.occupied/i.test(text)) out.occupancy = "OO";
+  if (/fund retained|retained interest/i.test(text)) out.funding_structure = "fund_retained_interest";
+  if (/direct.funded|direct funded/i.test(text)) out.funding_structure = "direct_funded";
+  if (/assignment|assigned/i.test(text)) out.funding_structure = "originated_assignment";
   const prepay = text.match(/(\d{1,2})\s*(?:month|mo)\s*prepay/i);
   if (prepay) out.prepay_months = prepay[1];
   return out;
@@ -135,8 +155,20 @@ export default function ListingEditor({ initial }: { initial?: ListingEditorValu
             <input name="remaining_amount" value={value(fields.remaining_amount)} onChange={(e) => set("remaining_amount", e.target.value)} className={inputClass} />
           </label>
           <label>
-            <span className="block text-base mb-2">Yield %</span>
+            <span className="block text-base mb-2">Legacy yield %</span>
             <input name="yield_pct" required value={value(fields.yield_pct)} onChange={(e) => set("yield_pct", e.target.value)} className={inputClass} />
+          </label>
+          <label>
+            <span className="block text-base mb-2">Net investor rate %</span>
+            <input name="net_investor_rate_pct" required value={value(fields.net_investor_rate_pct ?? fields.yield_pct)} onChange={(e) => set("net_investor_rate_pct", e.target.value)} className={inputClass} />
+          </label>
+          <label>
+            <span className="block text-base mb-2">Servicing spread %</span>
+            <input name="servicing_spread_pct" value={value(fields.servicing_spread_pct ?? 1)} onChange={(e) => set("servicing_spread_pct", e.target.value)} className={inputClass} />
+          </label>
+          <label>
+            <span className="block text-base mb-2">Borrower note rate %</span>
+            <input name="borrower_note_rate_pct" value={value(fields.borrower_note_rate_pct)} onChange={(e) => set("borrower_note_rate_pct", e.target.value)} className={inputClass} />
           </label>
           <label>
             <span className="block text-base mb-2">Lien position</span>
@@ -158,6 +190,14 @@ export default function ListingEditor({ initial }: { initial?: ListingEditorValu
               <option value="partially_placed">Partially placed</option>
               <option value="pending">Pending</option>
               <option value="funded">Funded</option>
+            </select>
+          </label>
+          <label>
+            <span className="block text-base mb-2">Funding structure</span>
+            <select name="funding_structure" value={value(fields.funding_structure ?? "originated_assignment")} onChange={(e) => set("funding_structure", e.target.value)} className={inputClass}>
+              <option value="originated_assignment">Originated / assignment</option>
+              <option value="direct_funded">Direct-funded</option>
+              <option value="fund_retained_interest">Fund retained interest</option>
             </select>
           </label>
           <label>
@@ -200,6 +240,44 @@ export default function ListingEditor({ initial }: { initial?: ListingEditorValu
             <span className="block text-base mb-2">Occupancy</span>
             <input name="occupancy" value={value(fields.occupancy)} onChange={(e) => set("occupancy", e.target.value)} className={inputClass} />
           </label>
+          <label>
+            <span className="block text-base mb-2">Minimum investment</span>
+            <input name="min_investment" value={value(fields.min_investment)} onChange={(e) => set("min_investment", e.target.value)} className={inputClass} />
+          </label>
+          <label>
+            <span className="block text-base mb-2">Fund retained amount</span>
+            <input name="fund_retained_amount" value={value(fields.fund_retained_amount)} onChange={(e) => set("fund_retained_amount", e.target.value)} className={inputClass} />
+          </label>
+          <label>
+            <span className="block text-base mb-2">Assignment status</span>
+            <select name="assignment_status" value={value(fields.assignment_status ?? "not_started")} onChange={(e) => set("assignment_status", e.target.value)} className={inputClass}>
+              <option value="not_started">Not started</option>
+              <option value="drafting">Drafting</option>
+              <option value="sent">Sent</option>
+              <option value="signed">Signed</option>
+              <option value="recorded">Recorded</option>
+              <option value="boarded">Boarded</option>
+            </select>
+          </label>
+          <label>
+            <span className="block text-base mb-2">Funds status</span>
+            <select name="funds_status" value={value(fields.funds_status ?? "not_requested")} onChange={(e) => set("funds_status", e.target.value)} className={inputClass}>
+              <option value="not_requested">Not requested</option>
+              <option value="instructions_sent">Instructions sent</option>
+              <option value="partial_received">Partial received</option>
+              <option value="received">Received</option>
+              <option value="returned">Returned</option>
+            </select>
+          </label>
+          <label>
+            <span className="block text-base mb-2">Public visibility</span>
+            <select name="public_visibility" value={value(fields.public_visibility ?? "hidden")} onChange={(e) => set("public_visibility", e.target.value)} className={inputClass}>
+              <option value="hidden">Hidden</option>
+              <option value="sample">Sample only</option>
+              <option value="public_teaser">Public teaser</option>
+              <option value="gated_live">Gated live</option>
+            </select>
+          </label>
         </div>
 
         <label className="block">
@@ -209,6 +287,14 @@ export default function ListingEditor({ initial }: { initial?: ListingEditorValu
         <label className="block">
           <span className="block text-base mb-2">Borrower notes</span>
           <textarea name="borrower_notes" rows={3} value={value(fields.borrower_notes)} onChange={(e) => set("borrower_notes", e.target.value)} className={inputClass} />
+        </label>
+        <label className="block">
+          <span className="block text-base mb-2">Assignment process notes</span>
+          <textarea name="assignment_process_notes" rows={3} value={value(fields.assignment_process_notes)} onChange={(e) => set("assignment_process_notes", e.target.value)} className={inputClass} />
+        </label>
+        <label className="block">
+          <span className="block text-base mb-2">Public disclaimer / counsel note</span>
+          <textarea name="public_disclaimer" rows={3} value={value(fields.public_disclaimer)} onChange={(e) => set("public_disclaimer", e.target.value)} className={inputClass} />
         </label>
 
         <div className="flex flex-wrap gap-6">

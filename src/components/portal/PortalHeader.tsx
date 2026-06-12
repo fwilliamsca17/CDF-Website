@@ -26,6 +26,7 @@ const ADMIN_NAV: NavItem[] = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/applicants", label: "Applicants" },
   { href: "/admin/listings", label: "Listings" },
+  { href: "/admin/allocations", label: "Allocations" },
   { href: "/admin/import", label: "TMO Import" },
 ];
 
