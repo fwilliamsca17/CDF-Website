@@ -1,30 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, Send } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { useLeadForm } from "@/lib/useLeadForm";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export default function GetInTouch() {
-  const [submitted, setSubmitted] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    data.append("access_key", "09f80e34-62a3-4fc0-9773-ff3f8f0683e2");
-
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: data,
-    });
-
-    if (res.ok) {
-      setSubmitted(true);
-      form.reset();
-      setTimeout(() => setSubmitted(false), 5000);
-    }
-  }
+  const { submitted, submitting, error, handleSubmit } = useLeadForm();
 
   return (
     <section className="hero-atmosphere section-padding-y relative overflow-hidden">
@@ -112,11 +95,26 @@ export default function GetInTouch() {
 
               <button
                 type="submit"
-                className="btn-champagne w-full flex items-center justify-center gap-2 text-lg"
+                disabled={submitting}
+                className="btn-champagne w-full flex items-center justify-center gap-2 text-lg disabled:opacity-60 disabled:cursor-wait"
               >
                 <Send className="w-5 h-5" />
-                Send Message
+                {submitting ? "Sending…" : "Send Message"}
               </button>
+
+              {error && (
+                <p className="text-center text-sm text-red-300" role="alert">
+                  Something went wrong sending your message. Please call{" "}
+                  <a href="tel:+16267961680" className="font-semibold text-champagne-300 underline">
+                    {SITE_CONFIG.phone}
+                  </a>{" "}
+                  or email{" "}
+                  <a href={`mailto:${SITE_CONFIG.email}`} className="font-semibold text-champagne-300 underline">
+                    {SITE_CONFIG.email}
+                  </a>
+                  .
+                </p>
+              )}
             </form>
           )}
         </motion.div>

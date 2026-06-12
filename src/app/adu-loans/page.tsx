@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -20,6 +19,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
+import { useLeadForm } from "@/lib/useLeadForm";
 
 const FEATURES = [
   {
@@ -128,26 +128,12 @@ const TESTIMONIALS = [
 ];
 
 export default function ADULoansPage() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-
-  async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    data.append("access_key", "09f80e34-62a3-4fc0-9773-ff3f8f0683e2");
-    data.append("subject", "ADU Loan Pre-Qualification - CDF Website");
-
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: data,
-    });
-
-    if (res.ok) {
-      setFormSubmitted(true);
-      form.reset();
-      setTimeout(() => setFormSubmitted(false), 5000);
-    }
-  }
+  const {
+    submitted: formSubmitted,
+    submitting,
+    error,
+    handleSubmit: handleFormSubmit,
+  } = useLeadForm({ subject: "ADU Loan Pre-Qualification - CDF Website" });
 
   return (
     <>
@@ -326,11 +312,22 @@ export default function ADULoansPage() {
                   </div>
                   <button
                     type="submit"
-                    className="btn-gold w-full flex items-center justify-center gap-2 text-base mt-2"
+                    disabled={submitting}
+                    className="btn-gold w-full flex items-center justify-center gap-2 text-base mt-2 disabled:opacity-60 disabled:cursor-wait"
                   >
-                    Check Eligibility
+                    {submitting ? "Sending…" : "Check Eligibility"}
                     <ArrowRight className="w-4 h-4" />
                   </button>
+
+                  {error && (
+                    <p className="text-sm text-red-600" role="alert">
+                      Something went wrong. Please call{" "}
+                      <a href="tel:+16267961680" className="font-semibold text-cdf underline">
+                        {SITE_CONFIG.phone}
+                      </a>{" "}
+                      and we&apos;ll pre-qualify you by phone.
+                    </p>
+                  )}
                 </form>
               )}
             </motion.div>

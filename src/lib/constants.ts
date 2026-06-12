@@ -539,5 +539,6 @@ export const FOOTER_LINKS = {
     { label: "Loan Process", href: "/loan-process" },
     { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
+    { label: "Privacy Policy", href: "/privacy" },
   ],
 };
