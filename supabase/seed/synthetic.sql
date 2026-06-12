@@ -93,6 +93,71 @@ select id,
        'SYNTHETIC borrower notes for Phase 0 demo'
 from new_listings;
 
+insert into loan_sale_readiness (
+  listing_id, tmo_loan_ref, whole_loan_principal, fund_owned_principal,
+  fund_owned_pct, target_sale_principal, fund_retained_principal,
+  note_rate_pct, net_investor_rate_pct, servicing_spread_pct,
+  tmo_rate_modifier_pct, status, next_action, blocker_notes,
+  source_file_reviewed, pricing_approved, investor_packet_ready,
+  documents_scrubbed, counsel_reviewed, lender_account_ready,
+  tmo_funding_lender_added, tmo_lender_rate_verified,
+  principal_to_lender_verified, rounding_adjustment_confirmed,
+  disbursement_verified, funds_received, assignment_sent,
+  assignment_signed, assignment_recorded, assignment_boarded
+)
+select
+  l.id,
+  'SYN-TMO-' || row_number() over (order by l.created_at, l.city),
+  case
+    when l.funding_structure = 'fund_retained_interest' then l.amount + coalesce(l.fund_retained_amount, 0)
+    else l.amount
+  end,
+  l.amount,
+  case
+    when l.funding_structure = 'fund_retained_interest' then
+      round((l.amount / nullif(l.amount + coalesce(l.fund_retained_amount, 0), 0)) * 100, 4)
+    else 100.0000
+  end,
+  coalesce(l.remaining_amount, l.amount),
+  coalesce(l.fund_retained_amount, 0),
+  l.borrower_note_rate_pct,
+  l.net_investor_rate_pct,
+  l.servicing_spread_pct,
+  -1.00,
+  case
+    when l.status = 'funded' then 'boarded'::sale_readiness_status
+    when l.assignment_status in ('sent', 'signed') then 'ready_to_offer'::sale_readiness_status
+    when l.status = 'pending' then 'needs_review'::sale_readiness_status
+    else 'needs_review'::sale_readiness_status
+  end,
+  case
+    when l.status = 'funded' then 'SYNTHETIC - confirm boarded investor payment setup.'
+    when l.assignment_status = 'sent' then 'SYNTHETIC - follow up for signed assignment package.'
+    else 'SYNTHETIC - complete sale packet and TMO Funding Lender setup.'
+  end,
+  case
+    when l.status = 'pending' then 'SYNTHETIC - held pending admin review.'
+    else null
+  end,
+  true,
+  l.compliance_approved,
+  l.status <> 'pending',
+  true,
+  l.compliance_approved,
+  l.assignment_status <> 'not_started',
+  l.assignment_status in ('signed', 'recorded', 'boarded'),
+  l.assignment_status in ('signed', 'recorded', 'boarded'),
+  l.assignment_status in ('signed', 'recorded', 'boarded'),
+  l.assignment_status in ('signed', 'recorded', 'boarded'),
+  l.funds_status in ('partial_received', 'received'),
+  l.funds_status = 'received',
+  l.assignment_status in ('sent', 'signed', 'recorded', 'boarded'),
+  l.assignment_status in ('signed', 'recorded', 'boarded'),
+  l.assignment_status in ('recorded', 'boarded'),
+  l.assignment_status = 'boarded'
+from listings l
+where l.city like 'Sample%';
+
 insert into allocation_requests (
   listing_id, profile_id, account_id, requested_amount, approved_amount,
   status, source, next_action, due_at, investor_notes, admin_notes

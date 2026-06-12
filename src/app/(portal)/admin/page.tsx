@@ -18,12 +18,17 @@ export default async function AdminDashboard() {
   const [
     { count: pendingApplicants },
     { count: openListings },
+    { count: saleReady },
     { count: activeAllocations },
     { data: lastBatch },
     { count: sentAlerts },
   ] = await Promise.all([
     supabase.from("access_requests").select("id", { count: "exact", head: true }).is("handled_at", null),
     supabase.from("listings").select("id", { count: "exact", head: true }).in("status", ["available", "partially_placed"]),
+    supabase
+      .from("loan_sale_readiness")
+      .select("listing_id", { count: "exact", head: true })
+      .eq("status", "ready_to_offer"),
     supabase
       .from("allocation_requests")
       .select("id", { count: "exact", head: true })
@@ -82,6 +87,12 @@ export default async function AdminDashboard() {
           sub="Available + partially placed"
         />
         <Card
+          href="/admin/sale-readiness"
+          title="Sale-ready loans"
+          metric={String(saleReady ?? 0)}
+          sub="Ready to offer"
+        />
+        <Card
           href="/admin/allocations"
           title="Active allocations"
           metric={String(activeAllocations ?? 0)}
@@ -106,6 +117,7 @@ export default async function AdminDashboard() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {[
             ["/admin/listings/new", "Paste new listing"],
+            ["/admin/sale-readiness", "Loan sale prep"],
             ["/admin/allocations", "Allocation pipeline"],
             ["/admin/linking", "TMO linking"],
             ["/admin/documents", "Documents"],
