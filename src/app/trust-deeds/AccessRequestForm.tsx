@@ -17,7 +17,7 @@ export default function AccessRequestForm() {
     return (
       <div
         role="status"
-        className="bg-ink-900 border border-champagne-700/30 rounded-lg p-8 text-lg"
+        className="bg-ink-900 border border-champagne-700/30 rounded-lg p-8 text-lg text-ivory"
       >
         <h2 className="text-heading font-heading mb-3">Thank you.</h2>
         <p>{state.msg}</p>
@@ -28,7 +28,7 @@ export default function AccessRequestForm() {
   return (
     <form
       action={action}
-      className="bg-ink-900 border border-champagne-700/30 rounded-lg p-8 space-y-4"
+      className="bg-ink-900 border border-champagne-700/30 rounded-lg p-8 space-y-4 text-ivory"
       noValidate
     >
       <h2 className="text-heading font-heading">Request access</h2>
