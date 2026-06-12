@@ -22,14 +22,20 @@ export async function middleware(req: NextRequest) {
 
   const res = NextResponse.next({ request: { headers: req.headers } })
 
-  const URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
   const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  if (!URL || !ANON) return res
+  if (!SUPABASE_URL || !ANON) return res
 
-  const supabase = createServerClient(URL, ANON, {
+  const supabase = createServerClient(SUPABASE_URL, ANON, {
     cookies: {
       getAll: () => req.cookies.getAll(),
-      setAll: (toSet) =>
+      setAll: (
+        toSet: Array<{
+          name: string
+          value: string
+          options?: Parameters<typeof res.cookies.set>[2]
+        }>,
+      ) =>
         toSet.forEach(({ name, value, options }) =>
           res.cookies.set(name, value, options),
         ),

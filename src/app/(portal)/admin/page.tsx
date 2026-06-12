@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   const guard = await requireAdmin();
-  if ("redirectTo" in guard) redirect(guard.redirectTo);
+  if ("redirectTo" in guard) redirect(guard.redirectTo ?? "/login");
   const { supabase } = guard;
 
   const [{ count: pendingApplicants }, { count: openListings }, { data: lastBatch }, { count: sentAlerts }] = await Promise.all([
@@ -84,6 +84,26 @@ export default async function AdminDashboard() {
           sub="Lifetime"
         />
       </div>
+
+      <section className="bg-ink-900 border border-champagne-700/30 rounded-lg p-6">
+        <h2 className="text-heading font-heading mb-4">Operations</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {[
+            ["/admin/listings/new", "Paste new listing"],
+            ["/admin/linking", "TMO linking"],
+            ["/admin/documents", "Documents"],
+            ["/admin/alerts", "Alert log"],
+          ].map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded border border-champagne-700/40 px-4 py-3 text-base text-champagne-300 hover:bg-white/5"
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import {
+  createSupabaseServerClient,
+  createSupabaseServiceClient,
+} from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +36,8 @@ export async function GET(
     return new NextResponse("Not found", { status: 404 });
   }
 
-  const { data: signed, error: signErr } = await supabase.storage
+  const service = createSupabaseServiceClient();
+  const { data: signed, error: signErr } = await service.storage
     .from("loan-docs")
     .createSignedUrl(doc.storage_path, SIGNED_URL_TTL_SECONDS);
   if (signErr || !signed?.signedUrl) {

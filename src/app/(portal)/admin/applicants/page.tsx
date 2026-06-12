@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ApplicantsPage() {
   const guard = await requireAdmin();
-  if ("redirectTo" in guard) redirect(guard.redirectTo);
+  if ("redirectTo" in guard) redirect(guard.redirectTo ?? "/login");
   const { supabase } = guard;
 
   const { data: requests } = await supabase

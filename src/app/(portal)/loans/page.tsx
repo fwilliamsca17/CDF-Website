@@ -46,7 +46,7 @@ interface Doc {
 
 export default async function LoansPage() {
   const guard = await requireBorrower();
-  if ("redirectTo" in guard) redirect(guard.redirectTo);
+  if ("redirectTo" in guard) redirect(guard.redirectTo ?? "/login");
   const { supabase } = guard;
 
   const [{ data: loans }, { data: txs }, { data: docs }, { data: lastBatch }] = await Promise.all([

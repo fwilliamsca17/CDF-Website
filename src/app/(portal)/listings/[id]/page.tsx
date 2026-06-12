@@ -22,7 +22,7 @@ export default async function ListingDetail({
   params: Promise<{ id: string }>;
 }) {
   const guard = await requireApprovedInvestor();
-  if ("redirectTo" in guard) redirect(guard.redirectTo);
+  if ("redirectTo" in guard) redirect(guard.redirectTo ?? "/login");
   const { supabase } = guard;
   const { id } = await params;
 
