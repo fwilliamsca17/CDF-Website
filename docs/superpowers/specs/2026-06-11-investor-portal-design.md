@@ -271,11 +271,58 @@ into these explainers (e.g., fractional listings → fractionalization page).
 - Sessions: soft re-auth (redacted view + "tap for a fresh link"), not a
   hard logout wall.
 
-## UX notes (audience: older, non-technical investors)
+## Access posture: private membership
 
-18px+ base font, high contrast, large tap targets, no hover-dependent UI,
-print stylesheets on listings and portfolio, phone number visible on every
-auth/error surface.
+This is a private investor group platform, not public marketing.
+
+- **Public surface stays minimal**: program explainer, the educational
+  `/trust-deeds/how-it-works` walkthroughs (no live deals, no yields, no
+  deal-specific anything), and a "Request access" form that starts a
+  conversation, not an account.
+- **Everything else is behind login**: listings, yields, addresses,
+  portfolio, payment history, loan documents, borrower views.
+- **Access is invite-confirmed**, not open registration. Approval is the
+  gate; the request form is a lead, not a signup.
+- **Outbound** to the group is member-only, sent individually; alert
+  previews never leak terms to non-members.
+- **Indexing**: `noindex` on every gated route; gated subtree excluded
+  from `sitemap.xml` and robots — defense-in-depth alongside RLS.
+
+## UX & design system (audience: older, wealthy, non-technical investors)
+
+Goal: institutional sophistication (extends Nocturne — ink/champagne
+palette, editorial typography) with senior-first usability. Sophistication
+comes from typography, spacing, and restraint — never from interaction
+complexity.
+
+**Accessibility baseline (WCAG 2.2 AA minimum, AAA contrast for financial
+data):**
+- 18px+ base body, 20px+ financial figures, tabular numerals for money
+  columns; nothing below 16px.
+- Contrast ≥ 7:1 for data, ≥ 4.5:1 everywhere.
+- Tap targets ≥ 44px; no hover-only affordances; no gestures or drag
+  interactions on investor/borrower surfaces (admin drag-drop import ok).
+- Full keyboard nav + visible focus; semantic HTML, ARIA-correct tables;
+  `prefers-reduced-motion` honored.
+- Layout survives 200% browser zoom.
+
+**Simplicity rules:**
+- Max 4 top-level destinations per role (investor: Listings · My Portfolio
+  · How It Works · Contact). Persistent labeled nav on desktop.
+- One primary verb-labeled action per screen; no icon-only buttons.
+- Plain language (~8th-grade); jargon paired with inline explanation or
+  glossary link.
+- No infinite scroll, vanishing toasts, essential modals, or hard
+  session-timeout walls (soft re-auth).
+- Every screen and empty state answers "what is this and what do I do
+  next."
+- "Call us" is first-class: Frank/Francisco's phone in the header of every
+  authenticated page, every email, every error state.
+- Print styles first-class on listings, portfolio, and loan ledgers.
+
+**Verification:** Phase 0 sandbox gets a usability pass with a
+representative elderly user before Phase 2; Lighthouse a11y ≥ 95 per page
+in CI (axe).
 
 ## Reporting (admin)
 
