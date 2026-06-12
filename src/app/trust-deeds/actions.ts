@@ -1,4 +1,5 @@
 "use server";
+import { CDF_PHONE } from "@/lib/portal/constants";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const SUCCESS_MSG =
@@ -31,7 +32,7 @@ export async function submitAccessRequest(formData: FormData) {
   if (error) {
     return {
       ok: false,
-      msg: "Something went wrong on our end. Please call us at (818) 646-9948 — we'll take it down personally.",
+      msg: `Something went wrong on our end. Please call us at ${CDF_PHONE} — we'll take it down personally.`,
     };
   }
   return { ok: true, msg: SUCCESS_MSG };

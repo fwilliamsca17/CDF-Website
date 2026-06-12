@@ -3,7 +3,7 @@
  * portal copy. Phone is a first-class UX path per the spec — every
  * authenticated page, every email, every error state shows it.
  */
-export const CDF_PHONE = "(818) 646-9948";
+export const CDF_PHONE = "(626) 796-1680";
 export const CDF_SUPPORT_EMAIL = "support@capital-df.com";
 export const FRESHNESS_NAG_DAYS = 10;
 
