@@ -46,17 +46,8 @@ const squarespaceRedirects = [
     permanent: true,
   },
   { source: "/foreclosure-in-ca", destination: "/faq", permanent: true },
-  // Blog — interim home on Squarespace until posts are migrated in
-  {
-    source: "/blog",
-    destination: "https://blog.capitaldf.com/blog",
-    permanent: false, // 307: destination changes again after migration
-  },
-  {
-    source: "/blog/:slug*",
-    destination: "https://blog.capitaldf.com/blog/:slug*",
-    permanent: false,
-  },
+  // NOTE: /blog and /blog/* are now served natively by this site (146 posts
+  // migrated in from Squarespace at their original URLs) — no redirect needed.
 ];
 
 const nextConfig = {

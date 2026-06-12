@@ -1,9 +1,28 @@
 import { MetadataRoute } from "next";
+import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://capitaldf.com";
 
+  const blogIndex: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+  ];
+
+  const blogPosts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${baseUrl}${post.path}`,
+    lastModified: post.date ? new Date(post.date) : new Date(),
+    changeFrequency: "yearly",
+    priority: 0.5,
+  }));
+
   return [
+    ...blogIndex,
+    ...blogPosts,
     {
       url: baseUrl,
       lastModified: new Date(),

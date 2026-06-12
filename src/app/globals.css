@@ -179,3 +179,83 @@
     transform: none;
   }
 }
+
+/* ── Migrated blog post body (rendered from archived Squarespace HTML) ── */
+@layer components {
+  .blog-prose {
+    @apply text-body;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+  .blog-prose > * + * {
+    margin-top: 1.3rem;
+  }
+  .blog-prose h2 {
+    @apply font-heading text-2xl font-bold text-cdf;
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+  .blog-prose h3 {
+    @apply font-heading text-xl font-bold text-cdf;
+    margin-top: 2rem;
+    margin-bottom: 0.4rem;
+  }
+  .blog-prose h4 {
+    @apply font-heading text-lg font-semibold text-cdf;
+    margin-top: 1.5rem;
+  }
+  .blog-prose a {
+    @apply text-champagne-700 underline underline-offset-2;
+    transition: color 0.2s;
+  }
+  .blog-prose a:hover {
+    @apply text-champagne-600;
+  }
+  .blog-prose strong {
+    @apply font-semibold text-cdf;
+  }
+  .blog-prose ul {
+    @apply list-disc;
+    padding-left: 1.5rem;
+  }
+  .blog-prose ol {
+    @apply list-decimal;
+    padding-left: 1.5rem;
+  }
+  .blog-prose li {
+    margin-top: 0.4rem;
+    line-height: 1.7;
+  }
+  .blog-prose img {
+    @apply rounded-xl;
+    max-width: 100%;
+    height: auto;
+    margin: 2rem auto;
+  }
+  .blog-prose figure {
+    margin: 2rem 0;
+  }
+  .blog-prose figcaption {
+    @apply text-sm text-body/60;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  .blog-prose blockquote {
+    @apply border-l-4 border-champagne-400 italic text-cdf;
+    padding-left: 1.25rem;
+    margin: 1.75rem 0;
+  }
+  .blog-prose hr {
+    @apply border-cdf/10;
+    margin: 2.5rem 0;
+  }
+  /* Neutralize Squarespace's inline block wrappers and fixed widths */
+  .blog-prose .sqs-block {
+    margin: 0;
+    padding: 0;
+  }
+  .blog-prose [style*="width"] {
+    max-width: 100% !important;
+  }
+}

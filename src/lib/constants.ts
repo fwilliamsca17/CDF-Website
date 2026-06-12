@@ -28,6 +28,7 @@ export const NAV_ITEMS = [
   { label: "Loan Process", href: "/loan-process" },
   { label: "About", href: "/about" },
   { label: "Team", href: "/team" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -537,6 +538,7 @@ export const FOOTER_LINKS = {
     { label: "About Us", href: "/about" },
     { label: "Our Team", href: "/team" },
     { label: "Loan Process", href: "/loan-process" },
+    { label: "Blog", href: "/blog" },
     { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
     { label: "Privacy Policy", href: "/privacy" },
