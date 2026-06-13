@@ -9,9 +9,10 @@ gate passes.
 
 - Docker + docker-compose already running (you have these)
 - Nginx Proxy Manager (NPM) admin access
-- A subdomain CNAME pointing at the host:
-  `db.capital-df.com` → host
-  `mail.capital-df.com` → host (Resend SMTP relay, optional)
+- A subdomain A record pointing at the host:
+  `db.capitaldf.com` → host
+- A Resend sending subdomain:
+  `listings.capitaldf.com` with SPF/DKIM/DMARC
 - Resend account + API key (used for both auth emails and listing
   alerts); dedicated subdomain with SPF/DKIM/DMARC set in DNS
 
@@ -53,7 +54,7 @@ SMTP_PORT=465
 SMTP_USER=resend
 SMTP_PASS=<Resend API key>
 SMTP_SENDER_NAME=CDF Investor Group
-SMTP_ADMIN_EMAIL=alerts@listings.capital-df.com
+SMTP_ADMIN_EMAIL=alerts@listings.capitaldf.com
 ```
 
 Self-host Supabase ships no mailer; without this, magic links and
@@ -63,7 +64,7 @@ recovery emails will silently fail.
 
 Add two proxy hosts:
 
-- `db.capital-df.com` → `localhost:8000` (Kong gateway)
+- `db.capitaldf.com` → `localhost:8000` (Kong gateway)
   - SSL: Let's Encrypt
   - Force SSL: on
   - HTTP/2 + HSTS: on
@@ -86,7 +87,7 @@ docker compose ps
 Healthcheck:
 
 ```bash
-curl -s https://db.capital-df.com/auth/v1/settings | jq .
+curl -s https://db.capitaldf.com/auth/v1/settings | jq .
 ```
 
 Should return `200` with auth settings JSON.
@@ -160,7 +161,7 @@ them).
 From the `cdf-website` checkout:
 
 ```bash
-SUPABASE_URL=https://db.capital-df.com \
+SUPABASE_URL=https://db.capitaldf.com \
 SUPABASE_SERVICE_ROLE_KEY=<service-role JWT> \
 pnpm seed
 ```
@@ -175,8 +176,8 @@ docker exec -i supabase-db psql -U postgres -d postgres \
 ## Phase 1 gate checklist (run BEFORE any real data)
 
 - [ ] All defaults rotated; `.env` not in git; secrets in vault.
-- [ ] NPM only exposes `db.capital-df.com:443`; Studio unreachable from
-      internet (`curl https://db.capital-df.com/studio -I` returns
+- [ ] NPM only exposes `db.capitaldf.com:443`; Studio unreachable from
+      internet (`curl https://db.capitaldf.com/studio -I` returns
       444/4xx).
 - [ ] Auth emails arrive (test signup with a magic link).
 - [ ] Nightly backup file lands in `/srv/wca-data-archive/cdf-supabase`.

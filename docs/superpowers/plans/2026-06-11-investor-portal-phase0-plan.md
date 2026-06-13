@@ -44,17 +44,17 @@ after any chunk and the system is still in a coherent state.
 2. Generate fresh JWT secret, anon key, service-role key, dashboard
    password, Postgres password — store in `.env` (gitignored), document
    in `ops/supabase-secrets.md` (not committed beyond a template).
-3. NPM proxy entry: `db.capital-df.com` → Supabase API gateway, TLS via
+3. NPM proxy entry: `db.capitaldf.com` → Supabase API gateway, TLS via
    Let's Encrypt. **Do not** expose Postgres port or Supabase Studio to
    the internet — LAN/VPN only.
 4. SMTP wired to Resend (Supabase self-host ships no mailer); subdomain
-   `mail.capital-df.com` with SPF/DKIM/DMARC.
+   `listings.capitaldf.com` with SPF/DKIM/DMARC.
 5. Nightly `pg_dump` to wca-data-archive; storage volume included in
    backup; **restore test documented and executed once** before any
    investor onboarding.
 6. Document upgrade procedure; pin image SHAs in compose.
 
-Acceptance: `curl https://db.capital-df.com/auth/v1/settings` returns
+Acceptance: `curl https://db.capitaldf.com/auth/v1/settings` returns
 healthy JSON; Studio reachable only from LAN; backup file appears in
 wca-data-archive after the first nightly run.
 
@@ -249,7 +249,7 @@ applicant doesn't.
 
 1. Vercel preview deployment for the `investor-portal-plan` branch
    with **Deployment Protection** enabled (Vercel password or SSO).
-2. Env vars (Supabase URL = `db.capital-df.com`, anon key, etc.)
+2. Env vars (Supabase URL = `db.capitaldf.com`, anon key, etc.)
    wired to preview only.
 3. README section: "How to demo Phase 0" — synthetic credentials,
    reset/seed instructions, the unmissable "About this data" banner

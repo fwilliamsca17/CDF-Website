@@ -15,11 +15,11 @@ Data posture: `SANDBOX - synthetic data only`
 
 ```bash
 NEXT_PUBLIC_PHASE_0=1
-NEXT_PUBLIC_SUPABASE_URL=https://db.capital-df.com
+NEXT_PUBLIC_SUPABASE_URL=https://db.capitaldf.com
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
 RESEND_API_KEY=...
-RESEND_FROM_EMAIL="CDF Investor Group <alerts@listings.capital-df.com>"
+RESEND_FROM_EMAIL="CDF Investor Group <alerts@listings.capitaldf.com>"
 ```
 
 Use preview-only Supabase keys and a preview-only Resend key. Do not use production investor data.

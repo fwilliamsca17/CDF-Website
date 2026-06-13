@@ -42,7 +42,7 @@ listings go live:
 
 - **Supabase, self-hosted** (docker-compose bundle) on CDF's existing docker
   stack, behind nginx proxy manager at a dedicated subdomain (e.g.
-  `db.capital-df.com`): auth (magic link only), Postgres + RLS, storage.
+  `db.capitaldf.com`): auth (magic link only), Postgres + RLS, storage.
   Accepted trade-off: Francisco owns uptime/patching; at <300
   investors/loans, downtime is tolerable and fixable in-house.
   **Self-host hardening (required, part of the Phase 1 gate):**
@@ -56,7 +56,7 @@ listings go live:
   - Documented upgrade procedure; pin image versions, upgrade deliberately.
   - Basic intrusion hygiene: fail2ban/rate limits at NPM, auth logs
     retained.
-- **Resend** on a dedicated subdomain (e.g. `listings.capital-df.com`) with
+- **Resend** on a dedicated subdomain (e.g. `listings.capitaldf.com`) with
   SPF/DKIM/DMARC from day one; individual sends, never shared To/CC.
 - Next.js stays on Vercel. New deps: `@supabase/supabase-js`,
   `@supabase/ssr`, `resend`, `sharp` (EXIF stripping), parser lib for TMO
