@@ -10,8 +10,12 @@ const securityHeaders = [
  * 301 map for the Squarespace → Vercel cutover (2026-06-11).
  * Source paths come from the live Squarespace sitemap inventory (168 URLs);
  * every path that would otherwise 404 after the DNS flip is mapped to its
- * closest equivalent. The blog stays on Squarespace at blog.capitaldf.com
- * until the 146 posts are migrated into this site.
+ * closest equivalent. (Blog fully migrated 2026-06-22; blog.capitaldf.com
+ * retired and its CNAME removed 2026-07-09.)
+ *
+ * CAUTION: redirects run BEFORE the filesystem — never map a source path
+ * that a real page now occupies, or the page becomes unreachable
+ * (/professionals and /construction-loans were shadowed this way).
  */
 const squarespaceRedirects = [
   // Homepage variants
@@ -29,16 +33,16 @@ const squarespaceRedirects = [
   { source: "/adu", destination: "/adu-loans", permanent: true },
   { source: "/success-stories", destination: "/about", permanent: true },
   { source: "/privacy-policy", destination: "/privacy", permanent: true },
-  // Partner-audience pages
-  { source: "/real-estate", destination: "/contact", permanent: true },
-  { source: "/professionals", destination: "/contact", permanent: true },
-  { source: "/mortgages", destination: "/contact", permanent: true },
-  // Loan-product landing pages
-  { source: "/construction-loans", destination: "/borrowers", permanent: true },
-  { source: "/probate-lending", destination: "/borrowers", permanent: true },
+  // Partner-audience pages (dedicated professionals pages exist as of
+  // 2026-06-17 — /professionals itself is a real page now, do NOT redirect it)
+  { source: "/real-estate", destination: "/professionals/real-estate", permanent: true },
+  { source: "/mortgages", destination: "/professionals/mortgage", permanent: true },
+  // Loan-product landing pages (dedicated program pages exist as of
+  // 2026-07-09 — /construction-loans itself is a real page now)
+  { source: "/probate-lending", destination: "/probate-loans", permanent: true },
   { source: "/purchase-loan", destination: "/borrowers", permanent: true },
-  { source: "/rehab-loans", destination: "/borrowers", permanent: true },
-  { source: "/rehab-financing-loan", destination: "/borrowers", permanent: true },
+  { source: "/rehab-loans", destination: "/fix-and-flip-loans", permanent: true },
+  { source: "/rehab-financing-loan", destination: "/fix-and-flip-loans", permanent: true },
   // Foreclosure content cluster — the NOS lander IS this topic
   {
     source: "/stop-foreclosure-scams",
