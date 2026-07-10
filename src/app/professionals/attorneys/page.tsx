@@ -7,14 +7,11 @@ import {
   CheckCircle,
   ArrowRight,
   Shield,
-  Clock,
   FileText,
   Scale,
-  Handshake,
   Zap,
   Lock,
   Users,
-  Award,
 } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";

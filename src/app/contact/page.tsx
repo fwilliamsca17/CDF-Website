@@ -1,13 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, CheckCircle, Send } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
+import { SITE_CONFIG, LOAN_PROGRAMS } from "@/lib/constants";
 import FadeIn from "@/components/ui/FadeIn";
 import { useLeadForm } from "@/lib/useLeadForm";
 
+// Valid ?program= values: LOAN_PROGRAMS slugs plus the ADU program.
+const PROGRAM_OPTIONS = [
+  ...LOAN_PROGRAMS.map((p) => ({ value: p.slug, label: p.title })),
+  { value: "adu", label: "ADU Construction Loans" },
+];
+
 export default function ContactPage() {
   const { submitted, submitting, error, handleSubmit } = useLeadForm();
+  const [program, setProgram] = useState("");
+
+  // Preselect the loan program from ?program= (links on program pages pass
+  // it). Read from window so the page stays statically generated.
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get(
+      "program",
+    );
+    if (requested && PROGRAM_OPTIONS.some((o) => o.value === requested)) {
+      setProgram(requested);
+    }
+  }, []);
 
   return (
     <>
@@ -116,6 +135,25 @@ export default function ContactPage() {
                           <option value="General">General Question</option>
                         </select>
                       </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-cdf mb-1.5">
+                        Loan Program
+                      </label>
+                      <select
+                        name="loan_program"
+                        value={program}
+                        onChange={(e) => setProgram(e.target.value)}
+                        className="w-full border border-cdf/20 rounded-lg px-4 py-3 text-dark focus:outline-none focus:border-champagne-500 focus:ring-1 focus:ring-gold/30 transition-colors"
+                      >
+                        <option value="">Not sure yet / General</option>
+                        {PROGRAM_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
                     </div>
 
                     <div>

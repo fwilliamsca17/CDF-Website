@@ -1,5 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { LOAN_PAGES } from "@/lib/loan-pages";
+import { LOCATION_PAGES } from "@/lib/location-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://capitaldf.com";
@@ -20,9 +22,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
+  // Dedicated loan program pages — primary acquisition surface.
+  const loanPages: MetadataRoute.Sitemap = LOAN_PAGES.map((page) => ({
+    url: `${baseUrl}${page.path}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // County service-area pages.
+  const locationPages: MetadataRoute.Sitemap = LOCATION_PAGES.map((page) => ({
+    url: `${baseUrl}${page.path}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
   return [
     ...blogIndex,
     ...blogPosts,
+    ...loanPages,
+    ...locationPages,
     {
       url: baseUrl,
       lastModified: new Date(),

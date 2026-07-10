@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getAllPosts, getPostBySlug, formatDate } from "@/lib/blog";
+import RelatedPrograms from "@/components/blog/RelatedPrograms";
 
 const BASE = "https://capitaldf.com";
 
@@ -92,6 +93,12 @@ export default async function BlogPostPage({
             <div
               className="blog-prose mx-auto max-w-3xl"
               dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
+            />
+
+            <RelatedPrograms
+              title={post.title}
+              excerpt={post.excerpt ?? ""}
+              bodyHtml={post.bodyHtml}
             />
 
             <div className="mx-auto mt-14 max-w-3xl border-t border-cdf/10 pt-8">

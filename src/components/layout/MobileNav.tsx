@@ -13,7 +13,8 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
-  const [expanded, setExpanded] = useState(false);
+  // Which accordion is expanded, keyed by nav item label.
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
     <AnimatePresence>
@@ -36,18 +37,22 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                 {item.children ? (
                   <div>
                     <button
-                      onClick={() => setExpanded(!expanded)}
+                      onClick={() =>
+                        setExpanded(
+                          expanded === item.label ? null : item.label
+                        )
+                      }
                       className="w-full flex items-center justify-between py-3 text-white/80 hover:text-champagne-300 transition-colors text-lg font-medium"
                     >
                       {item.label}
                       <ChevronDown
                         className={`w-4 h-4 transition-transform duration-200 ${
-                          expanded ? "rotate-180" : ""
+                          expanded === item.label ? "rotate-180" : ""
                         }`}
                       />
                     </button>
                     <AnimatePresence>
-                      {expanded && (
+                      {expanded === item.label && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}

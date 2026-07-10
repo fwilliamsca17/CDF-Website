@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="relative bg-ink-950 text-white">
       <div className="hairline-champagne absolute inset-x-0 top-0 h-px" />
       <div className="max-container section-padding py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-12 lg:gap-6">
           {/* Brand column */}
           <div className="lg:col-span-2">
             <Image
@@ -45,13 +45,32 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Borrowers links */}
+          {/* Loan program links */}
           <div>
             <h4 className="font-heading font-semibold text-champagne-400 mb-4 text-sm uppercase tracking-wider">
-              Borrowers
+              Loan Programs
             </h4>
             <ul className="space-y-2.5">
               {FOOTER_LINKS.borrowers.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-white/60 hover:text-white transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Service area links */}
+          <div>
+            <h4 className="font-heading font-semibold text-champagne-400 mb-4 text-sm uppercase tracking-wider">
+              Service Areas
+            </h4>
+            <ul className="space-y-2.5">
+              {FOOTER_LINKS.serviceAreas.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

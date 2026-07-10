@@ -5,6 +5,8 @@ import {
   PROCESS_STEPS,
   FAQ_ITEMS,
 } from "@/lib/constants";
+import { getLoanPage, getLoanPageByProgramSlug } from "@/lib/loan-pages";
+import { getLocationPage } from "@/lib/location-pages";
 
 const BASE = "https://capitaldf.com";
 const ORG_ID = `${BASE}/#organization`;
@@ -223,7 +225,11 @@ function LoanProductsSchema() {
     "@type": ["FinancialProduct", "LoanOrCredit"],
     name: program.title,
     description: program.description,
-    url: `${BASE}/borrowers#${program.slug}`,
+    // Point at the dedicated program page when one exists; fall back to the
+    // /borrowers anchor for programs without one.
+    url: getLoanPageByProgramSlug(program.slug)
+      ? `${BASE}${getLoanPageByProgramSlug(program.slug)!.path}`
+      : `${BASE}/borrowers#${program.slug}`,
     loanType: program.title,
     currency: "USD",
     category: "Private money loan",
@@ -462,6 +468,97 @@ function PageSeo({
   return <JsonLdScript schema={schema} />;
 }
 
+/**
+ * Per-program page schema: one @graph carrying the LoanOrCredit product and
+ * a page-scoped FAQPage built from that program's FAQs. Drop into the
+ * dedicated program page's layout alongside PageSeo.
+ */
+function LoanPageSchema({ path }: { path: string }) {
+  const page = getLoanPage(path);
+  if (!page) return null;
+  const program = LOAN_PROGRAMS.find((p) => p.slug === page.programSlug);
+  if (!program) return null;
+
+  const url = `${BASE}${path}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["FinancialProduct", "LoanOrCredit"],
+        "@id": `${url}#product`,
+        name: program.title,
+        description: program.description,
+        url,
+        loanType: program.title,
+        currency: "USD",
+        category: "Private money loan",
+        areaServed: { "@type": "State", name: "California" },
+        provider: { "@id": ORG_ID },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "USD",
+          description: `LTV: ${program.parameters.ltv} | Rates: ${program.parameters.rates} | Terms: ${program.parameters.terms} | Range: ${program.parameters.loanRange}`,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faqpage`,
+        mainEntity: page.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
+  };
+
+  return <JsonLdScript schema={schema} />;
+}
+
+/**
+ * Per-county location page schema: a Service scoped to the county (with its
+ * cities as areaServed) plus a page-scoped FAQPage. The provider links back
+ * to the single Organization — no fake per-city LocalBusiness entities.
+ */
+function LocationPageSchema({ path }: { path: string }) {
+  const page = getLocationPage(path);
+  if (!page) return null;
+
+  const url = `${BASE}${path}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: `Private Money Lending in ${page.name}`,
+        serviceType: "Hard money / private money real estate lending",
+        description: page.seo.description,
+        url,
+        provider: { "@id": ORG_ID },
+        areaServed: [
+          { "@type": "AdministrativeArea", name: page.county },
+          ...page.cities.map((city) => ({
+            "@type": "City" as const,
+            name: `${city}, CA`,
+          })),
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faqpage`,
+        mainEntity: page.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
+  };
+
+  return <JsonLdScript schema={schema} />;
+}
+
 export {
   OrganizationSchema,
   LocalBusinessSchema,
@@ -475,4 +572,6 @@ export {
   VideoObjectSchema,
   BreadcrumbSchema,
   PageSeo,
+  LoanPageSchema,
+  LocationPageSchema,
 };

@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { iconMap } from "@/lib/icons";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import { LOAN_PROGRAMS } from "@/lib/constants";
+import { getLoanPageByProgramSlug } from "@/lib/loan-pages";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import GetInTouch from "@/components/sections/GetInTouch";
@@ -75,6 +77,7 @@ export default function BorrowersPage() {
           <div className="space-y-8">
             {LOAN_PROGRAMS.map((program, i) => {
               const IconComponent = iconMap[program.icon];
+              const detailPage = getLoanPageByProgramSlug(program.slug);
               return (
                 <motion.div
                   key={program.slug}
@@ -109,6 +112,15 @@ export default function BorrowersPage() {
                           </li>
                         ))}
                       </ul>
+                      {detailPage && (
+                        <Link
+                          href={detailPage.path}
+                          className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-cdf hover:text-champagne-600 transition-colors group"
+                        >
+                          Full program details, scenarios & FAQs
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      )}
                     </div>
 
                     {/* Right: Parameters */}

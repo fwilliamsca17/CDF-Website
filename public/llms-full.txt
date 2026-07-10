@@ -224,14 +224,26 @@ Buyer backup financing, fix & flip capital, probate listing funding, seller brid
 3. Client gets funded — close in as few as 7 days. Client relationship stays with the referring professional.
 
 ## Pages
-- /borrowers: Loan programs for real estate borrowers
+- /borrowers: Loan programs overview for real estate borrowers
+- /fix-and-flip-loans: Fix & flip financing — up to 75% ARV, rehab draws, no prepayment penalty
+- /bridge-loans: Bridge financing — buy-before-sell, 1031 exchange deadlines, maturing debt payoffs
+- /construction-loans: Ground-up construction — lot acquisition + vertical, structured draws, experienced builders
+- /cash-out-refinance: Business-purpose cash-out refinance — no seasoning requirements, equity in 7 days
+- /probate-loans: Probate & estate financing — heir buyouts, court confirmation purchases, trust properties
+- /foreclosure-bankruptcy-loans: Foreclosure bail-outs and post-bankruptcy financing — no credit minimums
+- /self-employed-loans: Self-employed and business-owner financing — no tax returns, bank statement programs
+- /adu-loans: ADU construction loan program details
+- /hard-money-lender-los-angeles: Los Angeles County lending — CDF headquarters market (West Covina)
+- /hard-money-lender-orange-county: Orange County lending — tract flips, coastal bridge, business owners
+- /hard-money-lender-san-diego: San Diego County lending — flips, ADUs, coastal bridge scenarios
+- /hard-money-lender-riverside: Riverside County / Inland Empire lending — flips, construction, Coachella Valley
+- /hard-money-lender-san-bernardino: San Bernardino County lending — West Valley, High Desert, mountain properties
 - /investors: Direct trust deed investment — process, parameters, account types, advantages
 - /professionals: Professional referral partners hub
 - /professionals/attorneys: Probate, estate, bankruptcy, and divorce funding for attorney clients
 - /professionals/cpas: Trust deed investments and private lending for CPA clients
 - /professionals/mortgage: Non-QM and hard-to-place solutions for mortgage brokers
 - /professionals/real-estate: Fast funding to help real estate agents close more deals
-- /adu-loans: ADU construction loan program details
 - /loan-process: How the 4-step lending process works
 - /about: Company story and values
 - /team: Meet the team

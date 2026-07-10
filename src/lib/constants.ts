@@ -33,15 +33,30 @@ export type NavChild = {
 };
 
 export type NavItem =
-  | { label: string; href: string; children?: undefined }
-  | { label: string; href: string; children: NavChild[] };
+  | { label: string; href: string; children?: undefined; viewAllLabel?: undefined }
+  | { label: string; href: string; children: NavChild[]; viewAllLabel: string };
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Borrowers", href: "/borrowers" },
+  {
+    label: "Borrowers",
+    href: "/borrowers",
+    viewAllLabel: "View All Loan Programs →",
+    children: [
+      { label: "Fix & Flip Loans", href: "/fix-and-flip-loans", description: "Up to 75% ARV, rehab draws included" },
+      { label: "Bridge Loans", href: "/bridge-loans", description: "Close the gap between transactions" },
+      { label: "Construction Loans", href: "/construction-loans", description: "Ground-up builds, lot + vertical" },
+      { label: "Cash-Out Refinance", href: "/cash-out-refinance", description: "Unlock equity, no seasoning" },
+      { label: "Probate & Estate Loans", href: "/probate-loans", description: "Court-experienced estate funding" },
+      { label: "Foreclosure & BK Recovery", href: "/foreclosure-bankruptcy-loans", description: "No credit minimums, fast payoffs" },
+      { label: "Self-Employed Solutions", href: "/self-employed-loans", description: "No tax returns required" },
+      { label: "ADU Construction", href: "/adu-loans", description: "75–85% LTC, milestone draws" },
+    ],
+  },
   { label: "Investors", href: "/investors" },
   {
     label: "Professionals",
     href: "/professionals",
+    viewAllLabel: "View All Professionals →",
     children: [
       { label: "Attorneys", href: "/professionals/attorneys", description: "Probate, estate, bankruptcy & family law" },
       { label: "CPAs & Tax Advisors", href: "/professionals/cpas", description: "Tax-advantaged strategies for your clients" },
@@ -562,11 +577,21 @@ export const TESTIMONIALS = [
 
 export const FOOTER_LINKS = {
   borrowers: [
-    { label: "Fix & Flip Loans", href: "/borrowers#fix-and-flip" },
-    { label: "Bridge Loans", href: "/borrowers#bridge-loans" },
-    { label: "Construction Loans", href: "/borrowers#construction" },
-    { label: "Cash-Out Refinance", href: "/borrowers#cash-out" },
-    { label: "Probate & Estate", href: "/borrowers#probate" },
+    { label: "Fix & Flip Loans", href: "/fix-and-flip-loans" },
+    { label: "Bridge Loans", href: "/bridge-loans" },
+    { label: "Construction Loans", href: "/construction-loans" },
+    { label: "Cash-Out Refinance", href: "/cash-out-refinance" },
+    { label: "Probate & Estate Loans", href: "/probate-loans" },
+    { label: "Foreclosure & BK Recovery", href: "/foreclosure-bankruptcy-loans" },
+    { label: "Self-Employed Solutions", href: "/self-employed-loans" },
+    { label: "ADU Construction", href: "/adu-loans" },
+  ],
+  serviceAreas: [
+    { label: "Los Angeles", href: "/hard-money-lender-los-angeles" },
+    { label: "Orange County", href: "/hard-money-lender-orange-county" },
+    { label: "San Diego", href: "/hard-money-lender-san-diego" },
+    { label: "Riverside", href: "/hard-money-lender-riverside" },
+    { label: "San Bernardino", href: "/hard-money-lender-san-bernardino" },
   ],
   investors: [
     { label: "How It Works", href: "/investors#how-it-works" },
