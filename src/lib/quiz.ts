@@ -78,9 +78,11 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 ];
 
 /**
- * Routes a completed review to CDF (lending), WCA (brokerage/advisory),
- * or both. Selling intent goes to WCA; keep intent goes to CDF unless the
- * equity picture is uncertain; undecided goals get both perspectives.
+ * Routes a completed review to a lending path ("cdf"), a sale-advisory path
+ * ("wca"), or an open advisor conversation ("both"). The route values are a
+ * stable internal taxonomy for lead triage and analytics — all visitor-facing
+ * copy is CDF-branded regardless of route (WCA involvement is an internal
+ * handoff decision, not a public one).
  *
  * Primary residences never route straight to lending copy: CDF makes
  * business-purpose loans, so an owner-occupant's options must be sorted out

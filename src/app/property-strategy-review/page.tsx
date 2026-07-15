@@ -41,7 +41,7 @@ const RESULT_COPY: Record<
   wca: {
     headline: "Protect the value you've built.",
     body: [
-      "A deliberate, well-timed sale can preserve more equity than waiting. Williams Capital Advisors, CDF's advisory affiliate, provides a complimentary Broker Opinion of Value and equity analysis so you can see exactly where you stand.",
+      "A deliberate, well-timed sale can preserve more equity than waiting. Your CDF advisor will prepare a complimentary value and equity review so you can see exactly where you stand before you commit to anything.",
     ],
   },
   both: {
@@ -190,7 +190,11 @@ export default function PropertyStrategyReviewPage() {
                 </div>
                 <p className="text-body/60 text-xs leading-relaxed max-w-md mx-auto">
                   All loans are business-purpose loans secured by California
-                  real estate.
+                  real estate. CDF is not your mortgage servicer, housing
+                  counselor, or law firm. If keeping your home is your
+                  priority, you may also wish to contact your servicer or a
+                  HUD-approved housing counselor — foreclosure counseling is
+                  available at little or no cost.
                   {SITE_CONFIG.dreLicense && ` DRE# ${SITE_CONFIG.dreLicense}`}
                   {SITE_CONFIG.nmls && ` | NMLS# ${SITE_CONFIG.nmls}`}
                 </p>
@@ -343,12 +347,12 @@ export default function PropertyStrategyReviewPage() {
                             />
                             <span>
                               I agree to receive calls, texts, and emails from
-                              Capital Direct Funding and Williams Capital
-                              Advisors about my inquiry, including through
-                              automated technology such as autodialed or
-                              prerecorded calls and texts. Message and data
-                              rates may apply. Reply STOP to opt out. Consent
-                              is not a condition of any service.
+                              Capital Direct Funding about my inquiry,
+                              including through automated technology such as
+                              autodialed or prerecorded calls and texts.
+                              Message and data rates may apply. Reply STOP to
+                              opt out. Consent is not a condition of any
+                              service.
                             </span>
                           </label>
 
