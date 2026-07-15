@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+// Trailing slash would produce double-slash proxy destinations, which a
+// PostHog instance can 404 — normalize once here.
+const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST?.replace(/\/+$/, "");
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -76,10 +80,29 @@ const nextConfig = {
     // Reverse proxy for PostHog so analytics requests are first-party
     // (ad-blockers drop 25-40% of direct-to-posthog.com traffic, which
     // silently corrupts lead attribution).
+    // NEXT_PUBLIC_POSTHOG_HOST unset = PostHog US Cloud; set = self-hosted
+    // instance URL, which must be reachable by visitors' browsers (public
+    // HTTPS in production).
+    if (POSTHOG_HOST) {
+      return [
+        {
+          source: "/ingest/static/:path*",
+          destination: POSTHOG_HOST + "/static/:path*",
+        },
+        {
+          source: "/ingest/:path*",
+          destination: POSTHOG_HOST + "/:path*",
+        },
+      ];
+    }
     return [
       {
         source: "/ingest/static/:path*",
         destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/array/:path*",
+        destination: "https://us-assets.i.posthog.com/array/:path*",
       },
       {
         source: "/ingest/:path*",

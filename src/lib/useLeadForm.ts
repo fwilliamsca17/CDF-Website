@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { track, identifyLead } from "@/lib/analytics";
+import { track } from "@/lib/analytics";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const WEB3FORMS_ACCESS_KEY = "09f80e34-62a3-4fc0-9773-ff3f8f0683e2";
@@ -30,17 +30,19 @@ export function useLeadForm(extraFields?: Record<string, string>) {
 
     setSubmitting(true);
     setError(false);
+    track("lead_form_submit_started", {
+      page: window.location.pathname,
+      form: extraFields?.subject,
+    });
     try {
       const res = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
         body: data,
       });
       if (!res.ok) throw new Error(`Web3Forms responded ${res.status}`);
-      const email = data.get("email");
-      if (typeof email === "string" && email) identifyLead(email);
       track("lead_form_submitted", {
         page: window.location.pathname,
-        subject: extraFields?.subject,
+        form: extraFields?.subject,
       });
       setSubmitted(true);
       form.reset();

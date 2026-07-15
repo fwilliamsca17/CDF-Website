@@ -16,8 +16,8 @@ export default function Footer() {
             <Image
               src="/images/cdf-logo-white.png"
               alt="Capital Direct Funding"
-              width={200}
-              height={45}
+              width={300}
+              height={33}
               className="h-10 w-auto mb-6"
             />
             <p className="text-white/60 text-sm leading-relaxed max-w-sm mb-6">

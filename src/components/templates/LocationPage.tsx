@@ -9,6 +9,7 @@ import { getLoanPageByProgramSlug } from "@/lib/loan-pages";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeIn from "@/components/ui/FadeIn";
 import { track } from "@/lib/analytics";
+import LandingHeroBackdrop from "@/components/landing/LandingHeroBackdrop";
 
 /**
  * Shared template for county location pages. Content comes from
@@ -38,31 +39,29 @@ export default function LocationPage({ path }: { path: string }) {
   return (
     <>
       {/* Hero */}
-      <section className="hero-atmosphere pt-32 pb-20 relative overflow-hidden">
-        <div className="hero-glow absolute inset-0 pointer-events-none" />
-        <div className="hero-grain absolute inset-0 pointer-events-none opacity-[0.03]" />
-        <div className="hero-vignette absolute inset-0 pointer-events-none" />
+      <section className="hero-atmosphere relative min-h-[760px] overflow-hidden pb-20 pt-32 flex items-center">
+        <LandingHeroBackdrop />
         <div className="relative z-10 max-container section-padding">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl"
+            className="max-w-[46rem]"
           >
             <p className="eyebrow !text-champagne-300 mb-3 flex items-center gap-2">
               <MapPin className="w-4 h-4" />
               Hard Money Lender — {page.name}
             </p>
-            <h1 className="font-heading text-display-lg md:text-display-xl font-bold text-white mb-6">
+            <h1 className="font-heading text-[2.6rem] leading-[1.04] sm:text-display-lg md:text-display-xl font-bold text-white mb-6">
               {page.h1}{" "}
               <span className="text-champagne-gradient">
                 {page.h1Highlight}
               </span>
             </h1>
-            <p className="text-xl text-ivory/70 leading-relaxed mb-4">
+            <p className="text-lg sm:text-xl text-ivory/70 leading-relaxed mb-4">
               {page.heroLead}
             </p>
-            <p className="text-ivory/50 leading-relaxed mb-8">{page.heroSub}</p>
+            <p className="hidden sm:block text-ivory/50 leading-relaxed mb-8">{page.heroSub}</p>
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
               <a
                 href={tel}

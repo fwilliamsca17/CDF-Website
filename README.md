@@ -1,4 +1,7 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Capital Direct Funding website
+
+Next.js 15 marketing site for Capital Direct Funding, including loan-program,
+county, professional-partner, investor, and editorial landing pages.
 
 ## Getting Started
 
@@ -15,6 +18,26 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Local PostHog workflow
+
+1. Copy `.env.example` to `.env.local`.
+2. Leave `NEXT_PUBLIC_POSTHOG_CAPTURE_LOCALHOST=false` while developing. With
+   `NEXT_PUBLIC_POSTHOG_DEBUG=true`, conversion events appear in the browser
+   console without polluting PostHog.
+3. To verify delivery end to end, add the PostHog project token and temporarily
+   set `NEXT_PUBLIC_POSTHOG_CAPTURE_LOCALHOST=true`. Confirm `/ingest/*`
+   requests return `200`, then switch the flag back to `false`.
+
+The tracked conversion events are `cta_click`, `lead_form_submit_started`,
+`lead_form_submitted`, `lead_form_error`, and the Property Strategy Review
+funnel events `quiz_started`, `quiz_step_completed`, and `quiz_completed`.
+The quiz events carry only enumerated multiple-choice answer values
+(property type/use, timeline, equity band, goal, recommended route) — no
+user-entered text, names, email addresses, phone numbers, or city are ever
+sent to PostHog. Production uses the first-party `/ingest` reverse proxy
+configured in `next.config.mjs`; see `docs/POSTHOG-SELF-HOST.md` to point it
+at a self-hosted PostHog instance.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

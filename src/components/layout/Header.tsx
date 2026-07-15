@@ -55,8 +55,8 @@ export default function Header() {
             <Image
               src="/images/cdf-logo-white.png"
               alt="Capital Direct Funding"
-              width={180}
-              height={40}
+              width={300}
+              height={33}
               className="h-8 md:h-10 w-auto"
               priority
             />
