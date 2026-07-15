@@ -3,6 +3,7 @@ import { Montserrat, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import PostHogProvider from "@/components/PostHogProvider";
 import {
   OrganizationSchema,
   LocalBusinessSchema,
@@ -122,6 +123,7 @@ export default function RootLayout({
         <WebSiteSchema />
       </head>
       <body className="font-sans antialiased">
+        <PostHogProvider />
         <Header />
         <main>{children}</main>
         <Footer />

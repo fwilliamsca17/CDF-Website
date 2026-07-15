@@ -7,6 +7,7 @@ import { SITE_CONFIG, LOAN_PROGRAMS, PROCESS_STEPS } from "@/lib/constants";
 import { getLoanPage } from "@/lib/loan-pages";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeIn from "@/components/ui/FadeIn";
+import { track } from "@/lib/analytics";
 
 /**
  * Shared template for dedicated loan program pages.
@@ -25,6 +26,8 @@ export default function LoanProgramPage({ path }: { path: string }) {
 
   const tel = `tel:${SITE_CONFIG.phone.replace(/[^\d+]/g, "")}`;
   const contactHref = `/contact?program=${program.slug}`;
+  const trackCta = (cta: "call" | "contact", placement: "hero" | "footer") =>
+    track("cta_click", { cta, placement, page: path, program: program.slug });
 
   const parameterTiles = [
     { label: "Loan-to-Value", value: program.parameters.ltv },
@@ -59,11 +62,19 @@ export default function LoanProgramPage({ path }: { path: string }) {
             </p>
             <p className="text-ivory/50 leading-relaxed mb-8">{page.heroSub}</p>
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
-              <a href={tel} className="btn-champagne">
+              <a
+                href={tel}
+                className="btn-champagne"
+                onClick={() => trackCta("call", "hero")}
+              >
                 <Phone className="w-5 h-5" />
                 Call {SITE_CONFIG.phone}
               </a>
-              <Link href={contactHref} className="btn-ghost-light">
+              <Link
+                href={contactHref}
+                className="btn-ghost-light"
+                onClick={() => trackCta("contact", "hero")}
+              >
                 Get Preliminary Terms
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -291,11 +302,19 @@ export default function LoanProgramPage({ path }: { path: string }) {
               too — fast.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-              <a href={tel} className="btn-champagne">
+              <a
+                href={tel}
+                className="btn-champagne"
+                onClick={() => trackCta("call", "footer")}
+              >
                 <Phone className="w-5 h-5" />
                 Call {SITE_CONFIG.phone}
               </a>
-              <Link href={contactHref} className="btn-ghost-light">
+              <Link
+                href={contactHref}
+                className="btn-ghost-light"
+                onClick={() => trackCta("contact", "footer")}
+              >
                 Start Your Application
                 <ArrowRight className="w-4 h-4" />
               </Link>

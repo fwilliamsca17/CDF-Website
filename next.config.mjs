@@ -58,6 +58,9 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  // PostHog ingestion API uses trailing slashes; Next's default redirect
+  // would strip them and break event delivery through the /ingest proxy.
+  skipTrailingSlashRedirect: true,
   async headers() {
     return [
       {
@@ -68,6 +71,21 @@ const nextConfig = {
   },
   async redirects() {
     return squarespaceRedirects;
+  },
+  async rewrites() {
+    // Reverse proxy for PostHog so analytics requests are first-party
+    // (ad-blockers drop 25-40% of direct-to-posthog.com traffic, which
+    // silently corrupts lead attribution).
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+    ];
   },
 };
 
