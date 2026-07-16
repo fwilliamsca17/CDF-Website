@@ -115,7 +115,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${sourceSans.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${montserrat.variable} ${sourceSans.variable}`}
+    >
       <head>
         <OrganizationSchema />
         <LocalBusinessSchema />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const WEB3FORMS_ACCESS_KEY = "09f80e34-62a3-4fc0-9773-ff3f8f0683e2";
@@ -27,18 +28,45 @@ export function useLeadForm(extraFields?: Record<string, string>) {
       data.append(k, v);
     }
 
+    // Click-to-text link for the lead notification email. Lead details ride
+    // in the URL fragment, which browsers never send to the server — no lead
+    // PII in Vercel request logs.
+    const leadPhone = data.get("phone");
+    if (typeof leadPhone === "string" && leadPhone.trim()) {
+      const rawName = data.get("first_name") ?? data.get("name");
+      const route = data.get("recommended_route");
+      const frag = new URLSearchParams({ p: leadPhone.trim() });
+      if (typeof rawName === "string" && rawName.trim()) {
+        frag.set("fn", rawName.trim().split(/\s+/)[0]);
+      }
+      if (typeof route === "string" && route) frag.set("r", route);
+      data.append(
+        "team_text_link",
+        `https://capitaldf.com/ops/text-lead#${frag.toString()}`
+      );
+    }
+
     setSubmitting(true);
     setError(false);
+    track("lead_form_submit_started", {
+      page: window.location.pathname,
+      form: extraFields?.subject,
+    });
     try {
       const res = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
         body: data,
       });
       if (!res.ok) throw new Error(`Web3Forms responded ${res.status}`);
+      track("lead_form_submitted", {
+        page: window.location.pathname,
+        form: extraFields?.subject,
+      });
       setSubmitted(true);
       form.reset();
       setTimeout(() => setSubmitted(false), 5000);
     } catch {
+      track("lead_form_error", { page: window.location.pathname });
       setError(true);
     } finally {
       setSubmitting(false);

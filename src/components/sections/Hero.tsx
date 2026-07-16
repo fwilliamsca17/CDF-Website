@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import HeroVideo from "./HeroVideo";
+import { track } from "@/lib/analytics";
 
 const ROTATING_TYPES = [
   "Fix & Flip",
@@ -92,11 +93,31 @@ export default function Hero() {
             className="hero-in flex flex-col gap-4 sm:flex-row"
             style={{ animationDelay: "360ms" }}
           >
-            <Link href="/borrowers" className="btn-champagne group">
+            <Link
+              href="/borrowers"
+              className="btn-champagne group"
+              onClick={() =>
+                track("cta_click", {
+                  cta: "borrower",
+                  placement: "home_hero",
+                  page: "/",
+                })
+              }
+            >
               I&apos;m a Borrower
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-            <Link href="/investors" className="btn-ghost-light group">
+            <Link
+              href="/investors"
+              className="btn-ghost-light group"
+              onClick={() =>
+                track("cta_click", {
+                  cta: "investor",
+                  placement: "home_hero",
+                  page: "/",
+                })
+              }
+            >
               I&apos;m an Investor
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
