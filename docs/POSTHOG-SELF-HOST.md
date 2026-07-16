@@ -127,7 +127,7 @@ the proxy (see `next.config.mjs`).
 | `quiz_started` | `page` | First answer selected on `/property-strategy-review` |
 | `quiz_step_completed` | `step`, `field`, `value` | Each quiz question answered |
 | `routing_decision_made` | `route`, quiz enum values | Final CDF-only route computed, before contact collection |
-| `quiz_completed` | `route`, `property_type`, `property_use`, `timeline`, `equity`, `goal` | Eligible form submitted or resource-only result shown |
+| `quiz_completed` | `route`, `property_type`, `property_use`, `timeline`, `equity`, `goal` | Contact form submitted (all routes, including resource_only) |
 
 Convention: only enumerated multiple-choice values ever appear in event
 properties — never user-entered text, names, emails, phones, or city.

@@ -47,10 +47,10 @@ const RESULT_COPY: Record<
     secondary: { href: "/borrowers", label: "Explore loan programs" },
   },
   resource_only: {
-    headline: "CDF's business-purpose programs may not fit this request.",
+    headline: "You have options — and we can point you to the right ones.",
     body: [
-      "CDF advertises business-purpose loans secured by California real estate. Based on the property use selected, this request may fall outside those programs.",
-      "For a consumer mortgage or owner-occupied home, contact your mortgage servicer promptly. A HUD-approved housing counselor can also explain available options at little or no cost.",
+      "CDF's loan programs are business-purpose, so a consumer mortgage on an owner-occupied home isn't something we finance. That doesn't mean you're out of options — it means the right help looks different.",
+      "Our advisors regularly connect homeowners with the resources that fit their situation: HUD-approved housing counselors, loan-modification help through your mortgage servicer, and, where appropriate, introductions to licensed bankruptcy attorneys. Pointing you in the right direction is free — and it starts with a call.",
     ],
     secondary: {
       href: "https://www.hud.gov/housing-counseling",
@@ -112,14 +112,10 @@ export default function PropertyStrategyReviewPage() {
         goal: nextAnswers.goal,
       };
       track("routing_decision_made", routingProperties);
-
-      // Consumer-purpose scenarios receive neutral resources immediately.
-      // Do not collect PII or marketing consent for a CDF lending pipeline that
-      // the selected property use does not fit.
-      if (nextRoute === "resource_only") {
-        setCompleted(true);
-        track("quiz_completed", routingProperties);
-      }
+      // Every route proceeds to contact capture — resource_only leads are
+      // referral conversations (HUD counselors, loan-mod resources, BK
+      // attorneys), not lending pipeline, but the advisor call still starts
+      // with a name and number. The result copy stays financing-free.
     }
 
     stepRef.current = Math.min(stepRef.current + 1, TOTAL_STEPS);

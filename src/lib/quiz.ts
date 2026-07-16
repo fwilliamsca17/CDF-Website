@@ -83,8 +83,10 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 /**
  * Routes a completed review entirely within the CDF operating model.
  * Investment and business-use properties can receive a standard or priority
- * financing review. Consumer-purpose scenarios receive neutral resources and
- * are not presented as candidates for CDF's business-purpose loan programs.
+ * financing review. Consumer-purpose scenarios are never presented as
+ * candidates for CDF's business-purpose loan programs — their contact is
+ * still captured, but for a referral conversation (HUD counselors, loan-mod
+ * resources, bankruptcy attorneys), not lending.
  */
 export function routeLead(answers: QuizAnswers): LeadRoute {
   const isBusinessPurposeProperty =
