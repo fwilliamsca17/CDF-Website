@@ -24,9 +24,10 @@ if (projectToken && (!isLocalhost || captureLocalhost)) {
     defaults: "2026-05-30",
     capture_pageleave: true,
     person_profiles: "identified_only",
-    session_recording: {
-      maskAllInputs: true,
-    },
+    // Keep replay off until the approved privacy policy discloses it and the
+    // distress funnel has comprehensive text masking. Event analytics remain
+    // enabled and must never contain PII.
+    disable_session_recording: true,
     loaded: (client) => {
       client.register({
         environment:

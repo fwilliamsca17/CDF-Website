@@ -18,7 +18,10 @@ export interface QuizQuestion {
 
 export type QuizAnswers = Partial<Record<QuizField, string>>;
 
-export type LeadRoute = "cdf" | "wca" | "both";
+export type LeadRoute =
+  | "cdf_priority_review"
+  | "cdf_standard_review"
+  | "resource_only";
 
 // Question order defines step order; the contact form follows as the final step.
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
@@ -69,30 +72,32 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     field: "goal",
     question: "What outcome matters most to you?",
     options: [
-      { value: "keep", label: "Keep the property" },
-      { value: "sell", label: "Sell and protect my equity" },
-      { value: "time", label: "Buy time to decide" },
-      { value: "advice", label: "I'm not sure — I want expert advice" },
+      { value: "payoff", label: "Pay off a maturing or delinquent loan" },
+      { value: "time", label: "Buy time to refinance or sell" },
+      { value: "stabilize", label: "Fund repairs or stabilize the property" },
+      { value: "advice", label: "Explore business-purpose financing" },
     ],
   },
 ];
 
 /**
- * Routes a completed review to a lending path ("cdf"), a sale-advisory path
- * ("wca"), or an open advisor conversation ("both"). The route values are a
- * stable internal taxonomy for lead triage and analytics — all visitor-facing
- * copy is CDF-branded regardless of route (WCA involvement is an internal
- * handoff decision, not a public one).
- *
- * Primary residences never route straight to lending copy: CDF makes
- * business-purpose loans, so an owner-occupant's options must be sorted out
- * by an advisor, not a landing page.
+ * Routes a completed review entirely within the CDF operating model.
+ * Investment and business-use properties can receive a standard or priority
+ * financing review. Consumer-purpose scenarios receive neutral resources and
+ * are not presented as candidates for CDF's business-purpose loan programs.
  */
 export function routeLead(answers: QuizAnswers): LeadRoute {
-  if (answers.goal === "sell") return "wca";
-  if (answers.goal === "keep") {
-    if (answers.property_use === "primary") return "both";
-    return answers.equity === "unsure" ? "both" : "cdf";
-  }
-  return "both";
+  const isBusinessPurposeProperty =
+    answers.property_use === "investment" || answers.property_use === "business";
+
+  if (!isBusinessPurposeProperty) return "resource_only";
+
+  const isTimeSensitive =
+    answers.timeline === "nos" ||
+    answers.timeline === "nod" ||
+    answers.timeline === "behind" ||
+    answers.goal === "payoff" ||
+    answers.goal === "time";
+
+  return isTimeSensitive ? "cdf_priority_review" : "cdf_standard_review";
 }

@@ -22,7 +22,7 @@ export default function PropertyStrategyReviewLayout({
     <>
       <PageSeo
         title="Property Strategy Review"
-        description="A confidential five-question review that helps California property owners compare financing and sale options."
+        description="A confidential five-question review for California property owners exploring CDF business-purpose real estate financing."
         path="/property-strategy-review"
         crumbs={[
           { name: "Home", path: "/" },

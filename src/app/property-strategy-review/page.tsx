@@ -21,34 +21,41 @@ const TOTAL_STEPS = QUIZ_QUESTIONS.length + 1;
 
 const HERO_POINTS = [
   "Understand your timeline",
-  "Explore financing possibilities",
-  "Determine whether selling may preserve more equity",
-  "Speak with an experienced advisor",
+  "Explore CDF business-purpose financing",
+  "Identify time-sensitive payoff or bridge needs",
+  "Receive a review from an experienced CDF advisor",
 ];
 
 const RESULT_COPY: Record<
   LeadRoute,
   { headline: string; body: string[]; secondary?: { href: string; label: string } }
 > = {
-  cdf: {
-    headline: "When time matters, certainty matters.",
+  cdf_priority_review: {
+    headline: "Your situation warrants a priority CDF review.",
     body: [
-      "Based on your answers, bridge or refinance financing may fit your situation. Capital Direct Funding has been a direct lender since 2009, and a real person reviews every submission.",
-      "Which programs apply depends on how the property is used and secured — your advisor will confirm eligibility and walk you through preliminary terms, typically within 24 hours.",
+      "Based on your answers, a time-sensitive bridge or payoff review may be appropriate. Capital Direct Funding has been a direct lender since 2009, and a real person reviews every submission.",
+      "A CDF advisor will confirm the business purpose, collateral, timeline, and preliminary eligibility. Submitting this review is not a loan application or promise of approval.",
     ],
     secondary: { href: "/borrowers", label: "Explore loan programs" },
   },
-  wca: {
-    headline: "Protect the value you've built.",
+  cdf_standard_review: {
+    headline: "Your property may fit a CDF financing review.",
     body: [
-      "A deliberate, well-timed sale can preserve more equity than waiting. Your CDF advisor will prepare a complimentary value and equity review so you can see exactly where you stand before you commit to anything.",
+      "Based on your answers, one or more CDF business-purpose loan programs may fit your property strategy.",
+      "A CDF advisor will review the property use, requested proceeds, collateral, and exit plan before discussing preliminary terms. Submitting this review is not a loan application or promise of approval.",
     ],
+    secondary: { href: "/borrowers", label: "Explore loan programs" },
   },
-  both: {
-    headline: "You have more options than you might think.",
+  resource_only: {
+    headline: "CDF's business-purpose programs may not fit this request.",
     body: [
-      "Financing on one side, a strategic sale on the other. An advisor will walk both paths with you using real numbers — no pressure either way.",
+      "CDF advertises business-purpose loans secured by California real estate. Based on the property use selected, this request may fall outside those programs.",
+      "For a consumer mortgage or owner-occupied home, contact your mortgage servicer promptly. A HUD-approved housing counselor can also explain available options at little or no cost.",
     ],
+    secondary: {
+      href: "https://www.hud.gov/housing-counseling",
+      label: "Find a HUD-approved counselor",
+    },
   },
 };
 
@@ -90,8 +97,31 @@ export default function PropertyStrategyReviewPage() {
       startedRef.current = true;
       track("quiz_started", { page: "/property-strategy-review" });
     }
-    setAnswers((prev) => ({ ...prev, [field]: value }));
+    const nextAnswers = { ...answers, [field]: value };
+    setAnswers(nextAnswers);
     track("quiz_step_completed", { step: stepRef.current, field, value });
+
+    if (stepRef.current === QUIZ_QUESTIONS.length) {
+      const nextRoute = routeLead(nextAnswers);
+      const routingProperties = {
+        route: nextRoute,
+        property_type: nextAnswers.property_type,
+        property_use: nextAnswers.property_use,
+        timeline: nextAnswers.timeline,
+        equity: nextAnswers.equity,
+        goal: nextAnswers.goal,
+      };
+      track("routing_decision_made", routingProperties);
+
+      // Consumer-purpose scenarios receive neutral resources immediately.
+      // Do not collect PII or marketing consent for a CDF lending pipeline that
+      // the selected property use does not fit.
+      if (nextRoute === "resource_only") {
+        setCompleted(true);
+        track("quiz_completed", routingProperties);
+      }
+    }
+
     stepRef.current = Math.min(stepRef.current + 1, TOTAL_STEPS);
     setStep(stepRef.current);
   }
@@ -169,15 +199,19 @@ export default function PropertyStrategyReviewPage() {
                     {paragraph}
                   </p>
                 ))}
-                <p className="text-cdf font-semibold mt-6 mb-8">
-                  Your review is in — an advisor will reach out within one
-                  business day.
-                </p>
+                {route !== "resource_only" && (
+                  <p className="text-cdf font-semibold mt-6 mb-8">
+                    Your review is in — an advisor will reach out within one
+                    business day.
+                  </p>
+                )}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                  <a href={tel} className="btn-champagne">
-                    <Phone className="w-5 h-5" />
-                    Call {SITE_CONFIG.phone}
-                  </a>
+                  {route !== "resource_only" && (
+                    <a href={tel} className="btn-champagne">
+                      <Phone className="w-5 h-5" />
+                      Call {SITE_CONFIG.phone}
+                    </a>
+                  )}
                   {result.secondary && (
                     <Link
                       href={result.secondary.href}

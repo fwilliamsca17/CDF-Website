@@ -59,6 +59,9 @@ const squarespaceRedirects = [
 ];
 
 const nextConfig = {
+  // This repo sits below a user-level package-lock.json. Pin tracing to the
+  // actual app root so builds do not infer the parent directory.
+  outputFileTracingRoot: process.cwd(),
   images: {
     formats: ["image/avif", "image/webp"],
   },
@@ -88,6 +91,10 @@ const nextConfig = {
         {
           source: "/ingest/static/:path*",
           destination: POSTHOG_HOST + "/static/:path*",
+        },
+        {
+          source: "/ingest/array/:path*",
+          destination: POSTHOG_HOST + "/array/:path*",
         },
         {
           source: "/ingest/:path*",

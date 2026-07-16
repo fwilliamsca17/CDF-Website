@@ -3,6 +3,24 @@
 Operator guide for running your own PostHog instance instead of PostHog
 Cloud. Written for Windows 11; no development experience assumed.
 
+## Current CDF installation (2026-07-15)
+
+- Stack: `C:\Users\franciscow1\posthog-stack\docker-compose.yml`
+- Local console: `https://localhost` (Caddy uses a local certificate)
+- Docker Desktop: starts with Windows, 8 GB memory target, Resource Saver off
+- Host ports: bound to `127.0.0.1`; PostHog databases and queues are not
+  intentionally exposed to the LAN
+- Production preflight: 10 of 10 checks pass
+- Public access: a temporary Cloudflare Quick Tunnel is available for setup
+  and testing only. Do not put its changing `trycloudflare.com` hostname into
+  Vercel.
+
+The remaining production setup requires human account actions: create the
+first PostHog admin/project, authenticate Cloudflare, choose the DNS approach
+for `analytics.capitaldf.com`, and authenticate/link the Vercel project. No
+NGINX account is needed; Caddy is the local reverse proxy and Cloudflare Tunnel
+is the intended public edge.
+
 ## Should you self-host?
 
 | | Self-hosted | PostHog Cloud (US) |
@@ -86,8 +104,12 @@ the proxy (see `next.config.mjs`).
 
 ## Maintenance
 
-- **Upgrades:** `docker compose pull` then
-  `docker compose -f docker-compose.hobby.yml up -d`.
+- **Start/check:** `docker compose -f C:\Users\franciscow1\posthog-stack\docker-compose.yml up -d`
+- **Health:** `curl.exe -k https://localhost/_health`
+- **Status:** `docker compose -f C:\Users\franciscow1\posthog-stack\docker-compose.yml ps`
+- **Logs:** `docker compose -f C:\Users\franciscow1\posthog-stack\docker-compose.yml logs --tail 200 web worker plugins proxy`
+- **Upgrades:** back up first, then run `docker compose pull` followed by
+  `docker compose up -d` from `C:\Users\franciscow1\posthog-stack`.
 - **Back up first:** snapshot the Postgres and ClickHouse volumes before
   every upgrade.
 - **Scale ceiling:** the hobby deployment is sized for roughly 100k
@@ -104,7 +126,8 @@ the proxy (see `next.config.mjs`).
 | `lead_form_error` | `page` | Failed lead submit (reliability metric) |
 | `quiz_started` | `page` | First answer selected on `/property-strategy-review` |
 | `quiz_step_completed` | `step`, `field`, `value` | Each quiz question answered |
-| `quiz_completed` | `route`, `property_type`, `property_use`, `timeline`, `equity`, `goal` | Contact form submitted |
+| `routing_decision_made` | `route`, quiz enum values | Final CDF-only route computed, before contact collection |
+| `quiz_completed` | `route`, `property_type`, `property_use`, `timeline`, `equity`, `goal` | Eligible form submitted or resource-only result shown |
 
 Convention: only enumerated multiple-choice values ever appear in event
 properties — never user-entered text, names, emails, phones, or city.
