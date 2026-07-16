@@ -8,6 +8,7 @@ import { getLoanPage } from "@/lib/loan-pages";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeIn from "@/components/ui/FadeIn";
 import { track } from "@/lib/analytics";
+import { useExperiment } from "@/lib/experiments";
 import LandingHeroBackdrop from "@/components/landing/LandingHeroBackdrop";
 
 /**
@@ -23,12 +24,24 @@ export default function LoanProgramPage({ path }: { path: string }) {
     ? LOAN_PROGRAMS.find((p) => p.slug === page.programSlug)
     : undefined;
 
+  // PostHog experiment "program-cta-label" — variant keys must match the
+  // flag. Hook must precede the early return (rules of hooks).
+  const ctaVariant = useExperiment("program-cta-label");
+
   if (!page || !program) return null;
 
   const tel = `tel:${SITE_CONFIG.phone.replace(/[^\d+]/g, "")}`;
   const contactHref = `/contact?program=${program.slug}`;
+  const ctaLabel =
+    ctaVariant === "deal-qualify" ? "See If My Deal Qualifies" : "Get Preliminary Terms";
   const trackCta = (cta: "call" | "contact", placement: "hero" | "footer") =>
-    track("cta_click", { cta, placement, page: path, program: program.slug });
+    track("cta_click", {
+      cta,
+      placement,
+      page: path,
+      program: program.slug,
+      variant: ctaVariant,
+    });
 
   const parameterTiles = [
     { label: "Loan-to-Value", value: program.parameters.ltv },
@@ -74,7 +87,7 @@ export default function LoanProgramPage({ path }: { path: string }) {
                 className="btn-ghost-light"
                 onClick={() => trackCta("contact", "hero")}
               >
-                Get Preliminary Terms
+                {ctaLabel}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

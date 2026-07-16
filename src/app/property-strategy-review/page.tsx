@@ -14,10 +14,28 @@ import {
 } from "@/lib/quiz";
 import { useLeadForm } from "@/lib/useLeadForm";
 import { track } from "@/lib/analytics";
+import { useExperiment } from "@/lib/experiments";
 import { cn } from "@/lib/utils";
 import LandingHeroBackdrop from "@/components/landing/LandingHeroBackdrop";
 
 const TOTAL_STEPS = QUIZ_QUESTIONS.length + 1;
+
+// PostHog experiment "psr-hero-headline" — variant keys must match the
+// feature flag exactly. Copy stays calm and promise-free (CC 2945).
+const HERO_HEADLINES: Record<
+  string,
+  { pre: string; highlight: string; post: string }
+> = {
+  control: { pre: "What Is the Best Path for ", highlight: "Your Property", post: "?" },
+  // Copy must promise only what the page literally delivers: the quiz shows
+  // options/routing in ~2 minutes; the substantive answer comes from an
+  // advisor. "Straight answer in 2 minutes" over-promised (review finding).
+  "see-options": {
+    pre: "See ",
+    highlight: "Your Property's Options",
+    post: " in 2 Minutes",
+  },
+};
 
 const HERO_POINTS = [
   "Understand your timeline",
@@ -74,6 +92,8 @@ export default function PropertyStrategyReviewPage() {
   const tel = `tel:${SITE_CONFIG.phone.replace(/[^\d+]/g, "")}`;
   const route = routeLead(answers);
   const question = step <= QUIZ_QUESTIONS.length ? QUIZ_QUESTIONS[step - 1] : null;
+  const headlineVariant = useExperiment("psr-hero-headline");
+  const headline = HERO_HEADLINES[headlineVariant] ?? HERO_HEADLINES.control;
 
   // useLeadForm resets `submitted` after 5s — latch completion locally so the
   // result screen persists, and fire quiz_completed exactly once.
@@ -145,8 +165,11 @@ export default function PropertyStrategyReviewPage() {
               Property Strategy Review
             </p>
             <h1 className="font-heading text-[2.6rem] leading-[1.04] sm:text-display-lg md:text-display-xl font-bold text-white mb-6">
-              What Is the Best Path for{" "}
-              <span className="text-champagne-gradient">Your Property</span>?
+              {headline.pre}
+              <span className="text-champagne-gradient">
+                {headline.highlight}
+              </span>
+              {headline.post}
             </h1>
             <p className="text-lg sm:text-xl text-ivory/70 leading-relaxed mb-8">
               Every property situation has more than one path forward. Five
