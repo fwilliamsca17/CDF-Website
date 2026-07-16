@@ -28,6 +28,24 @@ export function useLeadForm(extraFields?: Record<string, string>) {
       data.append(k, v);
     }
 
+    // Click-to-text link for the lead notification email. Lead details ride
+    // in the URL fragment, which browsers never send to the server — no lead
+    // PII in Vercel request logs.
+    const leadPhone = data.get("phone");
+    if (typeof leadPhone === "string" && leadPhone.trim()) {
+      const rawName = data.get("first_name") ?? data.get("name");
+      const route = data.get("recommended_route");
+      const frag = new URLSearchParams({ p: leadPhone.trim() });
+      if (typeof rawName === "string" && rawName.trim()) {
+        frag.set("fn", rawName.trim().split(/\s+/)[0]);
+      }
+      if (typeof route === "string" && route) frag.set("r", route);
+      data.append(
+        "team_text_link",
+        `https://capitaldf.com/ops/text-lead#${frag.toString()}`
+      );
+    }
+
     setSubmitting(true);
     setError(false);
     track("lead_form_submit_started", {
