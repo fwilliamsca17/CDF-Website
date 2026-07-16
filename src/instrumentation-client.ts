@@ -1,5 +1,8 @@
 import posthog from "posthog-js";
 
+// NEXT_PUBLIC_* values are inlined into this module at build time — if env
+// vars change in Vercel, this file must recompile (cache-busted) to pick
+// them up.
 const projectToken =
   process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN ??
   process.env.NEXT_PUBLIC_POSTHOG_KEY;
