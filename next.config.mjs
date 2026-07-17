@@ -56,12 +56,26 @@ const squarespaceRedirects = [
   { source: "/foreclosure-in-ca", destination: "/faq", permanent: true },
   // NOTE: /blog and /blog/* are now served natively by this site (146 posts
   // migrated in from Squarespace at their original URLs) — no redirect needed.
-  // Short campaign alias for SMS outreach — 302 (not permanent) so the
+  // Short campaign aliases for SMS outreach — 302 (not permanent) so the
   // destination/tags can change per campaign without cache poisoning.
+  // /review = generic; /review-nod and /review-nos are the ReplyBoost
+  // trigger-link destinations so each campaign attributes separately.
   {
     source: "/review",
     destination:
       "/property-strategy-review?utm_source=sms&utm_medium=sms&utm_campaign=strategy_review",
+    permanent: false,
+  },
+  {
+    source: "/review-nod",
+    destination:
+      "/property-strategy-review?utm_source=sms&utm_medium=sms&utm_campaign=sms_nod",
+    permanent: false,
+  },
+  {
+    source: "/review-nos",
+    destination:
+      "/property-strategy-review?utm_source=sms&utm_medium=sms&utm_campaign=sms_nos",
     permanent: false,
   },
 ];
