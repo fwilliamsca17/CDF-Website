@@ -159,10 +159,12 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-container section-padding py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-6">
-            <p className="text-white/40 text-xs">
+            <p className="text-white/40 text-xs max-w-xl">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.legalName} All rights reserved.
               {SITE_CONFIG.dreLicense && ` DRE# ${SITE_CONFIG.dreLicense}`}
               {SITE_CONFIG.nmls && ` | NMLS# ${SITE_CONFIG.nmls}`}
+              {" "}
+              Private capital only — separate from Williams Capital Advisors (brokerage) and Global Innovation Group (AI/digital).
             </p>
           </div>
 
