@@ -487,14 +487,6 @@ export const TEAM_MEMBERS = [
     featured: false,
   },
   {
-    name: "Rochelle Ramirez",
-    title: "Sales & Underwriting Assistant",
-    image: "/images/team-rochelle.png",
-    linkedin: null,
-    email: null,
-    featured: false,
-  },
-  {
     name: "Cindy Adlawan",
     title: "Executive Operations Coordinator",
     image: "/images/team-cindy.png",
