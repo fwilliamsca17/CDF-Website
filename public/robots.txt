@@ -2,7 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://capitaldf.com/sitemap.xml
+Host: https://www.capitaldf.com
+Sitemap: https://www.capitaldf.com/sitemap.xml
 
 # ──────────────────────────────────────────────────────────────
 # AI answer engines, assistants & agents — explicitly welcomed.
