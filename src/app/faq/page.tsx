@@ -3,6 +3,7 @@ import Link from "next/link";
 import Faq from "@/components/sections/Faq";
 import GetInTouch from "@/components/sections/GetInTouch";
 import { FAQSchema, PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 const DESCRIPTION =
   "Answers to common questions about Capital Direct Funding's private money loans — rates, eligibility, loan amounts, ADU construction loans, and first trust deed investments across California.";
@@ -10,11 +11,11 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: "FAQ — Private Lending & Trust Deed Questions",
   description: DESCRIPTION,
-  alternates: { canonical: "https://capitaldf.com/faq" },
+  alternates: { canonical: `${SITE_URL}/faq` },
   openGraph: {
     title: "Frequently Asked Questions | Capital Direct Funding",
     description: DESCRIPTION,
-    url: "https://capitaldf.com/faq",
+    url: `${SITE_URL}/faq`,
   },
 };
 

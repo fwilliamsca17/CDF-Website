@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo, HowToSchema } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Loan Process — From Application to Funding in 7 Days",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     description:
       "4 steps from application to funding. Close in as few as 7 days. 24-hour response guaranteed.",
   },
-  alternates: { canonical: "https://capitaldf.com/loan-process" },
+  alternates: { canonical: `${SITE_URL}/loan-process` },
 };
 
 export default function LoanProcessLayout({ children }: { children: React.ReactNode }) {

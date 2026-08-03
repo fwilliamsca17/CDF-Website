@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "About Us — Family-Run Private Lending Since 2009",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     description:
       "Family-run private lending since 2009. Over $200M deployed, 500+ loans funded across California.",
   },
-  alternates: { canonical: "https://capitaldf.com/about" },
+  alternates: { canonical: `${SITE_URL}/about` },
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

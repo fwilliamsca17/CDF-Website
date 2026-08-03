@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Professional Referral Partners — Attorneys, CPAs, Mortgage & Real Estate",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     description:
       "Partner with a direct private lender your clients can trust. Fast closings, transparent terms, protected relationships.",
   },
-  alternates: { canonical: "https://capitaldf.com/professionals" },
+  alternates: { canonical: `${SITE_URL}/professionals` },
 };
 
 export default function ProfessionalsLayout({

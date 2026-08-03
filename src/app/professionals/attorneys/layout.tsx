@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "For Attorneys — Probate, Estate, Bankruptcy & Divorce Funding",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Private funding for your clients' most complex real estate situations. Probate, bankruptcy, divorce, foreclosure — close in 7 days.",
   },
-  alternates: { canonical: "https://capitaldf.com/professionals/attorneys" },
+  alternates: { canonical: `${SITE_URL}/professionals/attorneys` },
 };
 
 export default function AttorneysLayout({

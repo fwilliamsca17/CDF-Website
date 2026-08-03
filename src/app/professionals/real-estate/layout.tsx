@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "For Real Estate Agents — Close More Deals With Fast Private Funding",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
       "Close more deals. Fast private funding for your buyers, sellers, and investors. 7-day closings across California.",
   },
   alternates: {
-    canonical: "https://capitaldf.com/professionals/real-estate",
+    canonical: `${SITE_URL}/professionals/real-estate`,
   },
 };
 

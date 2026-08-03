@@ -1,5 +1,6 @@
 import {
   SITE_CONFIG,
+  SITE_URL,
   TEAM_MEMBERS,
   LOAN_PROGRAMS,
   PROCESS_STEPS,
@@ -8,7 +9,7 @@ import {
 import { getLoanPage, getLoanPageByProgramSlug } from "@/lib/loan-pages";
 import { getLocationPage } from "@/lib/location-pages";
 
-const BASE = "https://capitaldf.com";
+const BASE = SITE_URL;
 const ORG_ID = `${BASE}/#organization`;
 const WEBSITE_ID = `${BASE}/#website`;
 

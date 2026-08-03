@@ -24,7 +24,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="lg:hidden absolute top-full left-0 right-0 bg-ink-900/95 backdrop-blur-md border-t border-white/10 max-h-[80vh] overflow-y-auto"
+          className="xl:hidden absolute top-full left-0 right-0 bg-ink-900/95 backdrop-blur-md border-t border-white/10 max-h-[80vh] overflow-y-auto"
         >
           <nav className="section-padding py-6 flex flex-col gap-1">
             {NAV_ITEMS.map((item, i) => (

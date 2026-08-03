@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Property Strategy Review — What Is the Best Path for Your Property?",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     description:
       "Five questions, two minutes. See which options fit your property, your timeline, and your goals.",
   },
-  alternates: { canonical: "https://capitaldf.com/property-strategy-review" },
+  alternates: { canonical: `${SITE_URL}/property-strategy-review` },
 };
 
 export default function PropertyStrategyReviewLayout({

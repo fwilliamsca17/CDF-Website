@@ -3,9 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getAllPosts, getPostBySlug, formatDate } from "@/lib/blog";
+import { SITE_URL } from "@/lib/constants";
 import RelatedPrograms from "@/components/blog/RelatedPrograms";
 
-const BASE = "https://capitaldf.com";
+const BASE = SITE_URL;
 
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));

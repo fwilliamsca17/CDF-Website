@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo, InvestorHowToSchema, InvestmentProductSchema } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Direct Trust Deed Investment — Whole-Note, First Position, 8.95%–10.95% Yields",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     description:
       "Whole-note first trust deed investments. Select individual deals, own the note directly, earn monthly interest secured by California real estate.",
   },
-  alternates: { canonical: "https://capitaldf.com/investors" },
+  alternates: { canonical: `${SITE_URL}/investors` },
 };
 
 export default function InvestorsLayout({ children }: { children: React.ReactNode }) {

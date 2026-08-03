@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import type { LucideIcon } from "lucide-react";
 import {
   Hammer,
@@ -957,6 +958,6 @@ export function buildLoanPageMetadata(path: string): Metadata {
       title: page.seo.title,
       description: page.seo.description,
     },
-    alternates: { canonical: `https://capitaldf.com${path}` },
+    alternates: { canonical: `${SITE_URL}${path}` },
   };
 }

@@ -51,18 +51,36 @@ export default function Header() {
     >
       <div className="max-container section-padding">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
+          {/*
+           * shrink-0 on the Link matters: without it the Link is the flex
+           * item that gets width-squeezed when the nav is tight, and
+           * preflight's img{max-width:100%} then crushes the logo against
+           * its fixed h-* height — a silently distorted brand mark.
+           */}
+          <Link href="/" className="flex items-center gap-3 shrink-0">
+            {/*
+             * xl:h-9: at xl the logo shares the row with the 9-item nav and
+             * h-10 leaves 0px clearance — the dip buys ~37px of air.
+             */}
             <Image
               src="/images/cdf-logo-white.png"
               alt="Capital Direct Funding"
               width={300}
               height={33}
-              className="h-8 md:h-10 w-auto"
+              className="h-8 md:h-10 xl:h-9 w-auto shrink-0"
               priority
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6">
+          {/*
+           * Desktop nav budget (max-container caps content at 1280px):
+           * 1280 − xl:px-28 padding (224) = 1056px. Logo 364 + 9 nav items
+           * at gap-4 ≈ 1017 → ~24px slack after the scrollbar. The nav
+           * therefore starts at xl; at lg it NEVER fit — the flex row
+           * covered the deficit by silently squashing the logo. Widen
+           * gap or add an item only if you re-run this arithmetic.
+           */}
+          <nav className="hidden xl:flex items-center gap-4">
             {NAV_ITEMS.map((item) =>
               item.children ? (
                 <div
@@ -151,7 +169,7 @@ export default function Header() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden text-white p-2"
+            className="xl:hidden text-white p-2"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

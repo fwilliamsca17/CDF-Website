@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { TeamSchema, PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Meet the Team — Capital Direct Funding Leadership & Staff",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     description:
       "Meet the 11-person team behind Capital Direct Funding. Family-run private lending since 2009.",
   },
-  alternates: { canonical: "https://capitaldf.com/team" },
+  alternates: { canonical: `${SITE_URL}/team` },
 };
 
 export default function TeamLayout({ children }: { children: React.ReactNode }) {

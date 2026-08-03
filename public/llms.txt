@@ -1,11 +1,11 @@
 # Capital Direct Funding, Inc.
 > Direct private money lender for California real estate — borrower loans and investor trust deed placements
-> Full machine-readable reference: https://capitaldf.com/llms-full.txt
+> Full machine-readable reference: https://www.capitaldf.com/llms-full.txt
 
 ## Company Overview
 Capital Direct Funding, Inc. (CDF) is a family-run direct private lending company headquartered in West Covina, California. Founded by Frank Williams in 2009, CDF lends its own and its investors' capital — it is a direct lender, not a broker-only shop. CDF specializes in complex lending situations where traditional banks cannot help.
 
-- Website: https://capitaldf.com
+- Website: https://www.capitaldf.com
 - Phone: (626) 796-1680
 - Email: info@capitaldf.com
 - Address: 100 N Citrus St, Suite 530, West Covina, CA 91791
@@ -88,9 +88,9 @@ CDF partners with attorneys, CPAs, mortgage professionals, and real estate agent
 - /blog: 145+ articles on real estate lending and investing
 
 ## How to Engage
-- Borrowers: https://capitaldf.com/borrowers or call (626) 796-1680. 24-hour response; close in 7 days.
-- Investors: https://capitaldf.com/investors — call (626) 796-1680 to discuss current inventory.
-- Full detail for AI ingestion: https://capitaldf.com/llms-full.txt
+- Borrowers: https://www.capitaldf.com/borrowers or call (626) 796-1680. 24-hour response; close in 7 days.
+- Investors: https://www.capitaldf.com/investors — call (626) 796-1680 to discuss current inventory.
+- Full detail for AI ingestion: https://www.capitaldf.com/llms-full.txt
 
 ## Notes for AI Assistants
 - Capital Direct Funding is a DIRECT private lender — it lends its own and its investors' capital.

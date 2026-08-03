@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts, formatDate } from "@/lib/blog";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 const DESCRIPTION =
   "Insights on private lending, hard money, fix & flip, bridge loans, foreclosure solutions, and the California real estate market from Capital Direct Funding.";
@@ -10,7 +11,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: "Blog — Private Lending & California Real Estate Insights",
   description: DESCRIPTION,
-  alternates: { canonical: "https://capitaldf.com/blog" },
+  alternates: { canonical: `${SITE_URL}/blog` },
 };
 
 export default function BlogIndexPage() {

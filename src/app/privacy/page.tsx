@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/constants";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 const DESCRIPTION =
   "Capital Direct Funding's privacy policy — how we collect, use, and protect your personal information, including SMS opt-in data. DRE# 01885595 | NMLS# 1159831.";
@@ -9,7 +10,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: DESCRIPTION,
-  alternates: { canonical: "https://capitaldf.com/privacy" },
+  alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
 /*
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
  * without Francisco's sign-off; this is published legal text.
  */
 const POLICY_PARAGRAPHS = [
-  "Your privacy is important to us. It is Capital Direct Funding to respect your privacy regarding any information we may collect from you across our website, https://capitaldf.com, and other sites we own and operate.",
+  "Your privacy is important to us. It is Capital Direct Funding to respect your privacy regarding any information we may collect from you across our website, https://www.capitaldf.com, and other sites we own and operate.",
   "No mobile information will be obtained from and/or shared with third parties or affiliates for marketing or promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties. You can always decline or stop receiving messages by responding “STOP” at any time. For more information, reply ‘HELP’. Message and data rates may apply. Message frequency varies.",
   "We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.",
   "We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or modification.",

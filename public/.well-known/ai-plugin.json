@@ -9,10 +9,10 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://capitaldf.com/llms-full.txt",
+    "url": "https://www.capitaldf.com/llms-full.txt",
     "is_user_authenticated": false
   },
-  "logo_url": "https://capitaldf.com/images/cdf-logo-white.png",
+  "logo_url": "https://www.capitaldf.com/images/cdf-logo-white.png",
   "contact_email": "info@capitaldf.com",
-  "legal_info_url": "https://capitaldf.com/privacy"
+  "legal_info_url": "https://www.capitaldf.com/privacy"
 }

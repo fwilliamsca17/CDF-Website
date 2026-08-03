@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Contact Us — Get Funded in as Few as 7 Days",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     description:
       "Call (626) 796-1680. 100 N Citrus St, Suite 530, West Covina, CA 91791. 24-hour response.",
   },
-  alternates: { canonical: "https://capitaldf.com/contact" },
+  alternates: { canonical: `${SITE_URL}/contact` },
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

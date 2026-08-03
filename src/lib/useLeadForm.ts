@@ -4,6 +4,9 @@ import { useState } from "react";
 import { track } from "@/lib/analytics";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+// GoHighLevel inbound webhook — set NEXT_PUBLIC_GHL_WEBHOOK_URL in Vercel to
+// mirror every lead into GHL (pipelines, SMS sequences). Unset = no-op.
+const GHL_WEBHOOK_URL = process.env.NEXT_PUBLIC_GHL_WEBHOOK_URL;
 const WEB3FORMS_ACCESS_KEY = "09f80e34-62a3-4fc0-9773-ff3f8f0683e2";
 
 /**
@@ -42,7 +45,7 @@ export function useLeadForm(extraFields?: Record<string, string>) {
       if (typeof route === "string" && route) frag.set("r", route);
       data.append(
         "team_text_link",
-        `https://capitaldf.com/ops/text-lead#${frag.toString()}`
+        `https://www.capitaldf.com/ops/text-lead#${frag.toString()}`
       );
     }
 
@@ -52,6 +55,21 @@ export function useLeadForm(extraFields?: Record<string, string>) {
       page: window.location.pathname,
       form: extraFields?.subject,
     });
+
+    // Mirror the lead into GoHighLevel in parallel, fire-and-forget: GHL
+    // must never block, delay, or fail the primary submission, and a
+    // Web3Forms outage shouldn't lose the lead. GHL dedupes by phone/email.
+    if (GHL_WEBHOOK_URL) {
+      const ghlPayload: Record<string, string> = {};
+      for (const [k, v] of data.entries()) {
+        if (k !== "access_key" && typeof v === "string") ghlPayload[k] = v;
+      }
+      fetch(GHL_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(ghlPayload),
+      }).catch(() => {});
+    }
     try {
       const res = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",

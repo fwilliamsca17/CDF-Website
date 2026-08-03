@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import type { LucideIcon } from "lucide-react";
 import {
   Hammer,
@@ -40,8 +41,16 @@ export type LocationPageData = {
   path: string;
   /** display name, e.g. "Los Angeles" */
   name: string;
-  /** full county name for schema areaServed */
+  /** full county name — drives schema areaServed, so keep it a real county */
   county: string;
+  /**
+   * Optional heading label for city-level pages. A city page inside a county
+   * we already cover reads wrong under the county's own name ("Cities We Serve
+   * in Los Angeles County" on the West Covina page), and repeating the county
+   * headings verbatim invites the two pages to compete for the same query.
+   * Falls back to `county` when unset, so the county pages are unaffected.
+   */
+  areaLabel?: string;
   seo: {
     title: string;
     description: string;
@@ -59,6 +68,142 @@ export type LocationPageData = {
 };
 
 export const LOCATION_PAGES: LocationPageData[] = [
+  // ──────────────────────────────────────────────────────────────
+  // WEST COVINA — city-level page. This is the one market where the
+  // "we are physically here" claim is literally true and unfakeable:
+  // competitors ranking for these queries are national shops with a
+  // service-area page. Keep this page about the San Gabriel Valley
+  // specifically so it does not restate (and compete with) the LA
+  // County page, which already lists West Covina as a served city.
+  // ──────────────────────────────────────────────────────────────
+  {
+    path: "/hard-money-lender-west-covina",
+    name: "West Covina",
+    county: "Los Angeles County",
+    areaLabel: "the San Gabriel Valley",
+    seo: {
+      title:
+        "Hard Money Lender West Covina — Local Direct Private Money Lender",
+      description:
+        "Capital Direct Funding is headquartered in West Covina at 100 N Citrus St, Suite 530. Direct private money loans across the San Gabriel Valley — $50K to $5M, closings in as few as 7 days. DRE# 01885595.",
+      keywords: [
+        "hard money lender West Covina",
+        "private money lender West Covina",
+        "hard money loans West Covina CA",
+        "West Covina bridge loan lender",
+        "fix and flip lender West Covina",
+        "hard money lender San Gabriel Valley",
+        "private lender Covina",
+        "ADU loans West Covina",
+        "probate loans West Covina",
+        "hard money lender near me West Covina",
+      ],
+    },
+    h1: "We Don't Just Lend in West Covina.",
+    h1Highlight: "We're Headquartered Here.",
+    heroLead:
+      "Capital Direct Funding's office is at 100 N Citrus St, Suite 530 — not a service-area map pin, not a national call center with a local phone number. Frank Williams founded this company here in 2009, and every loan we've funded since has been underwritten from this building.",
+    heroSub:
+      "Fix & flip, bridge, construction, ADU, probate, foreclosure recovery, and cash-out loans from $50K to $5M across the San Gabriel Valley — closing in as few as 7 days.",
+    narrative: [
+      "Most of the lenders competing for West Covina searches are headquartered somewhere else — Burbank, San Diego, out of state — running a service-area page for a market they've never driven. We're on Citrus Street. When a borrower wants to walk a deal in, they walk in. When a property needs eyes on it, we're minutes from the 10, the 57, the 60, and the 210 rather than a day's coordination away.",
+      "That proximity matters most on the deals that don't fit a template. West Covina and its neighbors are built largely on postwar tract housing on deep lots — the exact stock that rewards a well-run rehab or a backyard ADU, and the exact stock a conventional construction desk struggles to underwrite. Add long-tenure ownership that turns into estate and probate transactions, and a dense base of self-employed owners whose tax returns never tell the real story, and you get a market where asset-based lending isn't a fallback. It's the right tool. We've deployed over $200M across 500+ California transactions doing exactly this.",
+    ],
+    scenarios: [
+      {
+        title: "Postwar Tract-Home Rehabs",
+        description:
+          "The SGV's 1950s and '60s housing stock is the region's flip inventory. We fund up to 75% ARV with rehab draws — and we can look at the property the same week rather than routing photos to an out-of-area committee.",
+        icon: Hammer,
+      },
+      {
+        title: "Backyard ADUs on Deep Lots",
+        description:
+          "SGV lots are generous by LA County standards, which makes them prime ADU candidates. Our dedicated program runs 75–85% LTC with milestone draws for detached units, garage conversions, and JADUs.",
+        icon: Home,
+      },
+      {
+        title: "Self-Employed & Small-Business Owners",
+        description:
+          "The Valley runs on owner-operated businesses whose returns are written to minimize tax, not to qualify for a mortgage. No tax returns required — the property qualifies, not the paperwork.",
+        icon: Briefcase,
+      },
+      {
+        title: "Probate & Estate Property",
+        description:
+          "Decades of stable ownership means a steady flow of estate transactions. We've funded these for years — court confirmation timelines, administrator authority, and attorney coordination included.",
+        icon: Scale,
+      },
+      {
+        title: "Foreclosure Intervention",
+        description:
+          "When a trustee sale date is set, the calendar is the whole problem. We move on foreclosure timelines — paying off the foreclosing lender and buying owners room to sell or refinance on their terms.",
+        icon: Clock,
+      },
+      {
+        title: "Small Multifamily & Mixed-Use",
+        description:
+          "Duplexes, fourplexes, and the small commercial and mixed-use buildings along the Valley's older corridors — projects that pencil locally but confuse lenders underwriting from a spreadsheet.",
+        icon: Building2,
+      },
+    ],
+    cities: [
+      "West Covina",
+      "Covina",
+      "Baldwin Park",
+      "La Puente",
+      "Walnut",
+      "Glendora",
+      "Azusa",
+      "San Dimas",
+      "Diamond Bar",
+      "Hacienda Heights",
+      "Rowland Heights",
+      "El Monte",
+      "Pomona",
+      "Duarte",
+      "Monrovia",
+      "Arcadia",
+      "Temple City",
+      "Claremont",
+    ],
+    faqs: [
+      {
+        question: "Do you have an actual office in West Covina?",
+        answer:
+          "Yes. Capital Direct Funding is headquartered at 100 N Citrus St, Suite 530, West Covina, CA 91791. It is our only office and has been our base since Frank Williams founded the company in 2009 — we are not a national lender running a West Covina service-area page.",
+      },
+      {
+        question: "How fast can you close a hard money loan in West Covina?",
+        answer:
+          "In as few as 7 business days from a completed application. Because underwriting, doc prep, and funding all happen in this office, there is no out-of-state committee that needs a local market explained to it first.",
+      },
+      {
+        question:
+          "Do you lend on owner-occupied homes in West Covina?",
+        answer:
+          "Our loans are business-purpose loans secured by California real estate — investment property, commercial buildings, and business-purpose transactions. Call (626) 796-1680 and we'll tell you within one conversation whether your scenario fits.",
+      },
+      {
+        question:
+          "What size loans do you write in the San Gabriel Valley?",
+        answer:
+          "$50,000 to $5,000,000, secured by a first trust deed, typically at or below 70% loan-to-value. All eight programs are available across the Valley: fix & flip, bridge, ground-up construction, cash-out refinance, probate & estate, foreclosure & bankruptcy recovery, self-employed solutions, and ADU construction.",
+      },
+      {
+        question:
+          "Do you lend outside West Covina in the surrounding SGV cities?",
+        answer:
+          "Yes — Covina, Baldwin Park, La Puente, Walnut, Glendora, Azusa, San Dimas, Diamond Bar, Hacienda Heights, Rowland Heights, El Monte, Pomona and the rest of the San Gabriel Valley, plus all of Los Angeles County and California statewide.",
+      },
+      {
+        question: "Can I come into your office to discuss a deal?",
+        answer:
+          "Yes. We're at 100 N Citrus St, Suite 530, open Monday through Friday, 9:00 AM to 6:00 PM. Call (626) 796-1680 first so the right person is there — for most local borrowers a single walk-in conversation replaces a week of email.",
+      },
+    ],
+  },
+
   // ──────────────────────────────────────────────────────────────
   // LOS ANGELES
   // ──────────────────────────────────────────────────────────────
@@ -639,6 +784,6 @@ export function buildLocationPageMetadata(path: string): Metadata {
       title: page.seo.title,
       description: page.seo.description,
     },
-    alternates: { canonical: `https://capitaldf.com${path}` },
+    alternates: { canonical: `${SITE_URL}${path}` },
   };
 }

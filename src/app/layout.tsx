@@ -8,6 +8,7 @@ import {
   LocalBusinessSchema,
   WebSiteSchema,
 } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -22,7 +23,7 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://capitaldf.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       "Capital Direct Funding | Fast Private Lending for California Real Estate",
@@ -69,7 +70,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://capitaldf.com",
+    url: SITE_URL,
     siteName: "Capital Direct Funding",
     title:
       "Capital Direct Funding | Fast Private Lending for California Real Estate",
@@ -85,7 +86,9 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary",
+    // opengraph-image is 1200x630, which is the large-image aspect — "summary"
+    // would crop it to a small square thumbnail and waste the real estate.
+    card: "summary_large_image",
     title: "Capital Direct Funding | Fast Private Lending",
     description:
       "Fast, flexible private lending for California real estate. Over $200M deployed, 500+ loans funded.",
@@ -103,9 +106,17 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://capitaldf.com",
+    canonical: SITE_URL,
   },
-  verification: {},
+  // Search-console ownership tokens. Set in Vercel env (and .env.local for
+  // parity); Next omits the meta tag entirely when the value is undefined, so
+  // an unset var is safe — it just means that console stays unverified.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+      : {},
+  },
   category: "Finance",
 };
 

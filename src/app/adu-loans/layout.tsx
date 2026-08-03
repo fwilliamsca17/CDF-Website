@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "ADU Construction Loans — 75–85% LTC, Fast Close, LA & Orange County",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "75–85% LTC ADU construction loans. Fast close, milestone-based draws. LA & Orange County.",
   },
-  alternates: { canonical: "https://capitaldf.com/adu-loans" },
+  alternates: { canonical: `${SITE_URL}/adu-loans` },
 };
 
 export default function ADULayout({ children }: { children: React.ReactNode }) {

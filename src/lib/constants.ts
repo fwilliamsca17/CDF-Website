@@ -1,8 +1,19 @@
+/**
+ * Canonical origin for the whole site — single source of truth.
+ *
+ * MUST match the host Vercel actually serves, or every canonical tag, sitemap
+ * <loc>, og:url, and JSON-LD @id points at a redirect. We serve on www (the
+ * apex redirects to it) and www is what Google has indexed, so www is
+ * canonical. Changing this means a domain migration — flip the Vercel primary
+ * domain in the same change or the two will disagree again.
+ */
+export const SITE_URL = "https://www.capitaldf.com";
+
 export const SITE_CONFIG = {
   name: "Capital Direct Funding",
   shortName: "CDF",
   legalName: "Capital Direct Funding, Inc.",
-  domain: "capitaldf.com",
+  domain: "www.capitaldf.com",
   tagline: "Fast, Flexible Private Lending for California Real Estate",
   description:
     "Capital Direct Funding provides fast, flexible private lending solutions for real estate borrowers and whole-note first trust deed investments for accredited investors across California.",
@@ -62,6 +73,22 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "CPAs & Tax Advisors", href: "/professionals/cpas", description: "Tax-advantaged strategies for your clients" },
       { label: "Mortgage Professionals", href: "/professionals/mortgage", description: "Non-QM solutions for your pipeline" },
       { label: "Real Estate Agents", href: "/professionals/real-estate", description: "Close more deals, faster" },
+    ],
+  },
+  {
+    // Top-level href doubles as the "view all" target. There is no /locations
+    // hub page, so both point at the West Covina page — it's the HQ market
+    // and the flagship of this group.
+    label: "Locations",
+    href: "/hard-money-lender-west-covina",
+    viewAllLabel: "Visit Our West Covina HQ →",
+    children: [
+      { label: "West Covina — HQ", href: "/hard-money-lender-west-covina", description: "Our home office at 100 N Citrus St" },
+      { label: "Los Angeles County", href: "/hard-money-lender-los-angeles", description: "Our home county since 2009" },
+      { label: "Orange County", href: "/hard-money-lender-orange-county", description: "Every program, coast to inland" },
+      { label: "San Diego", href: "/hard-money-lender-san-diego", description: "North County to the border" },
+      { label: "Riverside", href: "/hard-money-lender-riverside", description: "Inland Empire investment property" },
+      { label: "San Bernardino", href: "/hard-money-lender-san-bernardino", description: "Valley to high desert" },
     ],
   },
   { label: "About", href: "/about" },
@@ -579,6 +606,7 @@ export const FOOTER_LINKS = {
     { label: "ADU Construction", href: "/adu-loans" },
   ],
   serviceAreas: [
+    { label: "West Covina (HQ)", href: "/hard-money-lender-west-covina" },
     { label: "Los Angeles", href: "/hard-money-lender-los-angeles" },
     { label: "Orange County", href: "/hard-money-lender-orange-county" },
     { label: "San Diego", href: "/hard-money-lender-san-diego" },

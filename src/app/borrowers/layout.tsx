@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LoanProductsSchema, PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Private Money Loans — Fix & Flip, Bridge, Construction, Probate | California",
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     description:
       "8 loan programs for California real estate. Fix & flip, bridge, construction, probate, and more. Close in 7 days.",
   },
-  alternates: { canonical: "https://capitaldf.com/borrowers" },
+  alternates: { canonical: `${SITE_URL}/borrowers` },
 };
 
 export default function BorrowersLayout({ children }: { children: React.ReactNode }) {

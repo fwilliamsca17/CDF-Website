@@ -23,6 +23,9 @@ export default function LocationPage({ path }: { path: string }) {
 
   const tel = `tel:${SITE_CONFIG.phone.replace(/[^\d+]/g, "")}`;
   const otherLocations = LOCATION_PAGES.filter((l) => l.path !== path);
+  // City pages override this so their headings read as their own market
+  // rather than the parent county's. County pages leave it unset.
+  const areaLabel = page.areaLabel ?? page.county;
   const trackCta = (cta: "call" | "contact", placement: "hero" | "footer") =>
     track("cta_click", { cta, placement, page: path, county: page.county });
 
@@ -101,7 +104,7 @@ export default function LocationPage({ path }: { path: string }) {
               <div>
                 <p className="eyebrow mb-3">Why CDF in {page.name}</p>
                 <h2 className="font-heading text-heading-xl font-bold text-cdf mb-6">
-                  A Direct Lender That Knows {page.county}
+                  A Direct Lender That Knows {areaLabel}
                 </h2>
                 {page.narrative.map((paragraph) => (
                   <p
@@ -147,7 +150,7 @@ export default function LocationPage({ path }: { path: string }) {
         <div className="max-container section-padding">
           <SectionHeading
             eyebrow={`${page.name} Lending`}
-            title={`What We Fund in ${page.county}`}
+            title={`What We Fund in ${areaLabel}`}
             subtitle="Local market knowledge isn't a slogan — it's how the deals actually get underwritten."
           />
 
@@ -201,7 +204,7 @@ export default function LocationPage({ path }: { path: string }) {
         <div className="max-container section-padding">
           <SectionHeading
             eyebrow="Service Area"
-            title={`Cities We Serve in ${page.county}`}
+            title={`Cities We Serve in ${areaLabel}`}
             subtitle="A representative list — we lend county-wide, and everywhere else in California."
           />
 

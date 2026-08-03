@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "For Mortgage Professionals — Non-QM & Hard-to-Place Loan Solutions",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Non-QM solutions for your pipeline. Fund the deals your conventional lender declines. 7-day closings across California.",
   },
-  alternates: { canonical: "https://capitaldf.com/professionals/mortgage" },
+  alternates: { canonical: `${SITE_URL}/professionals/mortgage` },
 };
 
 export default function MortgageLayout({

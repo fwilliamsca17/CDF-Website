@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageSeo } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "For CPAs & Tax Advisors — Trust Deed Investments & Client Lending",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Tax-advantaged trust deed investments and private lending solutions for your clients. 8.95–10.95% yields, SDIRA and Solo 401(k) compatible.",
   },
-  alternates: { canonical: "https://capitaldf.com/professionals/cpas" },
+  alternates: { canonical: `${SITE_URL}/professionals/cpas` },
 };
 
 export default function CPAsLayout({
