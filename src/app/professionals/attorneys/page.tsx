@@ -16,6 +16,8 @@ import {
 import { SITE_CONFIG } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeIn from "@/components/ui/FadeIn";
+import PartnerFaqSection from "@/components/sections/PartnerFaqSection";
+import { BESPOKE_PARTNER_FAQS } from "@/lib/partner-pages";
 
 const CLIENT_SCENARIOS = [
   {
@@ -256,6 +258,27 @@ export default function AttorneysPage() {
       </section>
 
       {/* CTA */}
+      {/* Partner FAQ + program links — matches FAQPage schema in layout */}
+      <PartnerFaqSection
+        eyebrow="Referral FAQs"
+        title="What Partners Ask Before the First Referral"
+        faqs={BESPOKE_PARTNER_FAQS["/professionals/attorneys"].faqs}
+      />
+      <section className="pb-16 bg-white">
+        <div className="max-container section-padding flex flex-wrap justify-center gap-3">
+          {BESPOKE_PARTNER_FAQS["/professionals/attorneys"].related.map((r) => (
+            <Link
+              key={r.path}
+              href={r.path}
+              className="inline-flex items-center gap-1.5 rounded-full border border-cdf/15 bg-light px-4 py-2 text-sm font-semibold text-cdf hover:border-champagne-500/40 hover:text-champagne-700 transition-colors"
+            >
+              {r.label}
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <section className="hero-atmosphere section-padding-y relative overflow-hidden">
         <div className="hairline-champagne absolute inset-x-0 top-0 h-px" />
         <div

@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { PageSeo } from "@/components/JsonLd";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Professional Referral Partners — Attorneys, CPAs, Mortgage & Real Estate",
+  title: "Referral Partners — Private Lender for Professionals",
   description:
-    "Capital Direct Funding partners with attorneys, CPAs, mortgage professionals, and real estate agents across California. Fast private funding solutions for your clients' most complex real estate situations.",
+    "Capital Direct Funding is a direct private money lender partnering with California attorneys, CPAs, fiduciaries, escrow officers, contractors, advisors, mortgage pros, and agents. 7-day closings.",
   keywords: [
     "private lender referral partner",
     "attorney referral hard money",
@@ -30,19 +29,10 @@ export default function ProfessionalsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <PageSeo
-        title="Professional Referral Partners"
-        description="Capital Direct Funding partners with attorneys, CPAs, mortgage professionals, and real estate agents. Fast private funding for your clients' complex situations."
-        path="/professionals"
-        crumbs={[
-          { name: "Home", path: "/" },
-          { name: "Professionals", path: "/professionals" },
-        ]}
-        speakable={["h1", "h2", ".eyebrow + h2 + p"]}
-      />
-      {children}
-    </>
-  );
+  // NOTE: no PageSeo here. Nested layouts render into every child route, so
+  // a WebPage graph emitted from this layout appears on all
+  // /professionals/* pages alongside their own — two conflicting WebPage
+  // identities per URL (caught in the 2026-08-03 audit). The hub's PageSeo
+  // lives in professionals/page.tsx; each child renders its own.
+  return <>{children}</>;
 }

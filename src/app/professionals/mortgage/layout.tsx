@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { PageSeo } from "@/components/JsonLd";
+import { PageSeo, PartnerPageSchema } from "@/components/JsonLd";
+import { BESPOKE_PARTNER_FAQS } from "@/lib/partner-pages";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "For Mortgage Professionals — Non-QM & Hard-to-Place Loan Solutions",
+  title: "Broker Referrals — Private Money for Hard-to-Place Files",
   description:
-    "Don't lose the deal. Capital Direct Funding funds the loans your conventional lender can't close — self-employed, credit challenges, time-sensitive situations. Close in 7 days across California.",
+    "Direct private money lender for California mortgage pros: business-purpose files your investors decline, 7-day closings, relationships protected. DRE# 01885595.",
   keywords: [
     "mortgage broker referral partner",
     "non QM lender referral",
@@ -41,6 +42,15 @@ export default function MortgageLayout({
           { name: "Mortgage Professionals", path: "/professionals/mortgage" },
         ]}
         speakable={["h1", "h2", ".eyebrow + h2 + p"]}
+      />
+      <PartnerPageSchema
+        path="/professionals/mortgage"
+        name={BESPOKE_PARTNER_FAQS["/professionals/mortgage"].name}
+        audienceType={BESPOKE_PARTNER_FAQS["/professionals/mortgage"].audienceType}
+        description={
+          "Direct private money lender for California mortgage pros: business-purpose files your investors decline, 7-day closings, relationships protected. DRE# 01885595."
+        }
+        faqs={BESPOKE_PARTNER_FAQS["/professionals/mortgage"].faqs}
       />
       {children}
     </>

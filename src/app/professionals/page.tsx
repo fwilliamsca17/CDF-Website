@@ -19,6 +19,31 @@ import {
 import { SITE_CONFIG } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeIn from "@/components/ui/FadeIn";
+import PartnerFaqSection from "@/components/sections/PartnerFaqSection";
+import { PageSeo, PartnerPageSchema } from "@/components/JsonLd";
+
+const HUB_FAQS = [
+  {
+    question: "What kinds of professionals refer clients to CDF?",
+    answer:
+      "Attorneys (probate, estate, bankruptcy, family law), CPAs and tax advisors, mortgage professionals, real estate agents, escrow and title officers, professional fiduciaries and trustees, contractors and builders, and financial advisors. Each has a dedicated page describing the client scenarios we solve in that lane.",
+  },
+  {
+    question: "Will you solicit my client after the deal closes?",
+    answer:
+      "No. Your client is your client — we never market to referred clients directly. Protecting the referring relationship has been house policy since Frank Williams founded the company in 2009, and it's why professionals keep sending the next file.",
+  },
+  {
+    question: "What loans do referred clients actually get?",
+    answer:
+      "Business-purpose loans secured by California real estate — $50,000 to $5,000,000, first trust deed position, typically at or below 70% loan-to-value, closing in as few as 7 business days. Eight programs: fix & flip, bridge, construction, cash-out, probate & estate, foreclosure recovery, self-employed, and ADU. Full numbers are on our rates and terms page.",
+  },
+  {
+    question: "How fast do you respond to a referral?",
+    answer:
+      "Every inquiry gets a response within 24 hours, and most get same-day answers — the people reviewing the file are the principals, not a committee. A written term sheet typically follows within 24 hours of a complete package.",
+  },
+];
 
 const PROFESSIONS = [
   {
@@ -73,6 +98,58 @@ const PROFESSIONS = [
       "Sellers needing bridge loans to purchase their next home",
     ],
   },
+  {
+    title: "Escrow & Title",
+    href: "/professionals/escrow-title",
+    icon: Shield,
+    description:
+      "When financing falls out mid-escrow, we underwrite, doc, and fund a replacement loan inside your existing escrow — wires on time, closings intact.",
+    scenarios: [
+      "Mid-escrow lender fallout rescue funding",
+      "Short-fuse closings banks can't physically meet",
+      "Probate and trust sales on court calendars",
+      "Title complications worked with your title officer",
+    ],
+  },
+  {
+    title: "Fiduciaries & Trustees",
+    href: "/professionals/fiduciaries",
+    icon: Landmark,
+    description:
+      "Loans to estates, trusts, and conservatorships — administration liquidity, equalized distributions, and property preservation without a fire sale.",
+    scenarios: [
+      "Estate liquidity for debts, taxes, and expenses",
+      "Equalizing distributions without forcing a sale",
+      "Reverse mortgage and foreclosure payoffs",
+      "Court-supervised and conservatorship funding",
+    ],
+  },
+  {
+    title: "Contractors & Builders",
+    href: "/professionals/contractors",
+    icon: Clock,
+    description:
+      "Your client gets construction capital with milestone draws that pay on schedule — ground-up, ADU, and rehab projects from $50K to $5M.",
+    scenarios: [
+      "Clients whose banks declined the construction loan",
+      "ADU projects at 75–85% loan-to-cost",
+      "Draws inspected and funded in days, not weeks",
+      "Stalled-project refinance and completion funding",
+    ],
+  },
+  {
+    title: "Financial Advisors",
+    href: "/professionals/financial-advisors",
+    icon: Banknote,
+    description:
+      "First trust deed income at 8.95%–10.95% for accredited clients — and business-purpose real estate liquidity that avoids liquidating portfolios.",
+    scenarios: [
+      "Whole-note trust deed investments, no fund fees",
+      "SDIRA and Solo 401(k) compatible income",
+      "Client liquidity without selling securities",
+      "Every deal individually selected, fully documented",
+    ],
+  },
 ];
 
 const TRUST_SIGNALS = [
@@ -111,6 +188,26 @@ const TRUST_SIGNALS = [
 export default function ProfessionalsPage() {
   return (
     <>
+      {/* Hub-scoped SEO entities. These live here, NOT in layout.tsx —
+          nested layouts render into child routes and would duplicate the
+          WebPage graph onto every /professionals/* page. */}
+      <PageSeo
+        title="Referral Partners — Private Lender for Professionals"
+        description="Capital Direct Funding partners with California attorneys, CPAs, fiduciaries, escrow officers, contractors, financial advisors, mortgage professionals, and real estate agents."
+        path="/professionals"
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Professionals", path: "/professionals" },
+        ]}
+        speakable={["h1", ".faq-answer"]}
+      />
+      <PartnerPageSchema
+        path="/professionals"
+        name="Professional referral partnerships"
+        audienceType="Licensed professionals with clients who own California real estate"
+        description="Referral partnerships between Capital Direct Funding and California attorneys, CPAs, fiduciaries, escrow officers, contractors, financial advisors, mortgage professionals, and real estate agents."
+        faqs={HUB_FAQS}
+      />
       {/* Hero */}
       <section className="hero-atmosphere pt-32 pb-20 relative overflow-hidden">
         <div className="hero-glow absolute inset-0 pointer-events-none" />
@@ -279,6 +376,13 @@ export default function ProfessionalsPage() {
         </div>
       </section>
 
+      {/* Partner FAQ — content matches the FAQPage schema emitted above */}
+      <PartnerFaqSection
+        eyebrow="Partner FAQs"
+        title="What Referring Professionals Ask First"
+        faqs={HUB_FAQS}
+      />
+
       {/* CTA */}
       <section className="hero-atmosphere section-padding-y relative overflow-hidden">
         <div className="hairline-champagne absolute inset-x-0 top-0 h-px" />
@@ -298,6 +402,29 @@ export default function ProfessionalsPage() {
             <h2 className="font-heading text-heading-xl md:text-display-lg font-bold text-white heading-underline-center mb-6">
               Start Your Referral Partnership
             </h2>
+            <p className="text-ivory/60 text-sm max-w-2xl mx-auto mb-6">
+              Program details your clients will ask about:{" "}
+              <Link href="/rates-and-terms" className="text-champagne-300 hover:text-champagne-200 underline underline-offset-2">
+                rates &amp; terms
+              </Link>
+              {", "}
+              <Link href="/probate-loans" className="text-champagne-300 hover:text-champagne-200 underline underline-offset-2">
+                probate loans
+              </Link>
+              {", "}
+              <Link href="/bridge-loans" className="text-champagne-300 hover:text-champagne-200 underline underline-offset-2">
+                bridge loans
+              </Link>
+              {", "}
+              <Link href="/foreclosure-bankruptcy-loans" className="text-champagne-300 hover:text-champagne-200 underline underline-offset-2">
+                foreclosure recovery
+              </Link>
+              {", and "}
+              <Link href="/private-money-lender-california" className="text-champagne-300 hover:text-champagne-200 underline underline-offset-2">
+                statewide coverage
+              </Link>
+              .
+            </p>
             <p className="text-lg text-ivory/70 max-w-2xl mx-auto mb-8">
               One call tells you everything you need to know. Speak directly
               with Francisco or Frank about how we can serve your clients.

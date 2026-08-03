@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { PageSeo } from "@/components/JsonLd";
+import { PageSeo, PartnerPageSchema } from "@/components/JsonLd";
+import { BESPOKE_PARTNER_FAQS } from "@/lib/partner-pages";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "For CPAs & Tax Advisors — Trust Deed Investments & Client Lending",
+  title: "CPA Referrals — Trust Deed Income & Client Lending",
   description:
-    "Help your clients deploy capital into tax-advantaged trust deed investments at 8.95–10.95% yields. SDIRA, Solo 401(k), and entity-structured real estate lending through Capital Direct Funding.",
+    "Direct private lender for CPAs: first trust deed income at 8.95%–10.95% for accredited clients, SDIRA-compatible, plus no-tax-return client lending. DRE# 01885595.",
   keywords: [
     "CPA real estate referral",
     "tax advisor trust deed investment",
@@ -41,6 +42,15 @@ export default function CPAsLayout({
           { name: "CPAs & Tax Advisors", path: "/professionals/cpas" },
         ]}
         speakable={["h1", "h2", ".eyebrow + h2 + p"]}
+      />
+      <PartnerPageSchema
+        path="/professionals/cpas"
+        name={BESPOKE_PARTNER_FAQS["/professionals/cpas"].name}
+        audienceType={BESPOKE_PARTNER_FAQS["/professionals/cpas"].audienceType}
+        description={
+          "Direct private lender for CPAs: first trust deed income at 8.95%–10.95% for accredited clients, SDIRA-compatible, plus no-tax-return client lending. DRE# 01885595."
+        }
+        faqs={BESPOKE_PARTNER_FAQS["/professionals/cpas"].faqs}
       />
       {children}
     </>

@@ -659,6 +659,60 @@ function StatePageSchema({
   return <JsonLdScript schema={schema} />;
 }
 
+/**
+ * Referral-partner page schema: a Service aimed at a professional audience
+ * plus a page-scoped FAQPage. Accepts explicit props so both the data-driven
+ * PartnerPage template and the four bespoke professionals pages can use it.
+ * Only emit when the page has VISIBLE FAQ content — schema without matching
+ * content is a rich-results violation.
+ */
+function PartnerPageSchema({
+  path,
+  name,
+  audienceType,
+  description,
+  faqs,
+}: {
+  path: string;
+  name: string;
+  audienceType: string;
+  description: string;
+  faqs: { question: string; answer: string }[];
+}) {
+  const url = `${BASE}${path}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name,
+        serviceType: "Referral partnership — private money real estate lending",
+        description,
+        url,
+        provider: { "@id": ORG_ID },
+        audience: { "@type": "Audience", audienceType },
+        areaServed: {
+          "@type": "State",
+          name: "California",
+          sameAs: "https://en.wikipedia.org/wiki/California",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faqpage`,
+        mainEntity: faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
+  };
+
+  return <JsonLdScript schema={schema} />;
+}
+
 export {
   OrganizationSchema,
   LocalBusinessSchema,
@@ -675,4 +729,5 @@ export {
   LoanPageSchema,
   LocationPageSchema,
   StatePageSchema,
+  PartnerPageSchema,
 };

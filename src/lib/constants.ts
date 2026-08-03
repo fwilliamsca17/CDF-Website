@@ -73,6 +73,10 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "CPAs & Tax Advisors", href: "/professionals/cpas", description: "Tax-advantaged strategies for your clients" },
       { label: "Mortgage Professionals", href: "/professionals/mortgage", description: "Non-QM solutions for your pipeline" },
       { label: "Real Estate Agents", href: "/professionals/real-estate", description: "Close more deals, faster" },
+      { label: "Escrow & Title", href: "/professionals/escrow-title", description: "Rescue financing that keeps closings alive" },
+      { label: "Fiduciaries & Trustees", href: "/professionals/fiduciaries", description: "Estate & trust liquidity, court-timeline fluent" },
+      { label: "Contractors & Builders", href: "/professionals/contractors", description: "Draws that pay on schedule" },
+      { label: "Financial Advisors", href: "/professionals/financial-advisors", description: "Trust deed income & client liquidity" },
     ],
   },
   {
@@ -625,6 +629,10 @@ export const FOOTER_LINKS = {
     { label: "CPAs & Tax Advisors", href: "/professionals/cpas" },
     { label: "Mortgage Professionals", href: "/professionals/mortgage" },
     { label: "Real Estate Agents", href: "/professionals/real-estate" },
+    { label: "Escrow & Title", href: "/professionals/escrow-title" },
+    { label: "Fiduciaries & Trustees", href: "/professionals/fiduciaries" },
+    { label: "Contractors & Builders", href: "/professionals/contractors" },
+    { label: "Financial Advisors", href: "/professionals/financial-advisors" },
   ],
   company: [
     { label: "About Us", href: "/about" },

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { PageSeo } from "@/components/JsonLd";
+import { PageSeo, PartnerPageSchema } from "@/components/JsonLd";
+import { BESPOKE_PARTNER_FAQS } from "@/lib/partner-pages";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "For Real Estate Agents — Close More Deals With Fast Private Funding",
+  title: "Agent Referrals — Private Money That Closes in 7 Days",
   description:
-    "Capital Direct Funding helps real estate agents close more transactions. Fix & flip financing, buyer backup lending, bridge loans, and probate funding — all closing in as few as 7 days across California.",
+    "Direct private lender for California agents: rescue funding when financing falls through, investor capital, probate listings. Commissions protected. DRE# 01885595.",
   keywords: [
     "real estate agent hard money lender",
     "realtor referral private lender",
@@ -43,6 +44,15 @@ export default function RealEstateLayout({
           { name: "Real Estate Agents", path: "/professionals/real-estate" },
         ]}
         speakable={["h1", "h2", ".eyebrow + h2 + p"]}
+      />
+      <PartnerPageSchema
+        path="/professionals/real-estate"
+        name={BESPOKE_PARTNER_FAQS["/professionals/real-estate"].name}
+        audienceType={BESPOKE_PARTNER_FAQS["/professionals/real-estate"].audienceType}
+        description={
+          "Direct private lender for California agents: rescue funding when financing falls through, investor capital, probate listings. Commissions protected. DRE# 01885595."
+        }
+        faqs={BESPOKE_PARTNER_FAQS["/professionals/real-estate"].faqs}
       />
       {children}
     </>

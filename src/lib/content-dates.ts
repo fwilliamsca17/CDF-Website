@@ -21,11 +21,15 @@ export const CONTENT_UPDATED: Record<string, string> = {
   // Audience hubs
   "/borrowers": "2026-07-09",
   "/investors": "2026-06-11",
-  "/professionals": "2026-07-09",
-  "/professionals/attorneys": "2026-07-09",
-  "/professionals/cpas": "2026-06-11",
-  "/professionals/mortgage": "2026-07-09",
-  "/professionals/real-estate": "2026-07-09",
+  "/professionals": "2026-08-03",
+  "/professionals/attorneys": "2026-08-03",
+  "/professionals/cpas": "2026-08-03",
+  "/professionals/mortgage": "2026-08-03",
+  "/professionals/real-estate": "2026-08-03",
+  "/professionals/escrow-title": "2026-08-03",
+  "/professionals/fiduciaries": "2026-08-03",
+  "/professionals/contractors": "2026-08-03",
+  "/professionals/financial-advisors": "2026-08-03",
 
   // Loan program pages
   "/fix-and-flip-loans": "2026-07-09",

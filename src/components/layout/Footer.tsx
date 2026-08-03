@@ -25,7 +25,7 @@ export default function Footer() {
             </p>
             <div className="space-y-3">
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
+                href={`tel:${SITE_CONFIG.phone.replace(/[^\d+]/g, "")}`}
                 className="flex items-center gap-3 text-white/70 hover:text-champagne-400 transition-colors text-sm"
               >
                 <Phone className="w-4 h-4 text-champagne-400" />
