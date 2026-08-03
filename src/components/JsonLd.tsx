@@ -74,7 +74,9 @@ function OrganizationSchema() {
       name: "Frank Williams",
       jobTitle: "Founder & Investor Relations",
     },
-    numberOfEmployees: { "@type": "QuantitativeValue", value: 12 },
+    // Derived from the roster so schema can't drift from the visible team
+    // page again (it sat at 12 after the roster dropped to 11).
+    numberOfEmployees: { "@type": "QuantitativeValue", value: TEAM_MEMBERS.length },
     foundingDate: "2009",
     knowsAbout: [
       "Private lending",
