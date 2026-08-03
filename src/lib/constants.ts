@@ -386,7 +386,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "Getting Funded",
     question: "What are Capital Direct Funding's interest rates?",
     answer:
-      "Rates start at 8.50% and vary by program and risk profile. Fix & Flip, Bridge, Cash-Out Refinance, and Self-Employed loans start from 9.99%; Ground-Up Construction and Probate & Estate loans from 10.99%; Foreclosure & Bankruptcy Recovery from 11.99%. ADU construction loans range from 9.5% to 11%.",
+      "Rates start at 9.50% and vary by program and risk profile. Fix & Flip, Bridge, Cash-Out Refinance, and Self-Employed loans start from 9.99%; Ground-Up Construction and Probate & Estate loans from 10.99%; Foreclosure & Bankruptcy Recovery from 11.99%. ADU construction loans range from 9.5% to 11%.",
   },
   {
     category: "Getting Funded",
@@ -604,6 +604,7 @@ export const FOOTER_LINKS = {
     { label: "Foreclosure & BK Recovery", href: "/foreclosure-bankruptcy-loans" },
     { label: "Self-Employed Solutions", href: "/self-employed-loans" },
     { label: "ADU Construction", href: "/adu-loans" },
+    { label: "Rates & Terms", href: "/rates-and-terms" },
   ],
   serviceAreas: [
     { label: "West Covina (HQ)", href: "/hard-money-lender-west-covina" },

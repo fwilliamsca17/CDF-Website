@@ -24,6 +24,7 @@ const STATIC_ROUTES: {
   // ADU is a bespoke route, NOT part of LOAN_PAGES (which has 7 entries) —
   // it will not be picked up by the loanPages map below. Keep it here.
   { path: "/adu-loans", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/rates-and-terms", changeFrequency: "weekly", priority: 0.9 },
   { path: "/property-strategy-review", changeFrequency: "weekly", priority: 0.9 },
   { path: "/professionals", changeFrequency: "weekly", priority: 0.9 },
   { path: "/professionals/attorneys", changeFrequency: "monthly", priority: 0.8 },

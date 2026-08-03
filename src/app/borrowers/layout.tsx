@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Private Money Loans — Fix & Flip, Bridge, Construction, Probate | California",
   description:
-    "Private money loans for California real estate. Fix & flip, bridge, ground-up construction, cash-out refinance, probate, foreclosure recovery, self-employed, and ADU financing. Close in as few as 7 days. Rates from 8.50%. No bank qualifying.",
+    "Private money loans for California real estate. Fix & flip, bridge, ground-up construction, cash-out refinance, probate, foreclosure recovery, self-employed, and ADU financing. Close in as few as 7 days. Rates from 9.50%. No bank qualifying.",
   keywords: [
     "private money loan California",
     "hard money lender California",

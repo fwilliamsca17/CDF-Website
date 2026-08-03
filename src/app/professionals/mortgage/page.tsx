@@ -189,7 +189,7 @@ export default function MortgagePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {[
               { label: "Loan Range", value: "$50K – $5M" },
-              { label: "Rates From", value: "8.50%" },
+              { label: "Rates From", value: "9.50%" },
               { label: "Max LTV", value: "75% ARV" },
               { label: "Close In", value: "7 Days" },
             ].map((stat, i) => (

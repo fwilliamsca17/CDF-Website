@@ -54,6 +54,7 @@ export const CONTENT_UPDATED: Record<string, string> = {
   "/hard-money-lender-san-diego": "2026-07-09",
 
   // Company & conversion
+  "/rates-and-terms": "2026-08-03",
   "/property-strategy-review": "2026-07-16",
   "/loan-process": "2026-06-11",
   "/about": "2026-06-11",

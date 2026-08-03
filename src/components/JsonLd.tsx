@@ -8,8 +8,39 @@ import {
 } from "@/lib/constants";
 import { getLoanPage, getLoanPageByProgramSlug } from "@/lib/loan-pages";
 import { getLocationPage } from "@/lib/location-pages";
+import { getLoanTerms } from "@/lib/loan-terms";
 
 const BASE = SITE_URL;
+
+/**
+ * Structured numeric fields for a LoanOrCredit node. Answer engines lift
+ * numbers from parseable fields, not pipe-delimited description strings —
+ * this is how competitor terms end up quoted verbatim in AI answers.
+ */
+function structuredLoanFields(programSlug: string): object {
+  const t = getLoanTerms(programSlug);
+  if (!t) return {};
+  return {
+    annualPercentageRate: {
+      "@type": "QuantitativeValue",
+      minValue: t.rateFrom,
+      ...(t.rateTo ? { maxValue: t.rateTo } : {}),
+      unitCode: "P1",
+    },
+    amount: {
+      "@type": "MonetaryAmount",
+      currency: "USD",
+      minValue: t.amountMin,
+      maxValue: t.amountMax,
+    },
+    loanTerm: {
+      "@type": "QuantitativeValue",
+      minValue: t.termMinMonths,
+      maxValue: t.termMaxMonths,
+      unitCode: "MON",
+    },
+  };
+}
 const ORG_ID = `${BASE}/#organization`;
 const WEBSITE_ID = `${BASE}/#website`;
 
@@ -238,6 +269,7 @@ function LoanProductsSchema() {
     category: "Private money loan",
     areaServed: { "@type": "State", name: "California" },
     provider: { "@id": ORG_ID },
+    ...structuredLoanFields(program.slug),
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
@@ -497,6 +529,7 @@ function LoanPageSchema({ path }: { path: string }) {
         category: "Private money loan",
         areaServed: { "@type": "State", name: "California" },
         provider: { "@id": ORG_ID },
+        ...structuredLoanFields(program.slug),
         offers: {
           "@type": "Offer",
           priceCurrency: "USD",
