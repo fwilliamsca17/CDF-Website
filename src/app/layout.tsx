@@ -132,6 +132,15 @@ export default function RootLayout({
       className={`${montserrat.variable} ${sourceSans.variable}`}
     >
       <head>
+        {/* Plain link tag, not metadata alternates.types: child pages define
+            their own alternates.canonical, which replaces the parent object
+            wholesale and would silently drop the feed link on every page. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Capital Direct Funding — Blog"
+          href={`${SITE_URL}/feed.xml`}
+        />
         <OrganizationSchema />
         <LocalBusinessSchema />
         <WebSiteSchema />

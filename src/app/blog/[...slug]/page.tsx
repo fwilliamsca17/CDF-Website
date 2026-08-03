@@ -12,6 +12,20 @@ export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
 }
 
+/**
+ * Post authors arrive from the Squarespace export with inconsistent casing
+ * ("Frank WILLIAMS") and occasional agency ghost-bylines. Normalize for
+ * schema/meta: real people get Person entities; everything else falls back
+ * to the Organization.
+ */
+function authorEntity(author: string) {
+  const normalized = author.trim().toLowerCase();
+  if (normalized === "frank williams") {
+    return { "@type": "Person" as const, name: "Frank Williams", url: `${BASE}/team` };
+  }
+  return { "@type": "Organization" as const, name: "Capital Direct Funding" };
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -21,15 +35,19 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
   const url = `${BASE}${post.path}`;
+  const author = authorEntity(post.author ?? "");
   return {
     title: post.title,
     description: post.excerpt,
+    authors: [{ name: author.name }],
     alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
       url,
+      ...(post.date ? { publishedTime: post.date } : {}),
+      authors: [author.name],
       ...(post.heroImage ? { images: [`${BASE}${post.heroImage}`] } : {}),
     },
   };
@@ -47,14 +65,34 @@ export default async function BlogPostPage({
   const url = `${BASE}${post.path}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    ...(post.date ? { datePublished: post.date } : {}),
-    ...(post.heroImage ? { image: `${BASE}${post.heroImage}` } : {}),
-    author: { "@type": "Organization", name: "Capital Direct Funding" },
-    publisher: { "@id": `${BASE}/#organization` },
-    mainEntityOfPage: url,
-    isPartOf: { "@id": `${BASE}/#website` },
+    "@graph": [
+      {
+        // BlogPosting is the specific subtype answer engines key on;
+        // description + dateModified were missing from the old Article node.
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
+        headline: post.title,
+        description: post.excerpt,
+        ...(post.date
+          ? { datePublished: post.date, dateModified: post.date }
+          : {}),
+        ...(post.heroImage ? { image: `${BASE}${post.heroImage}` } : {}),
+        author: authorEntity(post.author ?? ""),
+        publisher: { "@id": `${BASE}/#organization` },
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        isPartOf: { "@id": `${BASE}/#website` },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: BASE },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: url },
+        ],
+      },
+    ],
   };
 
   return (

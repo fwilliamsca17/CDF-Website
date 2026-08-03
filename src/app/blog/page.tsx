@@ -12,13 +12,46 @@ export const metadata: Metadata = {
   title: "Blog — Private Lending & California Real Estate Insights",
   description: DESCRIPTION,
   alternates: { canonical: `${SITE_URL}/blog` },
+  // Without a page-level openGraph the index inherits the ROOT og block
+  // wholesale — including og:url pointing at the homepage — so social
+  // shares of /blog previewed as the homepage (caught by live audit).
+  openGraph: {
+    title: "Blog — Private Lending & California Real Estate Insights",
+    description: DESCRIPTION,
+    url: `${SITE_URL}/blog`,
+    type: "website",
+  },
 };
 
 export default function BlogIndexPage() {
   const posts = getAllPosts();
 
+  // Blog entity with the newest posts referenced — capped so the JSON-LD
+  // blob stays sane; the full archive is in the sitemap and on-page links.
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${SITE_URL}/blog#blog`,
+    name: "Capital Direct Funding Blog",
+    description: DESCRIPTION,
+    url: `${SITE_URL}/blog`,
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    inLanguage: "en-US",
+    blogPost: posts.slice(0, 20).map((p) => ({
+      "@type": "BlogPosting",
+      "@id": `${SITE_URL}${p.path}#article`,
+      headline: p.title,
+      url: `${SITE_URL}${p.path}`,
+      ...(p.date ? { datePublished: p.date } : {}),
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
       <PageSeo
         title="Blog | Capital Direct Funding"
         description={DESCRIPTION}

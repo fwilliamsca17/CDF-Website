@@ -54,6 +54,19 @@ const squarespaceRedirects = [
     permanent: true,
   },
   { source: "/foreclosure-in-ca", destination: "/faq", permanent: true },
+  // Two /blog URLs that were never real posts — the Squarespace migration
+  // scraped its 404 page into them as article content (soft-404s, removed
+  // from posts.json 2026-08-03). 301 to the topical program pages.
+  {
+    source: "/blog/profit-loss-mortgage-business-owners-guide",
+    destination: "/self-employed-loans",
+    permanent: true,
+  },
+  {
+    source: "/blog/heir-buyout-loans-california-sibling-disputes",
+    destination: "/probate-loans",
+    permanent: true,
+  },
   // NOTE: /blog and /blog/* are now served natively by this site (146 posts
   // migrated in from Squarespace at their original URLs) — no redirect needed.
   // Short campaign aliases for SMS outreach — 302 (not permanent) so the
