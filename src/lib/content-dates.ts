@@ -37,6 +37,9 @@ export const CONTENT_UPDATED: Record<string, string> = {
   "/self-employed-loans": "2026-07-09",
   "/adu-loans": "2026-06-11",
 
+  // Service-area pages — statewide hub
+  "/private-money-lender-california": "2026-08-03",
+
   // Service-area pages — city tier
   "/hard-money-lender-west-covina": "2026-07-29",
   "/hard-money-lender-covina": "2026-08-03",

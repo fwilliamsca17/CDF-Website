@@ -25,6 +25,8 @@ const STATIC_ROUTES: {
   // it will not be picked up by the loanPages map below. Keep it here.
   { path: "/adu-loans", changeFrequency: "weekly", priority: 0.9 },
   { path: "/rates-and-terms", changeFrequency: "weekly", priority: 0.9 },
+  // Statewide location hub — dedicated route, not part of LOCATION_PAGES.
+  { path: "/private-money-lender-california", changeFrequency: "weekly", priority: 0.9 },
   { path: "/property-strategy-review", changeFrequency: "weekly", priority: 0.9 },
   { path: "/professionals", changeFrequency: "weekly", priority: 0.9 },
   { path: "/professionals/attorneys", changeFrequency: "monthly", priority: 0.8 },

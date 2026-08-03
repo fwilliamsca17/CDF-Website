@@ -76,13 +76,13 @@ export const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    // Top-level href doubles as the "view all" target. There is no /locations
-    // hub page, so both point at the West Covina page — it's the HQ market
-    // and the flagship of this group.
+    // Top-level href and "view all" point at the statewide hub, which links
+    // down to every county and city page.
     label: "Locations",
-    href: "/hard-money-lender-west-covina",
-    viewAllLabel: "Visit Our West Covina HQ →",
+    href: "/private-money-lender-california",
+    viewAllLabel: "All California Service Areas →",
     children: [
+      { label: "California — Statewide", href: "/private-money-lender-california", description: "Every program, every county" },
       { label: "West Covina — HQ", href: "/hard-money-lender-west-covina", description: "Our home office at 100 N Citrus St" },
       { label: "Los Angeles County", href: "/hard-money-lender-los-angeles", description: "Our home county since 2009" },
       { label: "Orange County", href: "/hard-money-lender-orange-county", description: "Every program, coast to inland" },
@@ -607,6 +607,7 @@ export const FOOTER_LINKS = {
     { label: "Rates & Terms", href: "/rates-and-terms" },
   ],
   serviceAreas: [
+    { label: "California (Statewide)", href: "/private-money-lender-california" },
     { label: "West Covina (HQ)", href: "/hard-money-lender-west-covina" },
     { label: "Los Angeles", href: "/hard-money-lender-los-angeles" },
     { label: "Orange County", href: "/hard-money-lender-orange-county" },
