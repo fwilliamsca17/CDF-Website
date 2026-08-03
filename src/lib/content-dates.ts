@@ -39,6 +39,12 @@ export const CONTENT_UPDATED: Record<string, string> = {
 
   // Service-area pages — city tier
   "/hard-money-lender-west-covina": "2026-07-29",
+  "/hard-money-lender-covina": "2026-08-03",
+  "/hard-money-lender-pasadena": "2026-08-03",
+  "/hard-money-lender-glendale": "2026-08-03",
+  "/hard-money-lender-long-beach": "2026-08-03",
+  "/hard-money-lender-pomona": "2026-08-03",
+  "/hard-money-lender-el-monte": "2026-08-03",
 
   // Service-area pages — county tier
   "/hard-money-lender-los-angeles": "2026-07-09",
