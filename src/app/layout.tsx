@@ -29,8 +29,9 @@ export const metadata: Metadata = {
       "Capital Direct Funding | Fast Private Lending for California Real Estate",
     template: "%s | Capital Direct Funding",
   },
+  // ≤160 chars — the old 253-char version truncated mid-sentence in SERPs.
   description:
-    "Capital Direct Funding provides fast, flexible private lending solutions for real estate borrowers and whole-note first trust deed investments for accredited investors across California. Over $200M deployed, 500+ loans funded. Close in as few as 7 days.",
+    "Direct private money lender for California real estate — 8 programs from 9.50%, $50K–$5M, closing in as few as 7 days. $200M+ funded since 2009. DRE# 01885595.",
   keywords: [
     "private money lender",
     "private money lender California",
