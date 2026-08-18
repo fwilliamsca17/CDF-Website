@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CheckCircle2, Phone, Send } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import {
+  applyQuizBack,
+  applyQuizSelection,
+  CONTACT_STEP,
+  questionForStep,
   QUIZ_QUESTIONS,
   routeLead,
   type LeadRoute,
@@ -18,7 +22,7 @@ import { useExperiment } from "@/lib/experiments";
 import { cn } from "@/lib/utils";
 import LandingHeroBackdrop from "@/components/landing/LandingHeroBackdrop";
 
-const TOTAL_STEPS = QUIZ_QUESTIONS.length + 1;
+const TOTAL_STEPS = CONTACT_STEP;
 
 // PostHog experiment "psr-hero-headline" — variant keys must match the
 // feature flag exactly. Copy stays calm and promise-free (CC 2945).
@@ -82,8 +86,8 @@ export default function PropertyStrategyReviewPage() {
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [completed, setCompleted] = useState(false);
   const startedRef = useRef(false);
-  // Mirrors `step` so clicks from the exiting AnimatePresence panel (alive
-  // ~250ms with stale closures) can't double-advance and skip a question.
+  // Live step for same-tick double-clicks. The question is rendered from
+  // `step` with no exit animation, so the visible buttons always match.
   const stepRef = useRef(1);
   const { submitted, submitting, error, handleSubmit } = useLeadForm({
     subject: "Property Strategy Review — CDF Website",
@@ -91,7 +95,7 @@ export default function PropertyStrategyReviewPage() {
 
   const tel = `tel:${SITE_CONFIG.phone.replace(/[^\d+]/g, "")}`;
   const route = routeLead(answers);
-  const question = step <= QUIZ_QUESTIONS.length ? QUIZ_QUESTIONS[step - 1] : null;
+  const question = questionForStep(step);
   const headlineVariant = useExperiment("psr-hero-headline");
   const headline = HERO_HEADLINES[headlineVariant] ?? HERO_HEADLINES.control;
 
@@ -112,24 +116,28 @@ export default function PropertyStrategyReviewPage() {
   }, [submitted, completed, route, answers]);
 
   function selectOption(field: QuizField, value: string) {
-    if (QUIZ_QUESTIONS[stepRef.current - 1]?.field !== field) return;
+    const result = applyQuizSelection({
+      step: stepRef.current,
+      field,
+      value,
+      answers,
+    });
+    if (!result.accepted) return;
     if (!startedRef.current) {
       startedRef.current = true;
       track("quiz_started", { page: "/property-strategy-review" });
     }
-    const nextAnswers = { ...answers, [field]: value };
-    setAnswers(nextAnswers);
     track("quiz_step_completed", { step: stepRef.current, field, value });
 
     if (stepRef.current === QUIZ_QUESTIONS.length) {
-      const nextRoute = routeLead(nextAnswers);
+      const nextRoute = routeLead(result.answers);
       const routingProperties = {
         route: nextRoute,
-        property_type: nextAnswers.property_type,
-        property_use: nextAnswers.property_use,
-        timeline: nextAnswers.timeline,
-        equity: nextAnswers.equity,
-        goal: nextAnswers.goal,
+        property_type: result.answers.property_type,
+        property_use: result.answers.property_use,
+        timeline: result.answers.timeline,
+        equity: result.answers.equity,
+        goal: result.answers.goal,
       };
       track("routing_decision_made", routingProperties);
       // Every route proceeds to contact capture — resource_only leads are
@@ -138,12 +146,13 @@ export default function PropertyStrategyReviewPage() {
       // with a name and number. The result copy stays financing-free.
     }
 
-    stepRef.current = Math.min(stepRef.current + 1, TOTAL_STEPS);
-    setStep(stepRef.current);
+    stepRef.current = result.step;
+    setAnswers(result.answers);
+    setStep(result.step);
   }
 
   function goBack() {
-    stepRef.current = Math.max(stepRef.current - 1, 1);
+    stepRef.current = applyQuizBack(stepRef.current);
     setStep(stepRef.current);
   }
 
@@ -278,14 +287,12 @@ export default function PropertyStrategyReviewPage() {
                   </div>
                 </div>
 
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={step}
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -24 }}
-                    transition={{ duration: 0.25 }}
-                  >
+                <motion.div
+                  key={step}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.18 }}
+                >
                     {question ? (
                       <>
                         <h2 className="font-heading text-xl sm:text-2xl font-bold text-cdf mb-6">
@@ -445,7 +452,6 @@ export default function PropertyStrategyReviewPage() {
                       </>
                     )}
                   </motion.div>
-                </AnimatePresence>
               </div>
             )}
           </div>

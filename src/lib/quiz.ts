@@ -80,6 +80,37 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 ];
 
+export const CONTACT_STEP = QUIZ_QUESTIONS.length + 1;
+
+export function questionForStep(step: number): QuizQuestion | null {
+  return step >= 1 && step <= QUIZ_QUESTIONS.length
+    ? QUIZ_QUESTIONS[step - 1]
+    : null;
+}
+
+export function applyQuizSelection(input: {
+  step: number;
+  field: QuizField;
+  value: string;
+  answers: QuizAnswers;
+}):
+  | { accepted: false }
+  | { accepted: true; step: number; answers: QuizAnswers } {
+  const current = questionForStep(input.step);
+  if (!current || current.field !== input.field) {
+    return { accepted: false };
+  }
+  return {
+    accepted: true,
+    step: Math.min(input.step + 1, CONTACT_STEP),
+    answers: { ...input.answers, [input.field]: input.value },
+  };
+}
+
+export function applyQuizBack(step: number): number {
+  return Math.max(step - 1, 1);
+}
+
 /**
  * Routes a completed review entirely within the CDF operating model.
  * Investment and business-use properties can receive a standard or priority
