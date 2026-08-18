@@ -215,7 +215,7 @@ export const LOCATION_PAGES: LocationPageData[] = [
       title:
         "Hard Money Lender Los Angeles — Direct Private Money, 7-Day Closings",
       description:
-        "Direct hard money lender headquartered in Los Angeles County. Fix & flip, bridge, construction, probate, and cash-out loans across LA — $50K to $5M, closings in as few as 7 days. DRE# 01885595.",
+        "Direct hard money lender headquartered in Los Angeles County. Fix & flip, bridge, construction, private money ADU loans, probate, and cash-out — $50K to $5M, closings in as few as 7 days. DRE# 01885595.",
       keywords: [
         "hard money lender Los Angeles",
         "private money lender Los Angeles",
@@ -225,6 +225,7 @@ export const LOCATION_PAGES: LocationPageData[] = [
         "private lender Los Angeles County",
         "hard money lender San Fernando Valley",
         "probate loans Los Angeles",
+        "private money ADU loans Los Angeles",
       ],
     },
     h1: "Los Angeles Is Our Backyard.",
@@ -232,7 +233,7 @@ export const LOCATION_PAGES: LocationPageData[] = [
     heroLead:
       "Capital Direct Funding is headquartered in West Covina — we've been lending our own capital across Los Angeles County since 2009. When you call, you're talking to decision-makers who drive these streets, not a national call center reading a script.",
     heroSub:
-      "Fix & flip, bridge, construction, probate, foreclosure recovery, and cash-out loans from $50K to $5M, closing in as few as 7 days.",
+      "Fix & flip, bridge, construction, private money ADU loans, probate, foreclosure recovery, and cash-out from $50K to $5M, closing in as few as 7 days.",
     narrative: [
       "Los Angeles rewards investors who move fast and punishes everyone else. Whether it's a mid-century flip in Highland Park, a probate property working through the Stanley Mosk Courthouse, a teardown-rebuild in the Valley, or an ADU project unlocking rental income in a backyard — the winning bid is almost always the one that can actually close.",
       "That's the entire reason CDF exists. We underwrite LA deals from LA, we know the difference between a Watts comp and a West Adams comp, and we've funded over $200M across 500+ California transactions. When your deal needs a lender who understands this county's speed, courts, and construction reality — that's us.",
@@ -253,7 +254,7 @@ export const LOCATION_PAGES: LocationPageData[] = [
       {
         title: "The ADU Boom",
         description:
-          "LA leads California in ADU construction, and we built a dedicated program for it: 75–85% LTC with milestone draws for detached units, garage conversions, and JADUs.",
+          "LA leads California in ADU construction. Our dedicated private money ADU loan program funds 75–85% LTC with milestone draws for detached units, garage conversions, and JADUs — see /adu-loans.",
         icon: Home,
       },
       {
@@ -307,7 +308,12 @@ export const LOCATION_PAGES: LocationPageData[] = [
       {
         question: "What loan types do you offer in Los Angeles?",
         answer:
-          "All eight programs: fix & flip, bridge, ground-up construction, cash-out refinance, probate & estate, foreclosure & bankruptcy recovery, self-employed solutions, and ADU construction — from $50K to $5M.",
+          "All eight programs: fix & flip, bridge, ground-up construction, cash-out refinance, probate & estate, foreclosure & bankruptcy recovery, self-employed solutions, and private money ADU construction — from $50K to $5M.",
+      },
+      {
+        question: "Do you offer private money ADU loans in Los Angeles?",
+        answer:
+          "Yes. Hard-money, business-purpose ADU construction loans at 75–85% loan-to-cost, 9.5–11%, $60,000–$300,000 per unit, 12–18 months, milestone draws. Detached, garage conversion, attached, and JADU. Full terms at /adu-loans.",
       },
       {
         question: "Do you lend in every part of LA County?",

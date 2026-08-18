@@ -414,7 +414,19 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "Eligibility",
     question: "Does Capital Direct Funding offer ADU construction loans?",
     answer:
-      "Yes. We offer ADU construction loans with 75-85% loan-to-cost, rates from 9.5-11%, 12-18 month terms, and milestone-based draws. We specialize in detached ADUs, garage conversions, attached ADUs, and junior ADUs across Los Angeles and Orange County.",
+      "Yes. We offer private money / hard money ADU construction loans with 75-85% loan-to-cost, rates from 9.5-11%, 12-18 month terms, and milestone-based draws. Detached ADUs, garage conversions, attached ADUs, and junior ADUs across Los Angeles and Orange County. Details: /adu-loans.",
+  },
+  {
+    category: "Eligibility",
+    question: "What are private money ADU financing requirements in Los Angeles?",
+    answer:
+      "Business-purpose ADU construction (typically a rental or investment unit) secured by California real estate. Published terms: 75–85% of cost, $60,000–$300,000 per unit, 12–18 months, 9.5–11%, milestone draws. We review the property, project type, contractor or bid, use, and timeline. Not a consumer mortgage and not a CalHFA grant. See /adu-loans.",
+  },
+  {
+    category: "Eligibility",
+    question: "Is the CalHFA ADU Grant Program still available in 2026?",
+    answer:
+      "CalHFA’s published program page states the latest ADU Grant round was fully allocated on December 28, 2023, and warns that anyone offering to get you an ADU grant is a scam. The grant, when funded, reimbursed up to $40,000 of pre-development costs — not the build. Confirm status at calhfa.ca.gov/adu. CDF finances the construction as private money.",
   },
   {
     category: "For Investors",

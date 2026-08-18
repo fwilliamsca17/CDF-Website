@@ -17,8 +17,11 @@ import {
   ArrowRight,
   Star,
   MessageSquare,
+  ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
+import { ADU_COMPARE, ADU_FAQS, ADU_SEO } from "@/lib/adu-page";
 import { useLeadForm } from "@/lib/useLeadForm";
 
 const FEATURES = [
@@ -160,19 +163,17 @@ export default function ADULoansPage() {
             >
               <div className="inline-flex items-center gap-2 bg-cdf/30 border border-cdf-400/30 rounded-full px-4 py-1.5 text-sm text-cdf-200 mb-6">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                Now Funding in LA &amp; Orange County
+                Private money · Hard money · LA &amp; Orange County
               </div>
 
               <h1 className="font-heading text-display-lg md:text-display-xl font-bold text-white leading-tight mb-5">
-                Build Your ADU.
+                {ADU_SEO.h1}
                 <br />
-                <span className="gradient-text">We Fund It.</span>
+                <span className="gradient-text">{ADU_SEO.h1Highlight}</span>
               </h1>
 
-              <p className="text-lg text-white/60 leading-relaxed mb-8 max-w-lg">
-                Construction loans up to 85% LTC for Accessory Dwelling Units.
-                Fast approvals, milestone-based draws, and a clear path to
-                permanent financing.
+              <p className="adu-lede text-lg text-white/60 leading-relaxed mb-8 max-w-lg">
+                {ADU_SEO.lede}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -501,6 +502,83 @@ export default function ADULoansPage() {
                 ))}
               </ul>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHEN PRIVATE MONEY ── */}
+      <section className="section-padding-y bg-white" id="compare">
+        <div className="max-container section-padding">
+          <div className="text-center mb-12 md:mb-16">
+            <div className="inline-flex items-center gap-2 text-cdf text-sm font-semibold mb-3">
+              <FileText className="w-4 h-4" />
+              How this compares
+            </div>
+            <h2 className="font-heading text-heading-xl md:text-display-lg font-bold text-cdf heading-underline-center">
+              When private money funds the ADU
+            </h2>
+            <p className="mt-6 text-body text-lg max-w-2xl mx-auto">
+              Most &ldquo;ADU financing&rdquo; pages describe grants, HELOCs, and
+              builder packages. Those are real paths. They are not this loan.
+            </p>
+          </div>
+          <div className="overflow-x-auto rounded-xl border border-cdf/10 bg-white">
+            <table className="w-full min-w-[640px] text-left">
+              <thead>
+                <tr className="bg-cdf text-white">
+                  <th className="px-5 py-3 text-sm font-semibold">Path</th>
+                  <th className="px-5 py-3 text-sm font-semibold">Pays for</th>
+                  <th className="px-5 py-3 text-sm font-semibold">Fits</th>
+                  <th className="px-5 py-3 text-sm font-semibold">Is not</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ADU_COMPARE.map((row, i) => (
+                  <tr
+                    key={row.path}
+                    className={i % 2 === 0 ? "bg-white" : "bg-light"}
+                  >
+                    <td className="px-5 py-3 text-sm font-semibold text-cdf">
+                      {row.path}
+                    </td>
+                    <td className="px-5 py-3 text-sm text-body">{row.pays}</td>
+                    <td className="px-5 py-3 text-sm text-body">{row.fits}</td>
+                    <td className="px-5 py-3 text-sm text-body">{row.isNot}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ (crawlable + matches FAQPage JSON-LD) ── */}
+      <section className="section-padding-y bg-light" id="faq">
+        <div className="max-container section-padding">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 text-cdf text-sm font-semibold mb-3">
+              <HelpCircle className="w-4 h-4" />
+              ADU private money FAQ
+            </div>
+            <h2 className="font-heading text-heading-xl md:text-display-lg font-bold text-cdf heading-underline-center">
+              Questions people actually ask
+            </h2>
+          </div>
+          <div className="mx-auto max-w-3xl space-y-3">
+            {ADU_FAQS.map((faq) => (
+              <details
+                key={faq.question}
+                className="group rounded-xl border border-cdf/10 bg-white px-5 py-4 open:border-champagne-400/40"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading font-semibold text-cdf [&::-webkit-details-marker]:hidden">
+                  {faq.question}
+                  <ChevronDown className="h-5 w-5 shrink-0 text-champagne-600 transition-transform duration-300 group-open:rotate-180" />
+                </summary>
+                <p className="faq-answer mt-3 text-sm leading-relaxed text-body">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

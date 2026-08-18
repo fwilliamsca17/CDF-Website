@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { PageSeo } from "@/components/JsonLd";
+import { AduLoanSchema, PageSeo } from "@/components/JsonLd";
 import { SITE_URL } from "@/lib/constants";
+import { ADU_SEO } from "@/lib/adu-page";
 
 export const metadata: Metadata = {
-  title: "ADU Construction Loans — 75–85% LTC, Fast Close, LA & Orange County",
-  description:
-    "Finance your ADU construction project with Capital Direct Funding. 75–85% LTC, 9.5–11% rates, 12–18 month terms, milestone-based draws. Serving Los Angeles and Orange County homeowners and investors. $60K–$300K per ADU.",
+  title: ADU_SEO.title,
+  description: ADU_SEO.description,
   keywords: [
-    "ADU construction loan",
-    "accessory dwelling unit financing",
-    "ADU financing California",
-    "construction loan Los Angeles",
-    "ADU lender Orange County",
-    "garage conversion financing",
-    "JADU loan",
-    "ADU builder financing",
+    "private money ADU loans Los Angeles",
+    "hard money ADU loan",
+    "private money ADU financing Los Angeles requirements",
+    "ADU construction loan Los Angeles",
+    "hard money ADU construction",
+    "garage conversion financing Los Angeles",
+    "JADU loan private money",
+    "ADU financing California private lender",
   ],
   openGraph: {
-    title: "ADU Construction Loans — Capital Direct Funding",
-    description:
-      "75–85% LTC ADU construction loans. Fast close, milestone-based draws. LA & Orange County.",
+    title: ADU_SEO.title,
+    description: ADU_SEO.description,
   },
   alternates: { canonical: `${SITE_URL}/adu-loans` },
 };
@@ -28,15 +27,16 @@ export default function ADULayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <PageSeo
-        title="ADU Construction Loans — Los Angeles & Orange County"
-        description="ADU construction loans with 75-85% loan-to-cost, rates 9.5-11%, 12-18 month terms, and milestone-based draws across Los Angeles and Orange County."
+        title={ADU_SEO.title}
+        description={ADU_SEO.description}
         path="/adu-loans"
         crumbs={[
           { name: "Home", path: "/" },
-          { name: "ADU Construction Loans", path: "/adu-loans" },
+          { name: "Private Money ADU Loans", path: "/adu-loans" },
         ]}
-        speakable={["h1", "h2", ".eyebrow + h2 + p"]}
+        speakable={["h1", ".adu-lede", ".faq-answer"]}
       />
+      <AduLoanSchema />
       {children}
     </>
   );

@@ -87,6 +87,11 @@ const STATE_FAQS = [
       "Non-owner-occupied residential (1–4 units), small multifamily, commercial, mixed-use, and construction projects including ADUs — all as business-purpose loans secured by California real estate in first trust deed position.",
   },
   {
+    question: "Do you offer private money ADU loans in Los Angeles?",
+    answer:
+      "Yes. Capital Direct Funding is a direct hard-money lender for ADU construction in Los Angeles and Orange County: 75–85% loan-to-cost, 9.5–11%, $60,000–$300,000 per unit, 12–18 months, milestone draws. Full program: /adu-loans.",
+  },
+  {
     question: "Do you work with mortgage brokers and referral partners?",
     answer:
       "Yes — brokers, attorneys, CPAs, and real estate agents refer clients to us regularly, and we protect those relationships. See our professionals pages or call (626) 796-1680 to discuss a scenario.",

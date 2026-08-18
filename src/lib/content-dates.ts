@@ -34,15 +34,15 @@ export const CONTENT_UPDATED: Record<string, string> = {
   // Loan program pages
   "/fix-and-flip-loans": "2026-07-09",
   "/bridge-loans": "2026-07-09",
-  "/construction-loans": "2026-07-09",
+  "/construction-loans": "2026-08-17",
   "/cash-out-refinance": "2026-07-09",
   "/probate-loans": "2026-07-09",
   "/foreclosure-bankruptcy-loans": "2026-07-09",
   "/self-employed-loans": "2026-07-09",
-  "/adu-loans": "2026-06-11",
+  "/adu-loans": "2026-08-17",
 
   // Service-area pages — statewide hub
-  "/private-money-lender-california": "2026-08-03",
+  "/private-money-lender-california": "2026-08-17",
 
   // Service-area pages — city tier
   "/hard-money-lender-west-covina": "2026-07-29",
@@ -54,7 +54,7 @@ export const CONTENT_UPDATED: Record<string, string> = {
   "/hard-money-lender-el-monte": "2026-08-03",
 
   // Service-area pages — county tier
-  "/hard-money-lender-los-angeles": "2026-07-09",
+  "/hard-money-lender-los-angeles": "2026-08-17",
   "/hard-money-lender-orange-county": "2026-07-09",
   "/hard-money-lender-riverside": "2026-07-09",
   "/hard-money-lender-san-bernardino": "2026-07-09",
@@ -67,7 +67,7 @@ export const CONTENT_UPDATED: Record<string, string> = {
   "/about": "2026-06-11",
   "/team": "2026-06-06",
   "/contact": "2026-07-09",
-  "/faq": "2026-06-06",
+  "/faq": "2026-08-17",
   "/privacy": "2026-06-11",
   "/blog": "2026-06-11",
 };

@@ -434,6 +434,11 @@ export const LOAN_PAGES: LoanPageData[] = [
         answer:
           "Faster than any bank construction department — our underwriting, appraisal, and title work run in parallel. Call (626) 796-1680 with your project details and you'll have preliminary terms within 24 hours.",
       },
+      {
+        question: "Do you finance ADUs with private money?",
+        answer:
+          "Yes — backyard ADUs, garage conversions, and JADUs are a dedicated program, not this ground-up facility. Private money ADU loans run 75–85% loan-to-cost, 9.5–11%, $60,000–$300,000 per unit. See /adu-loans.",
+      },
     ],
     related: [
       { path: "/adu-loans", label: "ADU Construction Loans" },

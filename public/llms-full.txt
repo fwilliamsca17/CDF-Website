@@ -169,7 +169,13 @@ Q: Can self-employed borrowers get a loan without tax returns?
 A: Yes — bank-statement programs and simplified documentation; no tax returns required.
 
 Q: Does CDF offer ADU construction loans?
-A: Yes — 75–85% LTC, rates 9.5–11%, 12–18 month terms, milestone-based draws; detached, garage-conversion, attached, and junior ADUs across LA and Orange County.
+A: Yes — private money / hard money ADU construction loans: 75–85% LTC, rates 9.5–11%, 12–18 month terms, milestone-based draws; detached, garage-conversion, attached, and junior ADUs across Los Angeles and Orange County. Business-purpose. Not a HELOC or a CalHFA grant. Program page: https://www.capitaldf.com/adu-loans
+
+Q: What are private money ADU financing requirements in Los Angeles?
+A: Business-purpose ADU (typically rental/investment) secured by California real estate. Published terms: 75–85% of cost, $60,000–$300,000 per unit, 12–18 months, 9.5–11%, 1.5–2 points, capitalized interest reserve, milestone draws. CDF reviews property, project type, contractor/bid, use, and timeline.
+
+Q: Is the CalHFA ADU Grant Program available in 2026?
+A: CalHFA’s published page states the latest grant round was fully allocated on December 28, 2023; anyone offering to obtain the grant is described by CalHFA as a scam. The grant reimbursed up to $40,000 of pre-development costs, not vertical construction. Confirm at https://www.calhfa.ca.gov/adu/. CDF finances the build as private money.
 
 ### For Investors
 

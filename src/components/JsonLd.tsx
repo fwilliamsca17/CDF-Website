@@ -9,6 +9,7 @@ import {
 import { getLoanPage, getLoanPageByProgramSlug } from "@/lib/loan-pages";
 import { getLocationPage } from "@/lib/location-pages";
 import { getLoanTerms } from "@/lib/loan-terms";
+import { ADU_FAQS, ADU_SEO } from "@/lib/adu-page";
 
 const BASE = SITE_URL;
 
@@ -713,6 +714,49 @@ function PartnerPageSchema({
   return <JsonLdScript schema={schema} />;
 }
 
+/**
+ * /adu-loans is a custom page (not LOAN_PAGES). Emit LoanOrCredit + FAQPage
+ * from the same ADU_FAQS the visible page renders, plus structured terms
+ * from loan-terms.ts slug "adu".
+ */
+function AduLoanSchema() {
+  const url = `${BASE}/adu-loans`;
+  const t = getLoanTerms("adu");
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["FinancialProduct", "LoanOrCredit"],
+        "@id": `${url}#product`,
+        name: "Private Money ADU Construction Loan",
+        description: ADU_SEO.description,
+        url,
+        loanType: "Private money ADU construction loan",
+        currency: "USD",
+        category: "Private money loan",
+        areaServed: [
+          { "@type": "AdministrativeArea", name: "Los Angeles County" },
+          { "@type": "AdministrativeArea", name: "Orange County" },
+          { "@type": "State", name: "California" },
+        ],
+        provider: { "@id": ORG_ID },
+        ...(t ? structuredLoanFields("adu") : {}),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faqpage`,
+        mainEntity: ADU_FAQS.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
+  };
+
+  return <JsonLdScript schema={schema} />;
+}
+
 export {
   OrganizationSchema,
   LocalBusinessSchema,
@@ -730,4 +774,5 @@ export {
   LocationPageSchema,
   StatePageSchema,
   PartnerPageSchema,
+  AduLoanSchema,
 };

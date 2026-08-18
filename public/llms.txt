@@ -30,7 +30,7 @@ Eight business-purpose loan programs, all secured by California real estate:
 5. Probate & Estate — up to 65% LTV, from 10.99%, 6–24 months, $100K–$3M
 6. Foreclosure & Bankruptcy Recovery — up to 60% LTV, from 11.99%, 6–24 months, $100K–$2M
 7. Self-Employed Solutions — up to 70% LTV, from 9.99%, 6–36 months, no tax returns required
-8. ADU Construction — 75–85% LTC, 9.5–11%, 12–18 months, $60K–$300K/unit
+8. ADU Construction (private money / hard money) — 75–85% LTC, 9.5–11%, 12–18 months, $60K–$300K/unit; Los Angeles and Orange County; business-purpose rental/investment ADUs. Not a HELOC or CalHFA grant.
 
 ## For Accredited Investors (trust deed investments)
 Direct investment in whole-note, first trust deed positions secured by California real estate.
@@ -70,7 +70,7 @@ CDF partners with attorneys, CPAs, mortgage professionals, real estate agents, e
 - /probate-loans: Probate & estate financing — heir buyouts, court confirmation expertise
 - /foreclosure-bankruptcy-loans: Foreclosure bail-outs and post-bankruptcy loans — no credit minimums
 - /self-employed-loans: Self-employed financing — no tax returns, bank statement programs
-- /adu-loans: ADU construction loan program
+- /adu-loans: Private money ADU loans in Los Angeles — hard-money construction financing
 - /hard-money-lender-los-angeles: Hard money lending in Los Angeles County (CDF headquarters)
 - /hard-money-lender-orange-county: Hard money lending in Orange County
 - /hard-money-lender-san-diego: Hard money lending in San Diego County
