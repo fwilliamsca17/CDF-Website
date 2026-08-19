@@ -71,6 +71,11 @@ export const ADU_FAQS: { question: string; answer: string }[] = [
       "A HELOC is consumer credit against existing equity, usually on an owner-occupied home, underwritten to income and DTI. Bank construction loans are slower and often require full documentation. CDF’s ADU program is a 12–18 month private construction loan with milestone draws and a planned takeout (DSCR refinance, sale, or conventional) after completion. If a HELOC fits, use it. If the bank will not fund the build, that is this lane.",
   },
   {
+    question: "What if I need a regular mortgage or HomeStyle loan for an owner-occupied ADU?",
+    answer:
+      "That is not this page. Owner-occupied HomeStyle, FHA 203(k), cash-out, and HELOC paths are brokered through Elite Fundings / Francisco Williams (franciscowilliams.com/adu-financing). CDF is private money construction for business-purpose ADUs.",
+  },
+  {
     question: "Does CDF list ADUs for rent in Los Angeles?",
     answer:
       "No. We finance construction of rental ADUs. We are not a rental listing service and we do not publish an inventory of ADUs for rent.",
